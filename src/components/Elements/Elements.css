@@ -1,0 +1,35 @@
+.ant-btn {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  border: 1.5px solid var(--green);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 6px 17px;
+  height: fit-content;
+}
+.ant-btn.signup {
+  background-color: var(--green);
+  color: var(--white);
+}
+.ant-btn.signup:hover {
+  background-color: var(--green) !important;
+  border: 1.5px solid var(--green) !important;
+  color: var(--white);
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+.ant-btn.login {
+  color: var(--green);
+}
+.ant-btn.login:hover {
+  color: var(--green) !important;
+  border: 1.5px solid var(--green) !important;
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}

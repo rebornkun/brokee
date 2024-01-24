@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+}
+:root {
+  --green: #00bd6f;
+  --white: #ffffff;
+  --otherGrey: #acacac;
+}
+
+@media (prefers-color-scheme: light) {
+}
+
+.biggreen {
+  background-image: url(/src/assets/img/abstract.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.1;
+  filter: brightness(100%) contrast(60%) saturate(0%) blur(0px) hue-rotate(0deg);
+}

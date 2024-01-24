@@ -1,0 +1,17 @@
+.NavDrpDown {
+  font-family: "Montserrat", sans-serif !important;
+}
+.NavDrpDown .ant-dropdown-menu-root {
+  padding: 0.5rem !important;
+}
+.NavDrpDown .ant-dropdown-menu-item {
+  font-family: "Montserrat", sans-serif !important;
+  min-width: 200px;
+  padding: 0.5rem 1rem !important;
+}
+.NavDrpDown .ant-dropdown-menu-item:hover {
+  background-color: inherit !important;
+}
+.NavDrpDown .ant-dropdown-menu-item a:hover {
+  color: var(--otherGrey) !important;
+}
