@@ -21,6 +21,11 @@ body {
 @media (prefers-color-scheme: light) {
 }
 
+.text-center {
+  text-align: center !important;
+  font-family: inherit !important;
+}
+
 .biggreen {
   background-image: url(/src/assets/img/abstract.jpg);
   background-position: center center;
@@ -28,4 +33,92 @@ body {
   background-size: cover;
   opacity: 0.1;
   filter: brightness(100%) contrast(60%) saturate(0%) blur(0px) hue-rotate(0deg);
+}
+.homeFirstSection .background,
+.aboutFirstSection .background {
+  background-image: url(/src/assets/img/abstractgraybackground.jpeg);
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.035;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  z-index: -1;
+}
+
+.thirdSection .background {
+  background-image: url(/src/assets/img/stockBg.jpeg);
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.04;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  filter: brightness(100%) contrast(100%) saturate(40%) blur(0px)
+    hue-rotate(0deg);
+  z-index: 1;
+}
+.thirdSection {
+  background-color: #2e2e2e;
+}
+
+.tradersPoster {
+  background-image: url(/src/assets/img/traders.jpeg);
+  background-position: center center;
+  background-size: cover;
+}
+
+.fifthSection .background {
+  background-image: url(/src/assets/img/abstractTwo.jpeg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.05;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  filter: brightness(100%) contrast(100%) saturate(0%) blur(0px)
+    hue-rotate(0deg);
+  z-index: 1;
+}
+
+.testSlider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.testSlider {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.investing .background {
+  background-image: url(/src/assets/img/stockBg.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.04;
+  filter: brightness(100%) contrast(100%) saturate(50%) blur(0px)
+    hue-rotate(0deg);
+  border-radius: 5px 5px 5px 5px;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  -webkit-transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  -moz-transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  -ms-transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  -o-transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  z-index: 1;
+  -webkit-filter: brightness(100%) contrast(100%) saturate(50%) blur(0px)
+    hue-rotate(0deg);
+}
+.investing {
+  background-color: #2e2e2e;
+}
+
+.smallTrade {
+  background-image: url(./assets/img/smallTrade.jpeg);
+  background-position: 79% 0%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ceoPic {
+  background-image: url(./assets/img/ceoPic.jpeg);
+  background-position: 0% 15%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

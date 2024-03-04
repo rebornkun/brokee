@@ -7,7 +7,7 @@ import NavDrpDown from "./NavDrpDown";
 const NavBar = () => {
   const location = useLocation();
   return (
-    <nav className="flex gap-8 items-center">
+    <nav className="flex gap-8 items-center container mx-auto py-[2rem]">
       <div className="logo !h-fit !p-0">
         <img src={logo} alt="logo" className="w-[180px]" />
       </div>

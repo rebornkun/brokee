@@ -1,21 +1,21 @@
+import ThirdSection from "../Home/ThirdSection";
 import FifthSection from "./FifthSection";
 import FirstSection from "./FirstSection";
 import ForthSection from "./ForthSection";
 import SecondSection from "./SecondSection";
 import SixthSection from "./SixthSection";
-import ThirdSection from "./ThirdSection";
 
-const Home = () => {
+const About = () => {
   return (
     <>
       <FirstSection />
       <SecondSection />
       <ThirdSection />
-      <ForthSection />
+      <ForthSection padding="pt-[14rem]" />
       <FifthSection />
-      <SixthSection padding="pt-[18rem]" />
+      <SixthSection />
     </>
   );
 };
 
-export default Home;
+export default About;

@@ -33,3 +33,39 @@
   -ms-transform: scale(1.1);
   -o-transform: scale(1.1);
 }
+
+.bouncingBtn {
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.bouncingBtn:hover {
+  background-color: #2e2e2e;
+  animation: riseUp 0.2s ease-in-out 0s 1 both;
+  -webkit-animation: riseUp 0.2s ease-in-out 0s 1 both;
+}
+.bouncingBtn.other:hover {
+  background-color: #039a5b;
+  animation: riseUp 0.2s ease-in-out 0s 1 both;
+  -webkit-animation: riseUp 0.2s ease-in-out 0s 1 both;
+}
+
+@keyframes riseUp {
+  0% {
+    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+  }
+}
