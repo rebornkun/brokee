@@ -1,29 +1,41 @@
-import { useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-
+import { QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
-import Home from "../pages/Home/Home";
-import NavBar from "../components/NavBar/NavBar";
-import Footer from "../components/Footer/Footer";
-import About from "../pages/About/About";
-import Services from "../pages/Services/Services";
-import Pricing from "../pages/Pricing/Pricing";
+import AppRouter from "./AppRouter";
+import { queryClient } from "../utils/react-query";
+import { Toaster } from "sonner";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { MdInfo } from "react-icons/md";
+import { IoWarningOutline } from "react-icons/io5";
+import { GiCancel } from "react-icons/gi";
+import { ImSpinner } from "react-icons/im";
 
 function App() {
   return (
-    <div className="App">
-      {/* <NavBar /> */}
-      <Routes>
-        <Route path="/" element={<Navigate to={"home"} replace={true} />} />
-        <Route path="home" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="services" element={<Services />} />
-        <Route path="pricing" element={<Pricing />} />
-        <Route path="*" element={<Navigate to={"home"} replace={true} />} />
-      </Routes>
-      <Footer />
+    <div className="App w-full h-full">
+      <QueryClientProvider client={queryClient}>
+        <AppRouter />
+        <Toaster
+          duration={3000}
+          position="bottom-left"
+          closeButton
+          icons={{
+            success: <FaRegCircleCheck className="text-[25px] text-green" />,
+            info: <MdInfo className="text-[25px] text-blue" />,
+            warning: (
+              <IoWarningOutline className="text-[25px] text-darkYellow" />
+            ),
+            error: <GiCancel className="text-[25px] text-red" />,
+            loading: <ImSpinner className="text-[25px] text-black" />,
+          }}
+          toastOptions={{
+            classNames: {
+              icon: "w-[25px]",
+            },
+            className: "sonner h-[100px]",
+          }}
+        />
+      </QueryClientProvider>
     </div>
   );
 }
-// the keyboard slick , what is the ame of youbabe
 export default App;

@@ -12,8 +12,8 @@ const BouncingBtn = ({
         className && className
       }`}
     >
-      <p className="text-white text-[0.85rem] font-[500] tracking-[3px]">
-        {type === "other" ? "INVEST NOW" : "GET STARTED"}
+      <p className="text-white max-md:text-[0.7rem] text-[0.85rem] font-[500] tracking-[3px]">
+        {type ? type : "GET STARTED"}
       </p>
     </div>
   );
