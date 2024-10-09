@@ -3,7 +3,7 @@ export type TChartTimeline = "weekly" | "monthly" | "yearly";
 
 export type TStatusDropItem = {
   field?: string;
-  value?: string | number;
+  value?: string;
 };
 
 export type TSortDropItem = {
@@ -172,4 +172,9 @@ export type TUpdateUser = {
   paymentId?: string;
   phone?: string;
   country?: string;
+};
+
+export type TAxisData = {
+  xAxis: string[];
+  yAxis: number[];
 };
