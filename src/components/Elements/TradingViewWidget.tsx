@@ -32,7 +32,7 @@ export const TradingViewWidget = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     if (container?.current) {
-      container.current.appendChild(script);
+      (container.current as HTMLDivElement).appendChild(script);
     }
   }, [pathname]);
 
