@@ -22,23 +22,7 @@ export async function sendEmail(
       react: `${(<WelcomeEmail userFirstname={fullName} />)}`,
       headers: {},
     });
-    const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.resend.com/emails`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_APP_RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: `Tradex <${import.meta.env.VITE_APP_EMAIL}>`,
-          to: toEmail,
-          subject: subject,
-          react: `${(<WelcomeEmail userFirstname={fullName} />)}`,
-        }),
-      }
-    );
-    console.log(response);
+
     return CreateDefaultResponse(RequestMessage.SUCCESS, "", data);
   } catch (error) {
     if (error instanceof Error) {
