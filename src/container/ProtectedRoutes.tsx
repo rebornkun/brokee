@@ -16,6 +16,7 @@ import { useAppStore } from "../store/store";
 import { QueryKeys } from "../enums/react-query";
 import { getUserData, logOutUser } from "../services/auth/auth.service";
 import { ToastStatus } from "../enums/react-hot-toast";
+import { getAuth } from "firebase/auth";
 
 const DashBoard = React.lazy(
   () => import("../pages/In-app/DashBoard/DashBoard")
@@ -23,7 +24,8 @@ const DashBoard = React.lazy(
 const Chart = React.lazy(() => import("../pages/In-app/Chart/Chart"));
 
 const WebRouter = () => {
-  const [isAuth, setIsAuth] = useState(auth.currentUser);
+  const localData = localStorage.getItem("user");
+  const [isAuth, setIsAuth] = useState(localData);
   const setUserData = useAppStore((state) => state.setUserData);
   const navigate = useNavigate();
 
@@ -36,7 +38,6 @@ const WebRouter = () => {
     queryKey: [QueryKeys.GETUSERDATA],
     queryFn: async () => {
       const res = await getUserData();
-      console.log(res.data.payload);
       if (res.data.payload) setUserData(res.data.payload);
       return res.data;
     },
@@ -49,11 +50,10 @@ const WebRouter = () => {
         navigate("/", { replace: true });
       }
     };
-    console.log(auth.currentUser);
     if (!isAuth) {
-      console.log("no auth");
       //logout user
-      // logOut();
+      logOut();
+      navigate("/", { replace: true });
     }
   }, [isAuth]);
 

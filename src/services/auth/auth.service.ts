@@ -4,25 +4,26 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { ReactNode } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   auth,
   getDocumentById,
   userCollectionsRef,
   walletCollectionsRef,
 } from "../../config/firebase";
-import { TRegisterUserInput } from "../../types/auth.types";
-import { addDoc, doc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid";
-import { CreateDefaultResponse } from "../app/app.service";
-import { RequestMessage } from "../../types/default-response.dto";
 import { CollectionsEnum } from "../../config/firebase.enum";
-import { toast } from "sonner";
+import { TRegisterUserInput } from "../../types/auth.types";
+import { RequestMessage } from "../../types/default-response.dto";
+import { CreateDefaultResponse } from "../app/app.service";
+import { sendEmail } from "../email/email.service";
 
 export const registerUser = async (values: TRegisterUserInput) => {
   try {
     const auther = await createUserWithEmailAndPassword(
       auth,
-      values.email,
+      values.email.toLowerCase(),
       values.password
     );
 
@@ -58,6 +59,12 @@ export const registerUser = async (values: TRegisterUserInput) => {
     });
 
     //send welcome mail
+    await sendEmail(
+      values.email,
+      "Welcome to Tradex",
+      "welcome",
+      values.fullName
+    );
 
     return CreateDefaultResponse(
       RequestMessage.SUCCESS,
@@ -76,7 +83,11 @@ export const registerUser = async (values: TRegisterUserInput) => {
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const auther = await signInWithEmailAndPassword(auth, email, password);
+    const auther = await signInWithEmailAndPassword(
+      auth,
+      email.toLowerCase(),
+      password
+    );
 
     const { user } = auther;
 
@@ -111,6 +122,7 @@ export const getUserData = async () => {
     if (getAuth().currentUser != null) {
       //   console.log(getAuth().currentUser);
       const userUid = getAuth().currentUser?.uid;
+
       //get userData by id
       if (userUid) {
         const userData = await getDocumentById(CollectionsEnum.USERS, userUid);
