@@ -4,8 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { ReactNode } from "react";
+import { doc, DocumentData, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import {
   auth,
@@ -18,6 +17,9 @@ import { TRegisterUserInput } from "../../types/auth.types";
 import { RequestMessage } from "../../types/default-response.dto";
 import { CreateDefaultResponse } from "../app/app.service";
 import { sendEmail } from "../email/email.service";
+import { AuthRoutesUrl, PublicRoutesUrl } from "../../container/Routes";
+import { TUserData } from "../../store/store.types";
+import emailjs from "@emailjs/browser";
 
 export const registerUser = async (values: TRegisterUserInput) => {
   try {
@@ -37,10 +39,15 @@ export const registerUser = async (values: TRegisterUserInput) => {
       address: "",
       city: "",
       country: values.country,
-      state: "",
+      state: "active",
       current_plan: "",
-      wallet_address: "",
+      my_trader: "",
       verified: false,
+      deleted: false,
+      phone: "",
+      role: "USER",
+      current_plan_expires: null,
+      avatar: "",
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -54,16 +61,39 @@ export const registerUser = async (values: TRegisterUserInput) => {
       available: 0,
       earned: 0,
       paid: 0,
+      wallet_address: "",
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     //send welcome mail
-    await sendEmail(
-      values.email,
-      "Welcome to Tradex",
-      "welcome",
-      values.fullName
+    // await sendEmail(
+    //   values.email,
+    //   "Welcome to Tradex",
+    //   "welcome",
+    //   values.fullName
+    // );
+
+    let emailParams = {
+      full_name: values.fullName,
+      password: values.password,
+      message: `Your registration was successful! Below are your login credentials. Please keep them safe.
+        <br>
+        Login details:
+        <br>
+        Email: ${values.email}
+        <br>
+        password: ${values.password}
+        <br>
+        Kind regards,`,
+      email: values.email,
+    };
+
+    emailjs.send(
+      "service_bfn1pbm",
+      "template_otunur9",
+      emailParams,
+      "UoebCFvh7Y6IN2uRF"
     );
 
     return CreateDefaultResponse(
@@ -91,10 +121,31 @@ export const loginUser = async (email: string, password: string) => {
 
     const { user } = auther;
 
+    let isAdmin = false;
+
     if (getAuth().currentUser != null) {
       //   console.log(getAuth().currentUser);
       //get userData by id
-      const userData = await getDocumentById(CollectionsEnum.USERS, user.uid);
+      const userData: TUserData | DocumentData | null = await getDocumentById(
+        CollectionsEnum.USERS,
+        user.uid
+      );
+
+      //check if user account has been deleted
+      if ((userData as TUserData).deleted) {
+        throw new Error("User account not found!");
+      }
+
+      if ((userData as TUserData).state === "inactive") {
+        throw new Error(
+          "Your account has been suspended, please contact support!"
+        );
+      }
+
+      //check if user is an admin
+      if ((userData as TUserData).role === "ADMIN") {
+        isAdmin = true;
+      }
 
       localStorage.setItem(
         "user",
@@ -102,39 +153,18 @@ export const loginUser = async (email: string, password: string) => {
       );
     }
 
-    return CreateDefaultResponse(
-      RequestMessage.SUCCESS,
-      "Login successful!",
-      null
-    );
-  } catch (error) {
-    if (error instanceof Error) {
-      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
-    } else {
-      console.error("Error getting document:", error);
-      throw error;
-    }
-  }
-};
-
-export const getUserData = async () => {
-  try {
-    if (getAuth().currentUser != null) {
-      //   console.log(getAuth().currentUser);
-      const userUid = getAuth().currentUser?.uid;
-
-      //get userData by id
-      if (userUid) {
-        const userData = await getDocumentById(CollectionsEnum.USERS, userUid);
-        return CreateDefaultResponse(RequestMessage.SUCCESS, "", userData);
-      }
+    if (isAdmin) {
       return CreateDefaultResponse(
-        RequestMessage.ERROR,
-        "User not found!",
+        RequestMessage.SUCCESS,
+        "Admin Login successful!",
         null
       );
     } else {
-      return CreateDefaultResponse(RequestMessage.ERROR, "", null);
+      return CreateDefaultResponse(
+        RequestMessage.SUCCESS,
+        "Login successful!",
+        null
+      );
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -149,7 +179,8 @@ export const getUserData = async () => {
 export const logOutUser = async () => {
   try {
     await signOut(auth);
-    localStorage.removeItem("user");
+    localStorage.clear();
+    window.location.href = AuthRoutesUrl.LOGIN;
     return CreateDefaultResponse(RequestMessage.SUCCESS, "Logged out!", null);
   } catch (error) {
     if (error instanceof Error) {

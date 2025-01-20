@@ -9,7 +9,7 @@ type Prop = {
   type: "revenue" | "transactions";
   title: string;
   icon: React.ReactNode;
-  amount: number;
+  amount: number | string;
   percentage?: number;
   lastUpdated?: Date;
   currencySymbol?: string;
@@ -58,7 +58,7 @@ const RevenueCard = ({
               ) : (
                 <h2 className="text-[30px] 2xl:text-[34px] font-[400] leading-[1] ">
                   {currencySymbol}
-                  {currencyFormatter(amount)}
+                  {amount}
                 </h2>
               )}
               {percentage && (

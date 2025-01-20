@@ -1,11 +1,14 @@
 import { SetStateAction } from "react";
 import { useLocation } from "react-router-dom";
 import { useAppStore } from "../../../store/store";
-import { TTableColumn, TTableData } from "../../../types/types";
+import { TTableColumn, TTableData, TTrade } from "../../../types/types";
 import StatusValue from "../../Elements/StatusValue";
 import CheckBoxTable from "../../Elements/CheckBoxTable";
 import FullNameForTr from "../../Elements/FullNameForTr";
 import PaymentPlanTr from "../../Elements/PaymentPlanTr";
+import TableActions from "./TableActions";
+import { TUserData } from "../../../store/store.types";
+import CurrencyBox from "../../Elements/CurrencyBox";
 
 const TrData = ({
   dataNo,
@@ -32,7 +35,7 @@ const TrData = ({
   const location = useLocation();
 
   const { pathname } = location;
-  const doNotOpenDrawer = ["select"];
+  const doNotOpenDrawer = ["select", "actions"];
   const setDrawerTypeFunc = () => {
     if (pathname === "/") {
       setDrawerType("dashboard");
@@ -40,10 +43,6 @@ const TrData = ({
       setDrawerType("customer");
     } else if (pathname === "/transactions") {
       setDrawerType("dashboard");
-    } else if (pathname === "/payment-plans") {
-      setDrawerType("myPlan");
-    } else if (pathname === "/devices") {
-      setDrawerType("devices");
     }
   };
 
@@ -59,7 +58,7 @@ const TrData = ({
                 //do not open open when these td's are clicked
               } else {
                 setIsDrawerOpen(true);
-                setDrawerId(String(data._id)); //send id to drawer here
+                setDrawerId(String(data.id)); //send id to drawer here
                 setDrawerTypeFunc();
               }
             }}
@@ -85,14 +84,16 @@ const TrData = ({
                 avatar={data?.avatar}
                 value={data?.fullName || ""}
               />
-            ) : datum.dataIndex === "paymentPlan" ? (
-              <PaymentPlanTr value={(data as any)[datum.dataIndex]} />
             ) : datum.dataIndex === "isActive" ? (
               `${(data as any)[datum.dataIndex]}`
             ) : datum.dataIndex === "date" ? (
-              new Date(data.createdAt).toLocaleDateString()
+              new Date(data.createdAt?.seconds * 1000).toLocaleDateString()
             ) : datum.dataIndex === "payment_type" ? (
-              data.destinationAccount?.accountType
+              `${(data as any)[datum.dataIndex]}`
+            ) : datum.dataIndex === "currencyName" ? (
+              <CurrencyBox data={data as TTrade} />
+            ) : datum.dataIndex === "actions" ? (
+              <TableActions userData={data as TUserData} />
             ) : (
               (data as any)[datum.dataIndex]
             )}

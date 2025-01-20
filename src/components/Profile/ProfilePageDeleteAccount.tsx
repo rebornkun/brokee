@@ -7,7 +7,7 @@ const ProfilePageDeleteAccount = () => {
 
   const handleDeleteAccount = () => {
     setModalIsOpen(true);
-    setModalType("deleteDistributor");
+    setModalType("deleteUser");
   };
 
   return (

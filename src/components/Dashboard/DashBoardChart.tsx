@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TimelineDropDown from "../Elements/TimelineDropDown";
 import { graphTimelineOptions } from "../../utils/constants";
 import { DashboardGraph } from "./DashboardGraph";
-import { TGraphTimeline } from "../../types/types";
+import { TAxisData, TGraphTimeline } from "../../types/types";
 
 function DashBoardChart() {
   // const { isLoading: isGraphDataLoading, data } = useQuery({
@@ -51,18 +51,35 @@ function DashBoardChart() {
             currencyFlag={currencyFlag}
             setCurrencyFlag={setCurrencyFlag}
           /> */}
-          <TimelineDropDown
+          {/* <TimelineDropDown
             options={graphTimelineOptions}
             state={timeline}
             setState={setTimeline}
-          />
+          /> */}
         </div>
       </div>
       <div className="flex-1 !max-h-[100%] w-full !flex items-end">
-        {/* <DashboardGraph
-          data={selectedGraphData}
-          currencySymbol={selectedCurrency?.symbol}
-        /> */}
+        <DashboardGraph
+          data={{
+            xAxis: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+            yAxis: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          }}
+          // currencySymbol={selectedCurrency?.symbol}
+          currencySymbol={"$"}
+        />
       </div>
     </div>
   );

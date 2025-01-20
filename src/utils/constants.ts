@@ -1,6 +1,8 @@
 import {
   DepositStatus,
   SortOrder,
+  TCryptoType,
+  TCurrencyType,
   TradeStatus,
   WithdrawalStatus,
 } from "../types/types";
@@ -125,8 +127,8 @@ export const tradeStatusOptions = [
 export const tradeColumns = [
   {
     title: "Trade ID",
-    dataIndex: "tradeId",
-    key: "tradeId",
+    dataIndex: "id",
+    key: "id",
   },
   {
     title: "DATE",
@@ -134,14 +136,19 @@ export const tradeColumns = [
     key: "date",
   },
   {
+    title: "TRADER",
+    dataIndex: "TraderName",
+    key: "TraderName",
+  },
+  {
     title: "CURRENCY",
-    dataIndex: "currency",
-    key: "currency",
+    dataIndex: "currencyName",
+    key: "currencyName",
   },
   {
     title: "CURRENCY TYPE",
-    dataIndex: "currency_type",
-    key: "currency_type",
+    dataIndex: "currencyType",
+    key: "currencyType",
   },
   {
     title: "AMOUNT",
@@ -157,7 +164,7 @@ export const tradeColumns = [
 
 export const tradeTableData = [
   {
-    _id: "1",
+    id: "1",
     key: "1",
     tradeId: "lsRjwi46Pf",
     date: new Date().toLocaleDateString(),
@@ -169,7 +176,7 @@ export const tradeTableData = [
     updatedAt: new Date(),
   },
   {
-    _id: "2",
+    id: "2",
     key: "2",
     tradeId: "sdfdsfds",
     date: new Date().toLocaleDateString(),
@@ -177,6 +184,119 @@ export const tradeTableData = [
     currency_type: "crypto",
     amount: 30,
     status: TradeStatus.LOST,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+//users
+//users
+//users
+export const usersStatusOptions = [
+  { field: "", value: "All" },
+  { field: "status", value: TradeStatus.WON },
+  { field: "status", value: TradeStatus.ONGOING },
+  { field: "status", value: TradeStatus.LOST },
+];
+
+export const usersColumns = [
+  // {
+  //   title: "",
+  //   dataIndex: "select",
+  //   key: "select",
+  // },
+  {
+    title: "Full Name",
+    dataIndex: "fullName",
+    key: "fullName",
+  },
+  {
+    title: "User ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+  },
+  {
+    title: "Phone",
+    dataIndex: "phone",
+    key: "phone",
+  },
+  {
+    title: "Country",
+    dataIndex: "country",
+    key: "country",
+  },
+  {
+    title: "Plan",
+    dataIndex: "current_plan",
+    key: "current_plan",
+  },
+  {
+    title: "Trader",
+    dataIndex: "my_trader",
+    key: "my_trader",
+  },
+  {
+    title: "Role",
+    dataIndex: "role",
+    key: "role",
+  },
+  {
+    title: "Verified",
+    key: "verified",
+    dataIndex: "verified",
+  },
+  {
+    title: "State",
+    key: "state",
+    dataIndex: "state",
+  },
+  {
+    title: "Deleted",
+    key: "deleted",
+    dataIndex: "deleted",
+  },
+  {
+    title: "Actions",
+    key: "actions",
+    dataIndex: "actions",
+  },
+];
+
+export const usersTableData = [
+  {
+    _id: "1",
+    key: "1",
+    fullName: "",
+    email: "abc@gmail.com",
+    phone: "",
+    country: "",
+    current_plan: "",
+    my_trader: "",
+    role: "USER",
+    verified: false,
+    state: "active",
+    deleted: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: "2",
+    key: "2",
+    fullName: "",
+    email: "abc@gmail.com",
+    phone: "",
+    country: "",
+    current_plan: "",
+    my_trader: "",
+    role: "USER",
+    verified: false,
+    state: "active",
+    deleted: false,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
@@ -195,8 +315,8 @@ export const depositsStatusOptions = [
 export const depositsColumns = [
   {
     title: "Deposit ID",
-    dataIndex: "depositId",
-    key: "depositId",
+    dataIndex: "id",
+    key: "id",
   },
   {
     title: "PAYMENT TYPE",
@@ -204,14 +324,19 @@ export const depositsColumns = [
     key: "payment_type",
   },
   {
-    title: "AMOUNT",
-    dataIndex: "amount",
-    key: "amount",
+    title: "AMOUNT(USD)",
+    dataIndex: "amountInUsd",
+    key: "amountInUsd",
+  },
+  {
+    title: "AMOUNT(TOKEN)",
+    dataIndex: "amountInCrypto",
+    key: "amountInCrypto",
   },
   {
     title: "CURRENCY",
-    dataIndex: "currency",
-    key: "currency",
+    dataIndex: "cryptoType",
+    key: "cryptoType",
   },
   {
     title: "DATE",
@@ -222,6 +347,49 @@ export const depositsColumns = [
     title: "STATUS",
     key: "status",
     dataIndex: "status",
+  },
+];
+
+export const depositsColumnsAdmin = [
+  {
+    title: "Deposit ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
+    title: "PAYMENT TYPE",
+    dataIndex: "payment_type",
+    key: "payment_type",
+  },
+  {
+    title: "AMOUNT(USD)",
+    dataIndex: "amountInUsd",
+    key: "amountInUsd",
+  },
+  {
+    title: "AMOUNT(TOKEN)",
+    dataIndex: "amountInCrypto",
+    key: "amountInCrypto",
+  },
+  {
+    title: "CURRENCY",
+    dataIndex: "cryptoType",
+    key: "cryptoType",
+  },
+  {
+    title: "DATE",
+    dataIndex: "date",
+    key: "date",
+  },
+  {
+    title: "STATUS",
+    key: "status",
+    dataIndex: "status",
+  },
+  {
+    title: "Actions",
+    key: "actions",
+    dataIndex: "actions",
   },
 ];
 
@@ -277,24 +445,24 @@ export const withdrawalStatusOptions = [
 export const withdrawalColumns = [
   {
     title: "Withdrawal ID",
-    dataIndex: "withdrawalId",
-    key: "withdrawalId",
+    dataIndex: "id",
+    key: "id",
   },
   {
-    title: "PAYMENT TYPE",
-    dataIndex: "payment_type",
-    key: "payment_type",
+    title: "WITHDRAW TYPE",
+    dataIndex: "withdrawalType",
+    key: "withdrawalType",
   },
   {
     title: "AMOUNT",
-    dataIndex: "amount",
-    key: "amount",
+    dataIndex: "amountInUsd",
+    key: "amountInUsd",
   },
-  {
-    title: "CURRENCY",
-    dataIndex: "currency",
-    key: "currency",
-  },
+  // {
+  //   title: "CURRENCY",
+  //   dataIndex: "cryptoType",
+  //   key: "cryptoType",
+  // },
   {
     title: "DATE",
     dataIndex: "date",
@@ -351,19 +519,95 @@ export const withdrawalTableData = [
 //user Data
 
 export const initUserData = {
-  avatar: "",
-  accountPlan: "",
-  accounts: [],
-  createdAt: new Date(),
-  deleted: false,
+  id: "",
   email: "",
-  fullName: "",
   password: "",
-  paymentId: "",
-  phone: "",
-  role: "",
+  fullName: "",
+  address: "",
+  city: "",
   country: "",
+  state: "",
+  current_plan: "",
+  verified: false,
+  deleted: false,
+  phone: "",
+  role: "USER",
+  accountPlan: "FREE",
+  avatar: "",
+  my_trader: "",
+  current_plan_expires: "",
+  createdAt: new Date(),
   updatedAt: new Date(),
-  __v: 0,
-  _id: "",
 };
+
+export const initWalletData = {
+  available: 0,
+  createdAt: new Date(),
+  currency: "USD",
+  earned: 0,
+  id: "",
+  paid: 0,
+  updatedAt: new Date(),
+  usd: 0,
+  wallet_address: "",
+  userId: "",
+};
+
+export const cryptoTypeArr: TCryptoType[] = [
+  {
+    _id: "BTC",
+    name: "BTC",
+    img: "/src/assets/coins/Bitcoin.png",
+  },
+  {
+    _id: "ETH",
+    name: "ETH",
+    img: "/src/assets/coins/eth.svg",
+  },
+  {
+    _id: "USDT",
+    name: "USDT",
+    img: "/src/assets/coins/usdt.svg",
+  },
+  {
+    _id: "BNB",
+    name: "BNB",
+    img: "/src/assets/coins/bnb.png",
+  },
+];
+
+export const withdrawalTypeArr: TCryptoType[] = [
+  {
+    _id: "Crypto",
+    name: "Crypto",
+    img: "/src/assets/coins/Bitcoin.png",
+  },
+  {
+    _id: "Bank",
+    name: "Bank",
+    img: "/src/assets/others/bank-icon.jpg",
+  },
+];
+
+export const currencyTypeArr: TCurrencyType[] = [
+  {
+    id: 1,
+    name: "Crypto",
+  },
+  { id: 2, name: "Forex" },
+  {
+    id: 3,
+    name: "Stocks",
+  },
+];
+export const tradeStatusArr: TCurrencyType[] = [
+  {
+    id: 1,
+    name: "won",
+  },
+  { id: 2, name: "lost" },
+  {
+    id: 3,
+    name: "ongoing",
+  },
+];

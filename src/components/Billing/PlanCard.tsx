@@ -1,6 +1,13 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "antd";
 import { FaCheck } from "react-icons/fa6";
 import { USDCFlagSvg } from "../../assets/svg/svg";
+import { MutationKeys, QueryKeys } from "../../enums/react-query";
+import { TBuyPlan } from "../../types/types";
+import { useAppStore } from "../../store/store";
+import { toast } from "sonner";
+import { buyPlan } from "../../services/plans/plans.service";
+import { currencyFormatter } from "../../utils/helper";
 
 const PlanCard = ({
   name,
@@ -8,13 +15,49 @@ const PlanCard = ({
   isActive,
   amount,
   gains,
+  duration,
 }: {
   name: string;
   title: string;
   isActive: boolean;
   amount: number;
   gains: string[];
+  duration: string;
 }) => {
+  const queryClient = useQueryClient();
+  const userData = useAppStore((state) => state.userData);
+  const userWallet = useAppStore((state) => state.userWallet);
+
+  const { mutate: buyPlanMutate, isPending } = useMutation({
+    mutationKey: [MutationKeys.BUYPLAN],
+    mutationFn: (values: TBuyPlan) =>
+      buyPlan({ ...values }, userData.id, userWallet.id),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETUSERDATA}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETUSERWALLETDATA}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETBILLINGTABLEDATA}`],
+      });
+    },
+    onError: (error) => {
+      // console.log(error);
+    },
+  });
+
+  const checkBalance = () => {
+    if (userWallet.usd < amount) {
+      toast.error("Insufficient funds in deposit wallet! please fund account.");
+    } else if (userData.current_plan) {
+      toast.error("You have an Active plan.");
+    } else {
+      buyPlanMutate({ amountInUsd: amount, name: name });
+    }
+  };
+
   return (
     <div
       className={`px-[20px] py-[24px] border-[1px] border-[#EFEFEF] rounded-[8px] max-w-[296px] w-[296px] max-sm:w-full max-sm:max-w-full flex flex-col ${
@@ -37,12 +80,16 @@ const PlanCard = ({
         )}
       </div>
       <div className="flex items-center gap-[10px] mt-[30px] ">
-        <USDCFlagSvg className="w-[33px] h-[33px]" />
+        {/* <USDCFlagSvg className="w-[33px] h-[33px]" /> */}
+        <img
+          src="/src/assets/coins/usdt.svg"
+          className="w-[33px] h-[33px] rounded-full"
+        />
         <p className="text-[34px] 2xl:text-[40px] text-[#1E1E1E] font-[600] ">
-          {amount}
+          {currencyFormatter(amount)}
         </p>
         <p className="text-[15.31px] 2xl:text-[18px] text-[#1E1E1E] font-[500] pl-[9px] ">
-          /lifetime
+          /{duration}
         </p>
       </div>
       <div className="w-full mt-[30px] ">
@@ -61,9 +108,12 @@ const PlanCard = ({
             type="primary"
             htmlType="submit"
             className="Nunito w-full h-[40px] flex items-center justify-center bg-darkGreen hover:!bg-darkGreen hover:opacity-[0.8] font-[600] text-[14px] 2xl:text-[16px] rounded-[8px]  "
-            loading={false}
+            onClick={() => {
+              checkBalance();
+            }}
+            loading={isPending}
           >
-            Upgrade
+            Buy Plan
           </Button>
         )}
       </div>

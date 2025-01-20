@@ -10,7 +10,7 @@ const Profile = () => {
       <ProfilePageImageSection />
       <div className="flex flex-col gap-[28px] w-full">
         <ProfilePageAccountDetails />
-        <ProfilePageChangeEmail />
+        {/* <ProfilePageChangeEmail /> */}
         <ProfilePageChangePassword />
         <ProfilePageDeleteAccount />
       </div>

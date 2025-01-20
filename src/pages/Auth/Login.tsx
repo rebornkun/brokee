@@ -7,9 +7,11 @@ import { MutationKeys } from "../../enums/react-query";
 import { TLoginUserInput } from "../../types/auth.types";
 import { loginUser } from "../../services/auth/auth.service";
 import { ToastStatus } from "../../enums/react-hot-toast";
+import { useAppStore } from "../../store/store";
 
 const Login = () => {
   const navigate = useNavigate();
+  const setUserIsAdmin = useAppStore((state) => state.setUserIsAdmin);
   const { mutate: loginMutate, isPending } = useMutation({
     mutationKey: [MutationKeys.LOGIN],
     mutationFn: (values: TLoginUserInput) =>
@@ -17,7 +19,12 @@ const Login = () => {
     onSuccess: (data) => {
       console.log(data);
       if (data.data.alert?.type === ToastStatus.SUCCESS) {
-        navigate("/account", { replace: true });
+        if (data.data.alert.message === "Admin Login successful!") {
+          setUserIsAdmin(true);
+          navigate("/admin", { replace: true });
+        } else {
+          navigate("/account", { replace: true });
+        }
       }
     },
     onError: (error) => {

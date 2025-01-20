@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RevenueCard from "./RevenueCard";
 import { NigeriaFlagSvg, USDCFlagSvg } from "../../assets/svg/svg";
+import { useAppStore } from "../../store/store";
+import { currencyFormatter, getCurrentRate } from "../../utils/helper";
+import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "../../enums/react-query";
+import { getUserWallet } from "../../services/user/user.service";
 
 const NAIRA_AMOUNT = 50560.56;
 const CRYPTO_AMOUNT = 50560.56;
@@ -8,12 +13,40 @@ const PERCENTAGE = 4.0;
 
 function TotalRevenueSlides() {
   const [stage, setStage] = useState(false);
+  const [rateIsLoading, setRateIsLoading] = useState(false);
+  const [converted, setConverted] = useState(0);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
       setStage((prev) => !prev);
     }
   };
+
+  const getBtcEqiv = async (value: number) => {
+    setRateIsLoading(true);
+    console.log("ddd");
+    const rateObj = await getCurrentRate("BTC");
+    const rate = rateObj["bitcoin"].usd;
+    setRateIsLoading(false);
+    const final = value / rate;
+    setConverted(final);
+    return final;
+  };
+
+  const {
+    isLoading: walletIsLoading,
+    // error,
+    data: walletData,
+  } = useQuery({
+    queryKey: [QueryKeys.GETUSERWALLETDATATWO],
+    queryFn: async () => {
+      const res = await getUserWallet();
+      await getBtcEqiv(
+        res.data.payload?.available + res.data?.payload?.earned || 0
+      );
+      return res.data;
+    },
+  });
 
   return (
     <div className="max-lg:w-full w-[390px]  h-[149px] overflow-hidden relative">
@@ -34,17 +67,31 @@ function TotalRevenueSlides() {
         <RevenueCard
           type="revenue"
           title="revenue"
-          icon={<NigeriaFlagSvg className="w-[45px] h-[45px] mx-2" />}
-          amount={20000}
-          currencySymbol={"₦"}
+          icon={
+            <img
+              src="/src/assets/coins/usdt.svg"
+              className="w-[45px] h-[45px] mx-2 rounded-full"
+            />
+            // <NigeriaFlagSvg className="w-[45px] h-[45px] mx-2" />
+          }
+          amount={currencyFormatter(
+            walletData?.payload?.available + walletData?.payload?.earned || 0
+          )}
+          currencySymbol={"$"}
           percentage={4.0}
         />
         <RevenueCard
           type="revenue"
           title="revenue"
-          icon={<USDCFlagSvg className="w-[45px] h-[45px] mx-2" />}
-          amount={30000}
-          currencySymbol={"$"}
+          icon={
+            <img
+              src="/src/assets/coins/Bitcoin.png"
+              className="w-[45px] h-[45px] mx-2 rounded-full"
+            />
+            // <USDCFlagSvg className="w-[45px] h-[45px] mx-2" />
+          }
+          amount={converted.toFixed(6)}
+          currencySymbol={"BTC "}
           percentage={PERCENTAGE}
         />
       </div>

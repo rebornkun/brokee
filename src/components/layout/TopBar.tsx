@@ -52,7 +52,7 @@ function TopBar() {
           <AccountDropDown />
         </div>
         <div className="flex gap-4 h-full items-center ">
-          <MessageSvg className="cursor-pointer" />
+          {/* <MessageSvg className="cursor-pointer" /> */}
           <div className="divider w-[1px] h-[60%] bg-[#D1D5DB]" />
           <ProfileDropDown />
         </div>

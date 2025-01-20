@@ -9,7 +9,7 @@ import {
 } from "../../assets/svg/svg";
 import { RiDashboardFill } from "react-icons/ri";
 import { useAppStore } from "../../store/store";
-import { ProtectedRoutesUrl } from "../../container/Routes";
+import { AdminRoutesUrl, ProtectedRoutesUrl } from "../../container/Routes";
 import MenuBtn from "./MenuBtn";
 import "../../assets/NavigationBar.css";
 import { FaChartLine } from "react-icons/fa";
@@ -98,6 +98,8 @@ function AdBoard() {
 
 function SideBar() {
   const mobileMenuIsOpen = useAppStore((state) => state.mobileMenuIsOpen);
+  const userIsAdmin = useAppStore((state) => state.userIsAdmin);
+  const userData = useAppStore((state) => state.userData);
   return (
     <aside
       className={`${
@@ -121,50 +123,83 @@ function SideBar() {
           />
         </div>
         <div className="w-[90%] mx-auto h-[1px] bg-lightGrey" />
-        <nav className="flex flex-col gap-2">
-          <SideBarItem
-            icon={
-              <RiDashboardFill className="sideIcon transition-all text-[20px]" />
-            }
-            name="Dashboard"
-            route={ProtectedRoutesUrl.DASHBOARD}
-          />
-          <SideBarItem
-            icon={
-              <FaChartLine className="sideIcon transition-all text-[20px]" />
-            }
-            name="Chart"
-            route={ProtectedRoutesUrl.CHART}
-          />
-          <SideBarItem
-            icon={
-              <FaMoneyBillTransfer className="sideIcon transition-all text-[20px]" />
-            }
-            name="Trades"
-            route={ProtectedRoutesUrl.TRADES}
-          />
-          <SideBarItem
-            icon={
-              <DepositSvg className="sideIcon transition-all w-[20px] h-[20px]" />
-            }
-            name="Deposits"
-            route={ProtectedRoutesUrl.DEPOSITS}
-          />
-          <SideBarItem
-            icon={
-              <WithdrawalSvg className="sideIcon transition-all w-[20px] h-[20px]" />
-            }
-            name="Withdrawals"
-            route={ProtectedRoutesUrl.WITHDRAWALS}
-          />
-          <SideBarItem
-            icon={
-              <IoSettingsOutline className="sideIcon transition-all text-[20px]" />
-            }
-            name="Settings"
-            route={ProtectedRoutesUrl.SETTINGS}
-          />
-        </nav>
+        {userIsAdmin || userData.role === "ADMIN" ? (
+          <nav className="flex flex-col gap-2">
+            <SideBarItem
+              icon={
+                <RiDashboardFill className="sideIcon transition-all text-[20px]" />
+              }
+              name="Users"
+              route={AdminRoutesUrl.USERS}
+            />
+            <SideBarItem
+              icon={
+                <FaChartLine className="sideIcon transition-all text-[20px]" />
+              }
+              name="Trades"
+              route={AdminRoutesUrl.TRADES}
+            />
+            <SideBarItem
+              icon={
+                <FaMoneyBillTransfer className="sideIcon transition-all text-[20px]" />
+              }
+              name="Deposits"
+              route={AdminRoutesUrl.DEPOSITS}
+            />
+            <SideBarItem
+              icon={
+                <DepositSvg className="sideIcon transition-all w-[20px] h-[20px]" />
+              }
+              name="Withdrawals"
+              route={AdminRoutesUrl.WITHDRAWALS}
+            />
+          </nav>
+        ) : (
+          <nav className="flex flex-col gap-2">
+            <SideBarItem
+              icon={
+                <RiDashboardFill className="sideIcon transition-all text-[20px]" />
+              }
+              name="Dashboard"
+              route={ProtectedRoutesUrl.DASHBOARD}
+            />
+            <SideBarItem
+              icon={
+                <FaChartLine className="sideIcon transition-all text-[20px]" />
+              }
+              name="Chart"
+              route={ProtectedRoutesUrl.CHART}
+            />
+            <SideBarItem
+              icon={
+                <FaMoneyBillTransfer className="sideIcon transition-all text-[20px]" />
+              }
+              name="Trades"
+              route={ProtectedRoutesUrl.TRADES}
+            />
+            <SideBarItem
+              icon={
+                <DepositSvg className="sideIcon transition-all w-[20px] h-[20px]" />
+              }
+              name="Deposits"
+              route={ProtectedRoutesUrl.DEPOSITS}
+            />
+            <SideBarItem
+              icon={
+                <WithdrawalSvg className="sideIcon transition-all w-[20px] h-[20px]" />
+              }
+              name="Withdrawals"
+              route={ProtectedRoutesUrl.WITHDRAWALS}
+            />
+            <SideBarItem
+              icon={
+                <IoSettingsOutline className="sideIcon transition-all text-[20px]" />
+              }
+              name="Settings"
+              route={ProtectedRoutesUrl.SETTINGS}
+            />
+          </nav>
+        )}
       </div>
       <AdBoard />
     </aside>

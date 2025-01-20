@@ -28,6 +28,15 @@ export const storage = getStorage(app);
 
 export const userCollectionsRef = collection(db, CollectionsEnum.USERS);
 export const walletCollectionsRef = collection(db, CollectionsEnum.WALLETS);
+export const depositCollectionsRef = collection(db, CollectionsEnum.DEPOSITS);
+export const billingCollectionsRef = collection(db, CollectionsEnum.BILLINGS);
+export const withdrawCollectionsRef = collection(
+  db,
+  CollectionsEnum.WITHDRAWALS
+);
+export const tradersCollectionsRef = collection(db, CollectionsEnum.TRADERS);
+export const currencyCollectionsRef = collection(db, CollectionsEnum.CURRENCY);
+export const tradesCollectionsRef = collection(db, CollectionsEnum.TRADES);
 
 export const getDocumentById = async (collection: string, id: string) => {
   try {

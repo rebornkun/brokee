@@ -1,3 +1,5 @@
+import { currencyFormatter } from "../../utils/helper";
+
 const StatBlock = ({
   left,
   icon,
@@ -34,8 +36,8 @@ const StatBlock = ({
       {isLoading ? (
         <div className="sk_bg w-[40px] h-[35px] "></div>
       ) : (
-        <p className="text-[32px] 2xl:text-[38px] leading-[1] font-[400] text-[#3A3A3A]  ">
-          {value}
+        <p className="text-[24px] 2xl:text-[28px] leading-[1] font-[600] text-[#3A3A3A]  ">
+          {currencyFormatter(value)}
         </p>
       )}
     </div>

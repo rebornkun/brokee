@@ -9,6 +9,7 @@ import {
 } from "../../types/types";
 import { SetStateAction, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { TUserData } from "../../store/store.types";
 
 const CheckBoxTable = ({
   type,
@@ -32,7 +33,7 @@ const CheckBoxTable = ({
     const allData = data as TTableDataArr;
 
     const checker = allData.every((datum) => {
-      if (allCheckedIDs.includes(datum._id) || handleDisable(datum)) {
+      if (allCheckedIDs.includes(datum.id) || handleDisable(datum)) {
         return true; // Continue iteration
       }
       return false; // Stop iteration
@@ -51,38 +52,38 @@ const CheckBoxTable = ({
     //   ) {
     //     return ""; //don't return id if delete function if device has been purchased or payment for this device has started
     //   } else {
-    //     return data._id;
+    //     return data.id;
     //   }
     // } else if (location.pathname === ProtectedRoutes.CUSTOMERS) {
     //   if ((data as TCustomerData).devices.length > 0) {
     //     return ""; //disable delete function if customer is attached to a device.
     //   } else {
-    //     return data._id;
+    //     return data.id;
     //   }
     // } else if (location.pathname === ProtectedRoutes.PAYMENT_PLANS) {
     //   if ((data as TPaymentData).noOfDevices > 0) {
     //     return ""; //disable delete function if device is attached to a payment plan.
     //   } else {
-    //     return data._id;
+    //     return data.id;
     //   }
     // } else {
-    //   return data._id;
+    //   return data.id;
     // }
-    return data._id;
+    return data.id;
   };
 
   const onChange = (e: CheckboxChangeEvent) => {
     const initCheckedIDs = allCheckedIDs;
     //check if its a row checkbox or main control checkbox
     if (type === "sub") {
-      setActiveChecker((data as TTableData)._id);
+      setActiveChecker((data as TTableData).id);
       if (e.target.checked) {
-        initCheckedIDs.push((data as TTableData)._id); //add new id to array
+        initCheckedIDs.push((data as TTableData).id); //add new id to array
         setAllCheckedIDs(initCheckedIDs);
         setIsChecked(true);
       } else {
         const filteredCheckedIDs = initCheckedIDs.filter(
-          (id) => id !== (data as TTableData)._id
+          (id) => id !== (data as TTableData).id
         ); //remove id from array
         setAllCheckedIDs(filteredCheckedIDs);
         setIsChecked(false);
@@ -108,7 +109,7 @@ const CheckBoxTable = ({
 
   useEffect(() => {
     if (type === "sub") {
-      if (allCheckedIDs.includes((data as TTableData)._id)) {
+      if (allCheckedIDs.includes((data as TTableData).id)) {
         setIsChecked(true);
       } else {
         setIsChecked(false);
@@ -123,10 +124,7 @@ const CheckBoxTable = ({
     }
   }, [allCheckedIDs, activeChecker, data]);
 
-  const handleDisable = (
-    // data: TTableData | TDeviceData | TCustomerData | TPaymentData
-    data: TTableData
-  ) => {
+  const handleDisable = (data: TTableData | TUserData) => {
     // if (location.pathname === ProtectedRoutes.DEVICES) {
     //   if (
     //     (data as TDeviceData).status === "purchased" ||
@@ -153,8 +151,7 @@ const CheckBoxTable = ({
       checked={isChecked}
       rootClassName="tableCheckBox"
       onChange={onChange}
-      // disabled={type === "main" ? false : handleDisable(data as TDeviceData)} //disable if device is owned or has been paid for
-      disabled={false} //disable if device is owned or has been paid for
+      disabled={type === "main" ? false : handleDisable(data as TUserData)} //disable if device is owned or has been paid for
     ></Checkbox>
   );
 };

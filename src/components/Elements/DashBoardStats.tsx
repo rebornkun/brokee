@@ -2,9 +2,9 @@ import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import StatBlock from "./StatBlock";
 
 type TDashboardStats = {
-  noOfCustomers: number;
-  noOfDevices: number;
-  noOfTransactions: number;
+  deposit: number;
+  available: number;
+  withdrawn: number;
 };
 const DashBoardStats = ({
   stats,
@@ -22,7 +22,7 @@ const DashBoardStats = ({
           </div>
         }
         text="Deposits"
-        value={stats.noOfDevices}
+        value={stats.deposit}
         isLoading={isLoading}
       />
       <StatBlock
@@ -31,8 +31,8 @@ const DashBoardStats = ({
             <GiTakeMyMoney className="text-[20px] text-darkGreen" />
           </div>
         }
-        text="Profits"
-        value={stats.noOfCustomers}
+        text="Available"
+        value={stats.available}
         isLoading={isLoading}
       />
       <StatBlock
@@ -42,7 +42,7 @@ const DashBoardStats = ({
           </div>
         }
         text="Withdrawn"
-        value={stats.noOfTransactions}
+        value={stats.withdrawn}
         isLoading={isLoading}
       />
     </div>

@@ -1,35 +1,53 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import PlanCard from "../../../components/Billing/PlanCard";
 import TableComp from "../../../components/layout/Table/TableComp";
-import { initPaginationData } from "../../../utils/constants";
+import {
+  depositsStatusOptions,
+  initPaginationData,
+} from "../../../utils/constants";
+import { useAppStore } from "../../../store/store";
+import { plans } from "../../../enums/plans";
+import { getBillingsById } from "../../../services/plans/plans.service";
+import { handleParams } from "../../../utils/helper";
+import { QueryKeys } from "../../../enums/react-query";
+import {
+  SortOrder,
+  TPagination,
+  TSortDropItem,
+  TStatusDropItem,
+} from "../../../types/types";
+import { useQuery } from "@tanstack/react-query";
 
 const basicPlanGains = [
-  "6% fee on ransactions",
-  "Lease Managements",
-  "Reports",
-  "Device Imports",
-  "24/7 Support",
+  "Interest: 200%",
+  "Min: $1000",
+  "Max: $2999",
+  "Duration: 24hrs",
 ];
 const standardPlanGains = [
-  "5% fee on ransactions",
-  "Lease Managements",
-  "Reports",
-  "Device Imports",
-  "24/7 Support",
+  "Interest: 300%",
+  "Min: $3000",
+  "Max: $7499",
+  "Duration: 24hrs",
 ];
-const premiumPlanGains = [
-  "4% fee on ransactions",
-  "Lease Managements",
-  "Reports",
-  "Device Imports",
-  "24/7 Support",
+const goldPlanGains = [
+  "Interest: 400%",
+  "Min: $7500",
+  "Max: $14999",
+  "Duration: 24hrs",
+];
+const platinumPlanGains = [
+  "Interest: 500%",
+  "Min: $15000",
+  "Max: $unlimited",
+  "Duration: 24hrs",
 ];
 
 const columns = [
   {
     title: "TRANSACTION ID",
-    dataIndex: "transaction_ID",
-    key: "transaction_ID",
+    dataIndex: "id",
+    key: "id",
   },
   {
     title: "DATE",
@@ -38,13 +56,13 @@ const columns = [
   },
   {
     title: "AMOUNT",
-    dataIndex: "amount",
-    key: "amount",
+    dataIndex: "amountInUsd",
+    key: "amountInUsd",
   },
   {
     title: "PLAN",
-    dataIndex: "plan",
-    key: "plan",
+    dataIndex: "planName",
+    key: "planName",
   },
   {
     title: "STATUS",
@@ -53,32 +71,70 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    transaction_ID: "Jane Karmel",
-    date: "10/04/2024",
-    amount: "100 USDC",
-    plan: "Premium Plan",
-    status: "Completed",
-    _id: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    key: "2",
-    transaction_ID: "Jane Karmel",
-    date: "10/04/2024",
-    amount: "50 USDC",
-    plan: "Standard Plan",
-    status: "Completed",
-    _id: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+// const data = [
+//   {
+//     key: "1",
+//     transaction_ID: "Jane Karmel",
+//     date: "10/04/2024",
+//     amount: "100 USDC",
+//     plan: "Premium Plan",
+//     status: "Completed",
+//     _id: "",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   },
+//   {
+//     key: "2",
+//     transaction_ID: "Jane Karmel",
+//     date: "10/04/2024",
+//     amount: "50 USDC",
+//     plan: "Standard Plan",
+//     status: "Completed",
+//     _id: "",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   },
+// ];
 
+const pageLimit = 10;
 function Billing(): ReactElement {
+  const userData = useAppStore((state) => state.userData);
+  const [status, setStatus] = useState<TStatusDropItem>(
+    depositsStatusOptions[0]
+  );
+  const [activeSort, setActiveSort] = useState<TSortDropItem>({
+    order: SortOrder.DESC,
+    field: "createdAt",
+  });
+  const [pageNo, setPageNo] = useState(1);
+  const [paginationData, setPaginationData] =
+    useState<TPagination>(initPaginationData);
+  const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
+  const [lastVisible, setLastVisible] = useState();
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: [
+      QueryKeys.GETBILLINGTABLEDATA,
+      activeSort,
+      status,
+      { pageNo, pageLimit },
+      searchValue,
+      userData.id,
+    ],
+    queryFn: async (params) => {
+      const { sort, filter, pagination, search } = handleParams(params);
+
+      // console.log({ sort, filter, pagination, search });
+      const res = await getBillingsById(userData.id, {
+        sort,
+        pagination,
+        lastVisible,
+      });
+      setPaginationData(res.data.pagination || initPaginationData);
+      setLastVisible(res.data.pagination?.lastVisible);
+      return res.data;
+    },
+  });
   return (
     <div className="mt-[32px] max-sm:mt-[11px] flex flex-col  w-full mb-[100px]">
       <div className="p-[30px] max-sm:p-[20px] flex flex-col gap-[18px] w-full max-w-fit max-md:max-w-full  border-[1px] border-[#E5E7EB] rounded-[8px] ">
@@ -90,25 +146,36 @@ function Billing(): ReactElement {
         </p>
         <div className="mt-[10px] flex w-full gap-[33px] flex-wrap justify-center">
           <PlanCard
-            name={"Basic"}
+            name={plans.BASIC}
             title={"Perfect Plan for Starters"}
-            isActive={true}
-            amount={0}
+            isActive={userData.current_plan === plans.BASIC}
+            amount={1000}
+            duration={"24hrs"}
             gains={basicPlanGains}
           />
           <PlanCard
-            name={"Standard"}
+            name={plans.STANDARD}
             title={"Perfect Plan for Starters"}
-            isActive={false}
-            amount={50}
+            isActive={userData.current_plan === plans.STANDARD}
+            amount={3000}
+            duration={"24hrs"}
             gains={standardPlanGains}
           />
           <PlanCard
-            name={"Premium"}
+            name={plans.GOLD}
             title={"Perfect Plan for Starters"}
-            isActive={false}
-            amount={100}
-            gains={premiumPlanGains}
+            isActive={userData.current_plan === plans.GOLD}
+            amount={7000}
+            duration={"24hrs"}
+            gains={goldPlanGains}
+          />
+          <PlanCard
+            name={plans.PLATINUM}
+            title={"Perfect Plan for Starters"}
+            isActive={userData.current_plan === plans.PLATINUM}
+            amount={15000}
+            duration={"24hrs"}
+            gains={platinumPlanGains}
           />
         </div>
       </div>
@@ -118,7 +185,7 @@ function Billing(): ReactElement {
         </h5>
         <TableComp
           columns={columns}
-          data={data}
+          data={data?.payload}
           isLoading={false}
           allCheckedIDs={[]}
           setAllCheckedIDs={() => {}}

@@ -6,38 +6,37 @@ import { useAppStore } from "../../store/store";
 import { TUpdateUser } from "../../types/types";
 import EditBtn from "../Elements/EditBtn";
 import { countriesObj } from "../../mock/country";
+import { updateUserData } from "../../services/user/user.service";
 
 const ProfilePageAccountDetails = () => {
   const userData = useAppStore((state) => state.userData);
   const [form] = Form.useForm();
   const [initValues, setInitValues] = useState({
     fullName: userData.fullName,
-    paymentId: userData.paymentId,
     phone: userData.phone,
     country: userData.country,
   });
   const [isEditMode, setIsEditMode] = useState(false);
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-  // const { mutate: updateDistributorMutate, isPending } = useMutation({
-  //   mutationKey: [MutationKeys.UPDATEDISTRIBUTOR],
-  //   mutationFn: (values: TUpdateUser) => {
-  //     const { paymentId, ...restValues } = values;
-  //     return updateDistributor(restValues);
-  //   },
-  //   onSuccess: (data) => {
-  //     queryClient.invalidateQueries({
-  //       queryKey: [`${QueryKeys.GETDISTRIBUTOR}`],
-  //     });
-  //     setIsEditMode(false);
-  //   },
-  //   onError: (error) => {
-  //     // console.log(error);
-  //   },
-  // });
+  const { mutate: updateDistributorMutate, isPending } = useMutation({
+    mutationKey: [MutationKeys.UPDATEUSER],
+    mutationFn: (values: TUpdateUser) => {
+      return updateUserData(values, userData.id);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETUSERDATA}`],
+      });
+      setIsEditMode(false);
+    },
+    onError: (error) => {
+      // console.log(error);
+    },
+  });
 
   const onFinish = (values: TUpdateUser) => {
-    // updateDistributorMutate(values);
+    updateDistributorMutate(values);
   };
 
   const cancelChanges = () => {
@@ -49,13 +48,11 @@ const ProfilePageAccountDetails = () => {
   useEffect(() => {
     setInitValues({
       fullName: userData.fullName,
-      paymentId: userData.paymentId,
       phone: userData.phone,
       country: userData.country,
     });
     form.setFieldsValue({
       fullName: userData.fullName,
-      paymentId: userData.paymentId,
       phone: userData.phone,
       country: userData.country,
     });
@@ -110,7 +107,7 @@ const ProfilePageAccountDetails = () => {
             >
               <Input
                 className="Noto h-[44px] !py-[12px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] font-[300] !text-[#667085] "
-                placeholder="E.g +234 810 000 0000"
+                placeholder="E.g +1 (000) 000-0000"
                 readOnly={!isEditMode}
               />
             </Form.Item>
@@ -141,25 +138,6 @@ const ProfilePageAccountDetails = () => {
                 disabled={!isEditMode}
               />
             </Form.Item>
-
-            <Form.Item
-              name="paymentId"
-              label="Payment ID"
-              tooltip="this is your payment ID"
-              className="flex-1"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input payment ID!",
-                },
-              ]}
-            >
-              <Input
-                readOnly={true}
-                className="Noto h-[44px] !py-[12px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] font-[300] !text-[#667085] "
-                placeholder="E.g 000"
-              />
-            </Form.Item>
           </div>
         </div>
 
@@ -179,8 +157,7 @@ const ProfilePageAccountDetails = () => {
                   type="primary"
                   htmlType="submit"
                   className="Noto w-fit h-[40px] flex items-center justify-center bg-darkGreen hover:!bg-darkGreen hover:opacity-[0.8] font-[500] text-[14px] 2xl:text-[16px] rounded-[8px]  "
-                  // loading={isPending}
-                  loading={false}
+                  loading={isPending}
                 >
                   Save Changes
                 </Button>

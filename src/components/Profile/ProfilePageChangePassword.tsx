@@ -2,23 +2,23 @@ import { Button, Form, Input } from "antd";
 import { TUpdateUserPassword } from "../../types/types";
 import { useMutation } from "@tanstack/react-query";
 import { MutationKeys } from "../../enums/react-query";
+import { useAppStore } from "../../store/store";
+import { updateUserPassword } from "../../services/user/user.service";
 
 const ProfilePageChangePassword = () => {
-  // const { mutate: updateDistributorPasswordMutate, isPending } = useMutation({
-  //   mutationKey: [MutationKeys.UPDATEDISTRIBUTORSENDPASSWORDLINK],
-  //   mutationFn: (values: TUpdateUserPassword) =>
-  //     sendUpdateDistributorPasswordMail(
-  //       values.currentPassword,
-  //       values.newPassword
-  //     ),
-  //   onSuccess: (data) => {},
-  //   onError: (error) => {
-  //     // console.log(error);
-  //   },
-  // });
+  const userData = useAppStore((state) => state.userData);
+  const { mutate: updateDistributorPasswordMutate, isPending } = useMutation({
+    mutationKey: [MutationKeys.UPDATEUSERPASSWORD],
+    mutationFn: (values: TUpdateUserPassword) =>
+      updateUserPassword(values, userData),
+    onSuccess: (data) => {},
+    onError: (error) => {
+      // console.log(error);
+    },
+  });
 
   const onFinish = (values: TUpdateUserPassword) => {
-    // updateDistributorPasswordMutate(values);
+    updateDistributorPasswordMutate(values);
   };
 
   return (
@@ -106,8 +106,7 @@ const ProfilePageChangePassword = () => {
             type="primary"
             htmlType="submit"
             className="Noto w-fit h-[40px] flex items-center justify-center bg-darkGreen hover:!bg-darkGreen hover:opacity-[0.8] font-[500] text-[14px] 2xl:text-[16px] rounded-[8px]  "
-            // loading={isPending}
-            loading={false}
+            loading={isPending}
           >
             Change Password
           </Button>

@@ -26,3 +26,10 @@ export enum ProtectedRoutesUrl {
   BILLING = "/account/settings/billing",
   ACCOUNTS = "/account/settings/accounts",
 }
+export enum AdminRoutesUrl {
+  ADMIN = "/admin",
+  USERS = "/admin",
+  TRADES = "/admin/trades",
+  DEPOSITS = "/admin/deposits",
+  WITHDRAWALS = "/admin/withdrawals",
+}

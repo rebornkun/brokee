@@ -1,12 +1,26 @@
 import { create } from "zustand";
-import { StoreType, TDrawerType, TModalType, TUserData } from "./store.types";
+import {
+  StoreType,
+  TDrawerType,
+  TModalType,
+  TUserData,
+  TUserWallet,
+} from "./store.types";
 import { TFiatAccount, TUsdcAccount } from "../types/types";
-import { initUserData } from "../utils/constants";
+import { initUserData, initWalletData } from "../utils/constants";
 
 export const useAppStore = create<StoreType>((set) => ({
   userData: initUserData,
   setUserData: (value: TUserData) => {
     set({ userData: value });
+  },
+  userIsAdmin: false,
+  setUserIsAdmin: (value: boolean) => {
+    set({ userIsAdmin: value });
+  },
+  userWallet: initWalletData,
+  setUserWallet: (value: TUserWallet) => {
+    set({ userWallet: value });
   },
   userDataIsLoading: false,
   setUserDataIsLoading: (value: boolean) => {

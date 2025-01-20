@@ -62,11 +62,11 @@ function TableWithSearch({
   const deleteBtnAction = () => {
     if (allCheckedIDs.length >= 1) {
       if (pathname === "/customers") {
-        setModalType("deleteCustomers");
+        // setModalType("deleteCustomers");
       } else if (pathname === "/payment-plans") {
-        setModalType("deletePaymentPlans");
+        // setModalType("deletePaymentPlans");
       } else if (pathname === "/devices") {
-        setModalType("deleteDevices");
+        // setModalType("deleteDevices");
       }
 
       setModalIsOpen(true);
@@ -90,7 +90,7 @@ function TableWithSearch({
             !hasDeleteBtn && "justify-between"
           }`}
         >
-          <SearchInput setSearchValue={setSearchValue} setPageNo={setPageNo} />
+          {/* <SearchInput setSearchValue={setSearchValue} setPageNo={setPageNo} /> */}
 
           <div className={`flex gap-[10px]`}>
             {hasStatusBtn && (

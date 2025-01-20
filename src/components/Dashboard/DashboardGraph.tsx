@@ -25,7 +25,7 @@ export const DashboardGraph = ({
     options: {
       chart: {
         width: 500,
-        id: "eazipower-revenue-overview",
+        id: "tradex-revenue-overview",
         type: "area",
         height: 320,
         toolbar: { show: false },
@@ -44,7 +44,7 @@ export const DashboardGraph = ({
               text: new Date().toLocaleString("default", { month: "long" }),
               style: {
                 color: "#fff",
-                background: "#FFBB43",
+                background: "#00BD6F",
               },
             },
           },
@@ -70,10 +70,10 @@ export const DashboardGraph = ({
             `${currencySymbol ?? ""}${currencyFormatter(value)}`,
         },
       },
-      colors: ["#ffa300"],
+      colors: ["#00BD6F"],
       fill: {
         type: "gradient",
-        colors: ["#FFBB43", "#F8F2E8"],
+        colors: ["#00BD6F", "#F8F2E8"],
         gradient: {
           shadeIntensity: 1,
           opacityFrom: 0.8,

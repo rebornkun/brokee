@@ -18,6 +18,10 @@ export interface StoreType {
 export interface StoreType {
   userData: TUserData;
   setUserData: (value: TUserData) => void;
+  userIsAdmin: boolean;
+  setUserIsAdmin: (value: boolean) => void;
+  userWallet: TUserWallet;
+  setUserWallet: (value: TUserWallet) => void;
   userDataIsLoading: boolean;
   setUserDataIsLoading: (value: boolean) => void;
   hideAccountBalance: boolean;
@@ -45,31 +49,26 @@ export interface StoreType {
 }
 
 export type TDrawerType =
+  | "makeDeposit"
+  | "viewDeposit"
   | "dashboard"
-  | "addCustomer"
   | "customer"
   | "none"
   | "createPaymentPlan"
   | "myPlan"
-  | "addDevice"
-  | "devices"
+  | "copyTrade"
   | "addFiatAccount"
-  | "withdraw";
+  | "withdraw"
+  //admin
+  | "addTrader"
+  | "createTrade"
+  | "addCurrency";
 
 export type TModalType =
   | "none"
-  | "AddMultipleDevicesModal"
-  | "deleteDevices"
-  | "deleteDevice"
-  | "deleteCustomers"
-  | "deleteCustomer"
-  | "deletePaymentPlans"
-  | "deletePaymentPlan"
   | "reportTransaction"
   | "reportWithdrawal"
-  | "linkDevice"
-  | "unLinkDevice"
-  | "deleteDistributor"
+  | "deleteUser"
   | "addUsdcAccount"
   | "setActiveFiatAccount"
   | "setActiveUsdcAccount"
@@ -77,19 +76,36 @@ export type TModalType =
   | "deleteUsdcAccount";
 
 export type TUserData = {
-  avatar: string;
   accountPlan: string;
-  accounts: TFiatAccount[];
-  createdAt: Date;
+  avatar: string;
   deleted: boolean;
-  email: string;
-  fullName: string;
-  password: string;
-  paymentId: string;
   phone: string;
   role: string;
+  address: string;
+  city: string;
   country: string;
+  createdAt: Date;
+  current_plan: string;
+  current_plan_expires: any;
+  my_trader: string;
+  email: string;
+  fullName: string;
+  id: string;
+  password: string;
+  state: string;
   updatedAt: Date;
-  __v: number;
-  _id: string;
+  verified: boolean;
+};
+
+export type TUserWallet = {
+  available: number;
+  createdAt: Date;
+  currency: string;
+  earned: number;
+  id: string;
+  paid: number;
+  updatedAt: Date;
+  usd: number;
+  wallet_address: string;
+  userId: string;
 };

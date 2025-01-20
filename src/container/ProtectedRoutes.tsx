@@ -1,22 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { Suspense, useEffect, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import { ProtectedRoutesUrl } from "./Routes";
 import SideBar from "../components/layout/SideBar";
 import TopBar from "../components/layout/TopBar";
-import Trades from "../pages/In-app/Trades/Trades";
-import Deposits from "../pages/In-app/Deposits/Deposits";
-import Withdrawals from "../pages/In-app/Withdrawals/Withdrawals";
-import { SettingsRouter } from "./SettingsRouter";
-import Profile from "../pages/In-app/Settings/Profile";
-import Messages from "../pages/In-app/Settings/Messages";
-import Billing from "../pages/In-app/Settings/Billing";
-import { useQuery } from "@tanstack/react-query";
-import { auth } from "../config/firebase";
-import { useAppStore } from "../store/store";
-import { QueryKeys } from "../enums/react-query";
-import { getUserData, logOutUser } from "../services/auth/auth.service";
 import { ToastStatus } from "../enums/react-hot-toast";
-import { getAuth } from "firebase/auth";
+import { QueryKeys } from "../enums/react-query";
+import Deposits from "../pages/In-app/Deposits/Deposits";
+import Billing from "../pages/In-app/Settings/Billing";
+import Messages from "../pages/In-app/Settings/Messages";
+import Profile from "../pages/In-app/Settings/Profile";
+import Trades from "../pages/In-app/Trades/Trades";
+import Withdrawals from "../pages/In-app/Withdrawals/Withdrawals";
+import { logOutUser } from "../services/auth/auth.service";
+import { getUserData, getUserWallet } from "../services/user/user.service";
+import { useAppStore } from "../store/store";
+import { ProtectedRoutesUrl } from "./Routes";
+import { SettingsRouter } from "./SettingsRouter";
+import Drawer from "../components/layout/Drawer/Drawer";
+import Modal from "../components/layout/Modal/Modal";
+import Account from "../pages/In-app/Settings/Account";
+import { validatePlan } from "../services/plans/plans.service";
 
 const DashBoard = React.lazy(
   () => import("../pages/In-app/DashBoard/DashBoard")
@@ -27,6 +30,10 @@ const WebRouter = () => {
   const localData = localStorage.getItem("user");
   const [isAuth, setIsAuth] = useState(localData);
   const setUserData = useAppStore((state) => state.setUserData);
+  const setUserWallet = useAppStore((state) => state.setUserWallet);
+  const setUserDataIsLoading = useAppStore(
+    (state) => state.setUserDataIsLoading
+  );
   const navigate = useNavigate();
 
   //get user data
@@ -37,8 +44,52 @@ const WebRouter = () => {
   } = useQuery({
     queryKey: [QueryKeys.GETUSERDATA],
     queryFn: async () => {
+      setUserDataIsLoading(true);
       const res = await getUserData();
-      if (res.data.payload) setUserData(res.data.payload);
+      if (res.data.payload) {
+        //check if user is suspended
+        if (
+          res.data.payload?.state === "inactive" ||
+          res.data.payload?.role === "ADMIN"
+        ) {
+          logOutUser();
+        }
+        setUserData(res.data.payload);
+      }
+      setUserDataIsLoading(false);
+      return res.data;
+    },
+  });
+
+  //get user wallet data
+  const {
+    // isLoading,
+    // error,
+    // data
+  } = useQuery({
+    queryKey: [QueryKeys.GETUSERWALLETDATA],
+    queryFn: async () => {
+      setUserDataIsLoading(true);
+      const res = await getUserWallet();
+      if (res.data.payload) {
+        setUserWallet(res.data.payload);
+      }
+      setUserDataIsLoading(false);
+      return res.data;
+    },
+  });
+
+  //validate user plan
+  const {
+    // isLoading,
+    // error,
+    // data
+  } = useQuery({
+    queryKey: [QueryKeys.VALIDATEUSERPLAN],
+    queryFn: async () => {
+      setUserDataIsLoading(true);
+      const res = await validatePlan();
+      setUserDataIsLoading(false);
       return res.data;
     },
   });
@@ -68,6 +119,8 @@ const WebRouter = () => {
               <Outlet />
             </div>
           </div>
+          <Drawer />
+          <Modal />
         </div>
       </Suspense>
     </>
@@ -129,11 +182,11 @@ export const ProtectedRoutes = [
             name: "Billing",
             element: <Billing />,
           },
-          // {
-          //   path: ProtectedRoutesUrl.ACCOUNT,
-          //   name: "Account",
-          //   element: <Account />,
-          // },
+          {
+            path: ProtectedRoutesUrl.ACCOUNTS,
+            name: "Account",
+            element: <Account />,
+          },
         ],
       },
       {

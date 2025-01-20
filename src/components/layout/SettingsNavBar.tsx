@@ -6,10 +6,10 @@ const SettingsNavBar = () => {
     <nav className="w-full h-fit flex flex-col justify-between ">
       <div className="flex gap-[46px] max-md:gap-[20px] overflow-auto">
         <SettingsNavBarItem name="Profile" route={ProtectedRoutesUrl.PROFILE} />
-        <SettingsNavBarItem
+        {/* <SettingsNavBarItem
           name="Messages"
           route={ProtectedRoutesUrl.MESSAGES}
-        />
+        /> */}
         {/* <SettingsNavBarItem
           name="Notifications"
           route={ProtectedRoutesUrl.NOTIFICATIONS}

@@ -7,11 +7,8 @@ import Skel from "./Skel";
 import TrData from "./TrData";
 import {
   tooltipTH,
-  tooltipTHCustomersValue,
   tooltipTHDashboardValue,
-  tooltipTHDevicesValue,
-  tooltipTHPaymentPlansValue,
-  tooltipTHTransactionValue,
+  tooltipTHDepositValue,
 } from "./tooltip";
 import { useLocation } from "react-router-dom";
 import { ProtectedRoutesUrl } from "../../../container/Routes";
@@ -45,17 +42,10 @@ function TableComp({
   const { pathname } = useLocation();
   const getToolTipValue = (value: string) => {
     if (pathname === ProtectedRoutesUrl.DEPOSITS) {
-      return (tooltipTHDevicesValue as any)[value];
+      return (tooltipTHDepositValue as any)[value];
     } else if (pathname === ProtectedRoutesUrl.WITHDRAWALS) {
       return (tooltipTHDashboardValue as any)[value];
     }
-    // else if (pathname === ProtectedRoutes.CUSTOMERS) {
-    //   return (tooltipTHCustomersValue as any)[value];
-    // } else if (pathname === ProtectedRoutes.PAYMENT_PLANS) {
-    //   return (tooltipTHPaymentPlansValue as any)[value];
-    // } else if (pathname === ProtectedRoutes.TRANSACTIONS) {
-    //   return (tooltipTHTransactionValue as any)[value];
-    // }
   };
 
   return (

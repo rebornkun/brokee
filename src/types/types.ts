@@ -1,3 +1,6 @@
+import { OrderByDirection } from "firebase/firestore";
+import { TUserData } from "../store/store.types";
+
 export type TGraphTimeline = "daily" | "monthly" | "yearly";
 export type TChartTimeline = "weekly" | "monthly" | "yearly";
 
@@ -8,7 +11,7 @@ export type TStatusDropItem = {
 
 export type TSortDropItem = {
   field?: string;
-  order?: SortOrder;
+  order?: SortOrder | OrderByDirection;
   key?: string;
 };
 
@@ -35,6 +38,7 @@ export enum DepositStatus {
 export enum UsdcChains {
   SOLANA = "solana",
   STELLAR = "stellar",
+  BTC = "BTC",
 }
 
 export type TPagination = {
@@ -43,13 +47,14 @@ export type TPagination = {
   totalItems: number;
   totalPages: number;
   totalFilteredItems: number;
+  lastVisible?: any;
 };
 
 export type TNotification = "success" | "info" | "warning" | "error";
 
 // type TTableDataKeys = "key" | "payment_channel" | "amount" | "date" | "status";
 export type TTableData = {
-  _id: string;
+  id: string;
   key: string;
   paymentChannel?: string;
   amount?: number | string;
@@ -65,10 +70,34 @@ export type TTableData = {
   destinationAccount?: TAccount;
   //   paymentInstalments?: TInstallment[];
   //   device?: TDeviceData;
-  //   customer?: TCustomerData;
+  user?: TUserData;
+  accountPlan?: string;
+  deleted?: boolean;
+  phone?: string;
+  role?: string;
+  address?: string;
+  city?: string;
+  current_plan?: string;
+  current_plan_expires?: any;
+  my_trader?: string;
+  password?: string;
+  state?: string;
+  verified?: boolean;
+
   customerId?: string;
-  createdAt: Date;
-  updatedAt: Date;
+
+  TraderName?: string;
+  currencyName?: string;
+  traderId?: string;
+  traderProfitShare?: number;
+  currencyId?: string;
+  currencyImg?: string;
+  creatorId?: string;
+  usersId?: string[];
+  currencyType?: string;
+
+  createdAt: any;
+  updatedAt: any;
 };
 export type TTableDataArr = TTableData[];
 
@@ -122,6 +151,10 @@ export type TUsdcAccountSub = {
   chain: UsdcChains;
   currency: TFAccountCurrencySub;
 };
+export type TAddUsdcAccount = {
+  publicKey: string;
+  chain: UsdcChains;
+};
 
 export type TUsdcAccount = {
   accountData: TUsdcAccountSub;
@@ -142,6 +175,8 @@ export type TPlanDropItem = {
   fullPaymentAmount?: number;
 };
 
+export type TCryptoType = { _id: string | number; name: string; img: string };
+
 export type TRevenueData = {
   totalRevenue: number;
   currencySymbol: string;
@@ -151,15 +186,15 @@ export type TRevenueData = {
   currency: TCurrency;
 };
 
-export type TCurrency = {
-  _id: string;
-  name: string;
-  code: string;
-  country: string;
-  flag: string;
-  rate: number;
-  symbol: string;
-};
+// export type TCurrency = {
+//   _id: string;
+//   name: string;
+//   code: string;
+//   country: string;
+//   flag: string;
+//   rate: number;
+//   symbol: string;
+// };
 
 export type TUpdateUserPassword = {
   currentPassword: string;
@@ -167,14 +202,150 @@ export type TUpdateUserPassword = {
 };
 
 export type TUpdateUser = {
+  deleted?: boolean;
+  state?: string;
   avatar?: string;
+  password?: string;
   fullName?: string;
-  paymentId?: string;
   phone?: string;
   country?: string;
+  address?: string;
+  city?: string;
+  current_plan?: string;
 };
 
 export type TAxisData = {
   xAxis: string[];
   yAxis: number[];
+};
+
+export type TMakeDeposit = {
+  amountInCrypto: number;
+  amountInUsd: number;
+  cryptoType: string;
+  rate: number;
+};
+export type TMakeWithdrawal = {
+  amountInCrypto: number;
+  amountInUsd: number;
+  withdrawalType: string;
+  cryptoType: string;
+  rate: number;
+};
+
+export type TPageParamInput = { pageNo: number; pageLimit: number };
+export type TQueryParams = {
+  queryKey: (
+    | string
+    | TPageParamInput
+    | TStatusDropItem
+    | TSortDropItem
+    | undefined
+  )[];
+};
+
+export type TParams = {
+  sort?: { field?: string; order?: SortOrder | OrderByDirection };
+  filter?: { field?: string; value?: string | number };
+  pagination?: { skip: number; take: number; page: number };
+  search?: { key?: string };
+  lastVisible?: any;
+};
+
+export enum UsdcChainsImg {
+  SOLANA = "https://res.cloudinary.com/dx4trf7im/image/upload/v1723126174/logos/solana-sol-logo_oan2p4.svg",
+  STELLAR = "https://res.cloudinary.com/dx4trf7im/image/upload/v1723126209/logos/stellar-xlm-logo_lawu50.svg",
+}
+
+export type TBuyPlan = {
+  name: string;
+  amountInUsd: number;
+};
+
+export type TTrader = {
+  fullName: string;
+  id: string;
+  imgUrl: string;
+  profitShare: number;
+  winRate: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type TDepositData = {
+  id: string;
+  amountInCrypto: number;
+  amountInUsd: number;
+  cryptoType: string;
+  image: string;
+  payment_type: string;
+  rate: number;
+  status: string;
+  userId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type TCreateTrader = {
+  fullName: string;
+  imgUrl: string;
+  profitShare: number;
+  winRate: number;
+};
+
+export type TCurrencyType = {
+  id: number;
+  name: string;
+};
+
+export type TCurrency = {
+  creatorId: string;
+
+  currencyName: string;
+
+  currencyNameShort: string;
+
+  currencyType: string;
+
+  id: string;
+
+  imgUrl: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type TCreateCurrency = {
+  currencyName: string;
+  currencyNameShort: string;
+  currencyType: string;
+  imgUrl: string;
+};
+
+export type TCreateTrade = {
+  TraderName: string;
+  currencyName: string;
+  amount: number;
+  status: string;
+  traderId: string;
+  traderProfitShare: number;
+  currencyId: string;
+  currencyImg: string;
+};
+
+export type TTrade = {
+  TraderName: string;
+  currencyName: string;
+  amount: number;
+  status: string;
+  traderId: string;
+  traderProfitShare: number;
+  currencyId: string;
+  currencyImg: string;
+  currencyType: string;
+
+  creatorId: string;
+
+  usersId: string[];
+  createdAt: any;
+  updatedAt: any;
 };

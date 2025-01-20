@@ -1,9 +1,9 @@
 export enum CloudinarySubfolders {
   CUSTOMERS = "Customers",
-  DISTRIBUTORS = "Distributors",
+  USERS = "Users",
 }
 
 export enum CloudinaryPresets {
-  CUSTOMER_AVATARS = "tzmwsvpf",
-  DISTRIBUTOR_AVATARS = "mavl7wqv",
+  DEPOSITS = "vlfqvg9c",
+  USERS = "vlfqvg9c",
 }
