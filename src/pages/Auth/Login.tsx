@@ -103,13 +103,13 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
-        <div className="flex gap-4 items-center w-full">
+        {/* <div className="flex gap-4 items-center w-full">
           <div className="h-[1px] flex-1 bg-grey opacity-[0.5] w-full"></div>
           <p>or</p>
           <div className="h-[1px] flex-1 bg-grey opacity-[0.5] w-full "></div>
-        </div>
+        </div> */}
 
-        <GoogleBtn type="Sign in with Google" />
+        {/* <GoogleBtn type="Sign in with Google" /> */}
       </div>
     </div>
   );

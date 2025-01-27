@@ -24,8 +24,10 @@ const FifthSection = () => {
               Our Professional Skills
             </h1>
             <p className="text-[1rem] text-grey text-start font-[400] leading-[1.4]  ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              We combine deep market knowledge, innovative strategies, and
+              personalized guidance to provide the best investment opportunities
+              for you. With our team's expertise, we help you make informed
+              decisions, manage risks, and achieve your financial goals.
             </p>
             <div className="flex flex-col gap-[1.3rem] mb-[2rem]">
               <Load percent={83} title={"Expert Advisors"} color={"nom"} />
@@ -56,7 +58,7 @@ const FifthSection = () => {
           </div>
         </div>
         <div className="flex flex-row flex-wrap mt-[7rem] mb-[-12rem]">
-          <Card
+          {/* <Card
             title={"Financial Trading"}
             text={
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
@@ -82,11 +84,11 @@ const FifthSection = () => {
             svg={<BulbSvg className="w-[40px] h-[40px]" />}
             type={"nom"}
             className="xl:min-w-[33.3%] !border-[0.1px] !rounded-[0px] !rounded-tr-[10px]"
-          />
+          /> */}
           <Card
             title={"Individual Accounts"}
             text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+              "Personalized accounts tailored to your financial goals, giving you flexibility and control."
             }
             svg={<TwoPeopleSvg className="w-[40px] h-[40px]" />}
             type={"nom"}
@@ -95,7 +97,7 @@ const FifthSection = () => {
           <Card
             title={"Manage Risk"}
             text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+              "We provide risk management strategies to minimize losses and protect your investments."
             }
             svg={<MoneyTwoSvg className="w-[40px] h-[40px]" />}
             type={"nom"}
@@ -104,7 +106,7 @@ const FifthSection = () => {
           <Card
             title={"Trading Psychology"}
             text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+              "We help you build the right mindset to stay disciplined and make rational decisions under pressure."
             }
             svg={<HeadsetSvg className="w-[40px] h-[40px]" />}
             type={"other"}

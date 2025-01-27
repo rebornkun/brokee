@@ -52,7 +52,7 @@ const NavBar = () => {
           >
             About
           </Link>
-          <NavDrpDown />
+          {/* <NavDrpDown /> */}
           <Link
             to="/contact"
             className={`font-[500] text-[0.9rem]  ${
@@ -130,7 +130,7 @@ const NavBar = () => {
           >
             About
           </Link>
-          <Link
+          {/* <Link
             to="/services"
             className={`font-[500] text-[0.9rem]  ${
               location.pathname == "/services"
@@ -149,7 +149,7 @@ const NavBar = () => {
             }`}
           >
             Pricing
-          </Link>
+          </Link> */}
           <Link
             to="/contact"
             className={`font-[500] text-[0.9rem]  ${

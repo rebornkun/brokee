@@ -34,34 +34,28 @@ const ForthSection = () => {
             Find Stocks According To Your Criteria
           </h1>
           <p className="max-md:text-[0.8rem] text-[1rem] text-grey text-start font-[400] leading-[1.4] ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna.
+            Customize your search with filters like sector, performance, and
+            risk to discover stocks that align with your investment strategy.
           </p>
           <div className="mt-[1.5rem]">
             <Box
               svg={<SearchMoneySvg className="" />}
               head={"Choose Your Stock"}
-              body={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
-              }
+              body={"Find the perfect stock that fits your investment goals."}
               type={"nom"}
               line={true}
             />
             <Box
               svg={<TradeChartSvg className="" />}
               head={"Detailed Comparison"}
-              body={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
-              }
+              body={"Analyze and compare stocks with in-depth insights."}
               type={"other"}
               line={true}
             />
             <Box
               svg={<MoneySvg className="" />}
               head={"Buy Your Shares"}
-              body={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
-              }
+              body={"Invest confidently with a seamless purchasing process."}
               type={"nom"}
               line={true}
             />
@@ -69,7 +63,7 @@ const ForthSection = () => {
               svg={<SellChartSvg className="" />}
               head={"Sell Anytime"}
               body={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+                "Enjoy the flexibility to sell your shares whenever you choose."
               }
               type={"other"}
               line={false}

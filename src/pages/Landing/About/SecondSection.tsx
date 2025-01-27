@@ -11,8 +11,9 @@ const SecondSection = () => {
             Needs
           </h1>
           <p className="max-md:text-[0.8rem] text-[1rem] text-grey text-start font-[400] leading-[1.4] ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna.
+            Providing Expert Guidance, Innovative Tools, and Unmatched Support
+            to Help You Secure Your Financial Future and Achieve Your Investment
+            Goals with Confidence.
           </p>
           <div className="flex flex-col max-md:gap-[0.7rem] gap-[0.8rem]">
             <div className="flex flex-row w-full">
@@ -36,7 +37,9 @@ const SecondSection = () => {
                     Our Vision
                   </p>
                   <p className="max-md:text-[0.8rem] text-[1rem]  font-[300]">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    To be the most trusted and innovative partner for investors
+                    worldwide, empowering financial success and creating
+                    opportunities for generations to come.
                   </p>
                 </div>
               </div>
@@ -49,7 +52,10 @@ const SecondSection = () => {
                     Our Mission
                   </p>
                   <p className="max-md:text-[0.8rem] text-[1rem]  font-[300]">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    To deliver exceptional investment solutions, cutting-edge
+                    tools, and unparalleled service, enabling our clients to
+                    achieve their financial goals through informed decisions and
+                    strategic growth.
                   </p>
                 </div>
               </div>

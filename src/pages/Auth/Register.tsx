@@ -221,13 +221,13 @@ const Register = () => {
             </Button>
           </Form.Item>
         </Form>
-        <div className="Montserrat flex gap-4 items-center w-full">
+        {/* <div className="Montserrat flex gap-4 items-center w-full">
           <div className="h-[1px] flex-1 bg-grey opacity-[0.5] w-full"></div>
           <p>or</p>
           <div className="h-[1px] flex-1 bg-grey opacity-[0.5] w-full "></div>
-        </div>
+        </div> */}
 
-        <GoogleBtn type="Sign up with Google" />
+        {/* <GoogleBtn type="Sign up with Google" /> */}
       </div>
     </div>
   );

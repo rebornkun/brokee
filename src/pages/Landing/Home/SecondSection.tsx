@@ -5,13 +5,13 @@ import desktopTrade from "../../../assets/img/desktopTrade.png";
 
 const SecondSection = () => {
   return (
-    <section className="flex pb-[8.5rem]">
+    <section className="flex pb-[4.5rem]">
       <div className="container max-md:px-[15px] mx-auto">
         <div className="flex gap-[2rem] bg-white p-[1rem] lg:p-[2rem] mt-[-6rem] flex-wrap">
           <Card
             title={"Ratio Trend Chart"}
             text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+              "Track the performance of your investments with our dynamic Ratio Trend Charts. Gain insights into key financial metrics over time, helping you make data-driven decisions with confidence."
             }
             svg={<BoardSvg className="w-[40px] h-[40px]" />}
             type="nom"
@@ -19,7 +19,7 @@ const SecondSection = () => {
           <Card
             title={"Fund Security"}
             text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+              "Your investments are safe with us. Our advanced security protocols and compliance standards ensure your funds are protected at every step."
             }
             svg={<SecuritySvg className="w-[40px] h-[40px]" />}
             type="other"
@@ -27,7 +27,7 @@ const SecondSection = () => {
           <Card
             title={"Standard Deviation"}
             text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+              "Understand risk like never before. Our tools provide real-time standard deviation analysis, giving you a clear view of market volatility and investment consistency."
             }
             svg={<ChartSvg className="w-[40px] h-[40px]" />}
             type="nom"
@@ -40,8 +40,9 @@ const SecondSection = () => {
               Needs
             </h1>
             <p className="text-[1rem] text-grey text-start font-[400] leading-[1.4] ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna.
+              Providing Expert Guidance, Innovative Tools, and Unmatched Support
+              to Help You Secure Your Financial Future and Achieve Your
+              Investment Goals with Confidence.
             </p>
             <div className="flex flex-row max-lg:flex-col max-lg:items-start w-full justify-between  items-center">
               <h5 className="whitespace-nowrap font-[600] text-[1.3rem] max-w-[100px]">
@@ -49,8 +50,9 @@ const SecondSection = () => {
               </h5>
               <div className="bg-lightGrey w-[1px] h-full"></div>
               <p className="text-[1rem] text-grey text-start font-[400] leading-[1.4] max-w-[320px]">
-                Accusamus et iusto odio dignissimos ducimus qui blanditiis
-                praesentium.
+                To be the most trusted and innovative partner for investors
+                worldwide, empowering financial success and creating
+                opportunities for generations to come.
               </p>
             </div>
             <div className="flex flex-row max-lg:flex-col max-lg:items-start w-full justify-between  items-center">
@@ -59,7 +61,9 @@ const SecondSection = () => {
               </h5>
               <div className="bg-lightGrey w-[1px] h-full"></div>
               <p className="text-[1rem] text-grey text-start font-[400] leading-[1.4] max-w-[320px]">
-                Perspiciatis unde omnis iste natus error volupta accusantium.
+                To deliver exceptional investment solutions, cutting-edge tools,
+                and unparalleled service, enabling our clients to achieve their
+                financial goals through informed decisions and strategic growth.
               </p>
             </div>
             <div className="flex gap-[0.7rem] mt-2">

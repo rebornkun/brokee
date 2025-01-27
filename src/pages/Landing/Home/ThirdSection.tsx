@@ -10,25 +10,27 @@ const ThirdSection = () => {
             The Best Investment Learning Solution
           </h1>
           <p className="max-lg:max-w-full max-w-[50%] text-justify text-center text-lightGrey">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Empowering you with the knowledge, tools, and insights to make
+            confident and informed investment decisions. Transform your
+            financial future with our expert-guided resources and hands-on
+            learning experience.
           </p>
           <div className="flex flex-row gap-[1.5rem] w-full mt-[1.7rem] flex-wrap justify-center">
             <div className="flex-1 min-w-[200px] max-w-[200px] max-md:max-w-full lg:max-w-full h-[125px] border-[1px] border-[#FFFFFF47] bg-[#FDFDFD1A] rounded-[5px] flex flex-col items-center justify-center">
               <h4 className="text-[2.7rem] max-md:text-[2rem] text-white font-[700] leading-[1.2] flex items-center gap-[10px]">
-                27 <span className="text-green text-[1.5rem]">+</span>
+                17 <span className="text-green text-[1.5rem]">+</span>
               </h4>
               <p className="text-grey">Years Experience</p>
             </div>
             <div className="flex-1 min-w-[200px] max-w-[200px] max-md:max-w-full  lg:max-w-full h-[125px] border-[1px] border-[#FFFFFF47] bg-[#FDFDFD1A] rounded-[5px] flex flex-col items-center justify-center">
               <h4 className="text-[2.7rem] max-md:text-[2rem] text-white font-[700] leading-[1.2] flex items-center gap-[10px]">
-                924 <span className="text-green text-[1.5rem]">+</span>
+                324 <span className="text-green text-[1.5rem]">+</span>
               </h4>
               <p className="text-grey">Tutorial Video</p>
             </div>
             <div className="flex-1 min-w-[200px] max-w-[200px] max-md:max-w-full lg:max-w-full h-[125px] border-[1px] border-[#FFFFFF47] bg-[#FDFDFD1A] rounded-[5px] flex flex-col items-center justify-center">
               <h4 className="text-[2.7rem] max-md:text-[2rem] text-white font-[700] leading-[1.2] flex items-center gap-[10px]">
-                678 <span className="text-green text-[1.5rem]">+</span>
+                1678 <span className="text-green text-[1.5rem]">+</span>
               </h4>
               <p className="text-grey">People Join</p>
             </div>
@@ -53,7 +55,7 @@ const ThirdSection = () => {
               </div>
             </div>
             <div className="bg-green h-[95px] w-[120px] cursor-pointer flex justify-center items-center hover:opacity-[0.9] rounded-br-[5px]">
-              <PlaySvg className="h-[50px] w-[70px]" />
+              {/* <PlaySvg className="h-[50px] w-[70px]" /> */}
             </div>
           </div>
         </div>

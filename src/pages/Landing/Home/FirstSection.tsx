@@ -47,8 +47,8 @@ const FirstSection = () => {
               Learn The Best Investments With Expert Advisors
             </h1>
             <p className="text-[1.1rem] text-grey text-start font-[400] leading-[1.5]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit sedo
-              eiusmod tempor incididunt ut labore magna aliqua.
+              We have professional traders and world class Trading AIs that run
+              our automated trading.
             </p>
             <div className="flex flex-row items-center gap-8 mt-[1.3rem]">
               <BouncingBtn />

@@ -92,10 +92,9 @@ const ForthSection = ({ padding }: { padding: string }) => {
               How To Start Trading Stocks As A Complete Beginner
             </h1>
             <p className="line-clamp-2 text-grey font-[300] text-justify">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusant doloremque laudatium totam rem aperiam vitae ullamcorper.
-              Ut enim ad minim veniam, quis nostrud exercitation dolore magna
-              aliqua aliqua aliqua aliqua
+              Getting started with stock trading can seem intimidating, but
+              breaking the process into clear steps can help you navigate the
+              journey with confidence
             </p>
             <BouncingBtn />
           </div>

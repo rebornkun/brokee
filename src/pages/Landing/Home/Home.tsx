@@ -1,3 +1,4 @@
+import Certificate from "./Certificate";
 import FifthSection from "./FifthSection";
 import FirstSection from "./FirstSection";
 import ForthSection from "./ForthSection";
@@ -10,6 +11,7 @@ const Home = () => {
     <>
       <FirstSection />
       <SecondSection />
+      <Certificate />
       <ThirdSection />
       <ForthSection />
       <FifthSection />

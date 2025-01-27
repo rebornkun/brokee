@@ -13,35 +13,29 @@ const SixthSection = ({ padding }: { padding: string }) => {
               Our Clients Say About Tradex
             </h1>
             <p className="max-md:text-[0.8rem] text-[1rem] text-grey text-start font-[300] leading-[1.5] ">
-              Lorem ipsum dolor sit amet, consectet adipis cing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam incididunt.
+              At Tradex, we pride ourselves on providing exceptional tools,
+              insights, and support to help our clients succeed in the market.
+              Here’s what they have to say about their experience with us.
             </p>
             <BouncingBtn />
           </div>
           <div className="testSlider flex w-full lg:flex-[1_1_65%] relative flex-row gap-[2.5rem] py-[1rem] overflow-x-scroll">
             <Testimonial
-              text={`Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua quis nostrud
-        exercitation`}
-              name="Miya Hansen"
-              role="Manager"
+              text={`Tradex has transformed the way I approach investing. Their tools and insights are invaluable, and the customer support is exceptional.`}
+              name="Sarah"
+              role="Investor"
               img={testOne}
             />
             <Testimonial
-              text={`Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua quis nostrud
-        exercitation`}
-              name="Liya Pickett"
-              role="Entrepreneur"
+              text={`Thanks to Tradex, I feel confident navigating the markets. Their risk management strategies have made a huge difference in my trading success."`}
+              name="Lydia"
+              role="Trader"
               img={testThree}
             />
             <Testimonial
-              text={`Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua quis nostrud
-        exercitation`}
-              name="Shawn Beltran"
-              role="Programmer"
+              text={`Tradex offers a seamless experience. The platform is easy to use, and the educational resources are top-notch.`}
+              name=" Emily"
+              role="Beginner Investor"
               img={testTwo}
             />
           </div>
@@ -53,8 +47,9 @@ const SixthSection = ({ padding }: { padding: string }) => {
               Take Time To Learn Investing
             </h1>
             <p className="lg:max-w-[65%] text-justify text-center text-lightGrey mb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Investing is a powerful way to build wealth. By learning the
+              basics and refining your strategy, you can make informed decisions
+              and reach your financial goals confidently.
             </p>
             <BouncingBtn type="INVEST NOW" />
           </div>
