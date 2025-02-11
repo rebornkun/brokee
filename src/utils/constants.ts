@@ -557,22 +557,22 @@ export const cryptoTypeArr: TCryptoType[] = [
   {
     _id: "BTC",
     name: "BTC",
-    img: "/src/assets/coins/Bitcoin.png",
+    img: "../../coins/Bitcoin.png",
   },
   {
     _id: "ETH",
     name: "ETH",
-    img: "/src/assets/coins/eth.svg",
+    img: "../../coins/eth.svg",
   },
   {
     _id: "USDT",
     name: "USDT",
-    img: "/src/assets/coins/usdt.svg",
+    img: "../../coins/usdt.svg",
   },
   {
     _id: "BNB",
     name: "BNB",
-    img: "/src/assets/coins/bnb.png",
+    img: "../../coins/bnb.png",
   },
 ];
 

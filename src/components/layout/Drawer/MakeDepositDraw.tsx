@@ -203,7 +203,7 @@ const MakeDepositDraw = () => {
               </p>
               <img
                 alt="wallet address"
-                src={`/src/assets/barcodes/${getBarCode(cryptoType)}`}
+                src={`../../../barcodes/${getBarCode(cryptoType)}`}
                 className="w-[50%] max-md:w-[70%] h-fit item-center"
               />
               <div className="flex flex-col gap-2 w-full">

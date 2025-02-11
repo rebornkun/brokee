@@ -52,8 +52,8 @@ function TableComp({
     <>
       <div className="rounded-[8px] shadow border-[0.2px] border-[#E5E7EB] w-full overflow-hidden ">
         <div className="w-full overflow-auto">
-          <table className="w-full ">
-            <thead className="w-full">
+          <table className="w-full relative">
+            <thead className="w-full relative">
               <tr className="bg-[#F9FAFB] h-[50px] w-full ">
                 {columns.map((datum, index) => {
                   return datum.dataIndex === "select" ? (
