@@ -538,6 +538,8 @@ export const initUserData = {
   current_plan_expires: "",
   createdAt: new Date(),
   updatedAt: new Date(),
+  hasBoughtPlanBefore: false,
+  kycDoc: "",
 };
 
 export const initWalletData = {
