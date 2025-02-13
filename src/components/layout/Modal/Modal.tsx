@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useAppStore } from "../../../store/store";
 import DeleteModal from "./DeleteModal";
 import AddUsdcAccountModal from "./AddUsdcAccountModal";
+import KycModal from "./KycModal";
 
 const Modal = () => {
   const modalIsOpen = useAppStore((state) => state.modalIsOpen);
@@ -19,6 +20,8 @@ const Modal = () => {
       return <DeleteModal />;
     } else if (modalType === "addUsdcAccount") {
       return <AddUsdcAccountModal />;
+    } else if (modalType === "kyc") {
+      return <KycModal />;
     }
   };
 

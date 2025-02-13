@@ -19,6 +19,7 @@ const SettingsNavBar = () => {
           name="Accounts/beneficiary"
           route={ProtectedRoutesUrl.ACCOUNTS}
         />
+        <SettingsNavBarItem name="KYC" route={ProtectedRoutesUrl.KYC} />
       </div>
       <div className="w-full h-[1px] bg-[#EAECF0]"></div>
     </nav>

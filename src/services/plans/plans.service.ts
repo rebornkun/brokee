@@ -19,6 +19,7 @@ import { CollectionsEnum } from "../../config/firebase.enum";
 import { TUserData, TUserWallet } from "../../store/store.types";
 import { onAuthStateChanged } from "firebase/auth";
 import { logOutUser } from "../auth/auth.service";
+import { toast } from "sonner";
 
 export const buyPlan = async (
   values: TBuyPlan,
@@ -54,8 +55,9 @@ export const buyPlan = async (
     const currentDate = new Date();
     await updateDoc(doc(userCollectionsRef, id), {
       current_plan: values.name,
+      hasBoughtPlanBefore: true,
       current_plan_expires: new Date(
-        currentDate.setHours(currentDate.getHours() + 24)
+        currentDate.setHours(currentDate.getHours() + 120) //expires in 5 days
       ),
     });
 
@@ -106,11 +108,16 @@ export const validatePlan = async () => {
         let timeNow = new Date().getTime();
         if (timeNow > expiringTime) {
           // remove plan if expired
+          toast.warning("Your plan has expired, please purchase a new one!");
           await updateDoc(doc(userCollectionsRef, userData.id), {
             current_plan: "",
             current_plan_expires: null,
           });
         }
+      } else {
+        toast.warning(
+          "You have no active plan, please purchase one to start making profits!"
+        );
       }
       return CreateDefaultResponse(
         RequestMessage.SUCCESS,

@@ -130,6 +130,25 @@ const AddTraderDraw = () => {
           </Form.Item>
         </div>
 
+        <Form.Item
+          name="minDeposit"
+          label="Min Deposit"
+          rules={[
+            {
+              required: true,
+              message: "Please input min deposit!",
+            },
+          ]}
+          className="flex-1 "
+        >
+          <InputNumber
+            min={0}
+            className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
+            placeholder="Min Deposit"
+            // readOnly={paymentPlanIsLoading}
+          />
+        </Form.Item>
+
         <div className="flex flex-col gap-2 w-full">
           <p className="">Trader Image </p>
           <input

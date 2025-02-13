@@ -11,8 +11,11 @@ const SixthSection = () => {
             Meet Our Expert Advisor
           </h1>
           <p className="text-[1rem] text-grey text-start font-[300] leading-[1.5] ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            At Tradex, our Expert Advisors, combines years of industry
+            experience with cutting-edge tools to help you make smarter
+            investment decisions. With a personalized approach, provides
+            tailored strategies, real-time market insights, and risk management
+            guidance to ensure your trading success.
           </p>
           <BouncingBtn />
         </div>

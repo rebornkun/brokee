@@ -4,6 +4,7 @@ import { FaRegMap } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
 import BouncingBtn from "../../../components/Elements/BouncingBtn";
+import { contact } from "../../../mock/contact";
 
 const SecondSection = () => {
   return (
@@ -14,9 +15,10 @@ const SecondSection = () => {
             Get In Touch
           </h1>
           <p className="max-md:text-[0.8rem] text-[1rem] text-grey text-start font-[400] leading-[1.4] ">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            masa commodo ligula eget dolor aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes.
+            We’re here to help you on your investment journey! Whether you have
+            questions, need personalized advice, or want to learn more about our
+            services, our team is ready to assist. Reach out to us today, and
+            let’s work together to achieve your financial goals.
           </p>
           <div className="flex flex-row max-md:flex-col max-md:gap-4 gap-8 w-full max-md:items-start items-center">
             <div className="flex-[1_1_50%] max-md:w-full w-[50%] flex flex-col max-md:gap-4 gap-[2.5rem]">
@@ -58,7 +60,7 @@ const SecondSection = () => {
                     Email
                   </p>
                   <p className="max-md:text-[0.8rem] text-[1rem] font-[300]">
-                    info@tradex.com
+                    {contact.email}
                   </p>
                 </div>
               </div>
@@ -72,14 +74,14 @@ const SecondSection = () => {
                     Phone
                   </p>
                   <p className="max-md:text-[0.8rem] text-[1rem] font-[300]">
-                    (+021) 5812 698
+                    {contact.number}
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex-[1_1_50%] max-lg:w-full border-[1px] border-lightGrey rounded-[5px] h-fit max-md:p-4 p-10 flex flex-col gap-6">
+        {/* <div className="flex-[1_1_50%] max-lg:w-full border-[1px] border-lightGrey rounded-[5px] h-fit max-md:p-4 p-10 flex flex-col gap-6">
           <div className="flex gap-4 max-lg:flex-col max-lg:gap-6">
             <input
               className="px-6 py-4 border-[1px] flex-1 border-lightGrey rounded-[5px] outline-none "
@@ -113,7 +115,7 @@ const SecondSection = () => {
             />
           </div>
           <BouncingBtn type="SEND MESSAGE" />
-        </div>
+        </div> */}
       </div>
     </section>
   );

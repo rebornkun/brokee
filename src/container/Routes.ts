@@ -25,6 +25,7 @@ export enum ProtectedRoutesUrl {
   NOTIFICATIONS = "/account/settings/notifications",
   BILLING = "/account/settings/billing",
   ACCOUNTS = "/account/settings/accounts",
+  KYC = "/account/settings/kyc",
 }
 export enum AdminRoutesUrl {
   ADMIN = "/admin",

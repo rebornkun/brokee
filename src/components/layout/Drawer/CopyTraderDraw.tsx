@@ -83,6 +83,7 @@ const CopyTraderDraw = () => {
                 imgUrl={trader.imgUrl}
                 profitShare={trader.profitShare}
                 winRate={trader.winRate}
+                minDeposit={trader.minDeposit}
               />
             );
           })}

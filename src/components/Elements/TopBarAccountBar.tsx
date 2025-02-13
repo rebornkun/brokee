@@ -86,7 +86,7 @@ function TopBarAccountBar() {
         <AccountBar
           icon={
             <img
-              src="/src/assets/img/usa_circle.png"
+              src="../../usa_circle.png"
               className="w-[25px] h-[25px] m-0 rounded-full"
             />
           }
@@ -101,7 +101,7 @@ function TopBarAccountBar() {
         <AccountBar
           icon={
             <img
-              src="/src/assets/coins/usdt.svg"
+              src="../../coins/Bitcoin.png"
               className="w-[25px] h-[25px] m-0 rounded-full"
             />
           }

@@ -73,7 +73,8 @@ export type TModalType =
   | "setActiveFiatAccount"
   | "setActiveUsdcAccount"
   | "deleteFiatAccount"
-  | "deleteUsdcAccount";
+  | "deleteUsdcAccount"
+  | "kyc";
 
 export type TUserData = {
   accountPlan: string;
@@ -87,6 +88,7 @@ export type TUserData = {
   createdAt: Date;
   current_plan: string;
   current_plan_expires: any;
+  hasBoughtPlanBefore: boolean;
   my_trader: string;
   email: string;
   fullName: string;
@@ -95,6 +97,7 @@ export type TUserData = {
   state: string;
   updatedAt: Date;
   verified: boolean;
+  kycDoc: string;
 };
 
 export type TUserWallet = {

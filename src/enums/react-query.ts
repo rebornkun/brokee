@@ -38,6 +38,7 @@ export enum MutationKeys {
   BUYPLAN = "buyPlan",
   COPYTRADER = "copyTrader",
   STOPTRADER = "stopTrader",
+  VERIFYKYC = "verifyKyc",
 
   SUSPENDUSER = "suspendUser",
   APPROVEDEPOSIT = "approveDeposit",

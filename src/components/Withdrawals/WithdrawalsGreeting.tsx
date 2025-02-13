@@ -1,5 +1,6 @@
 import { Button } from "antd";
 import { useAppStore } from "../../store/store";
+import { toast } from "sonner";
 
 const WithdrawalsGreeting = () => {
   const setIsDrawerOpen = useAppStore((state) => state.setIsDrawerOpen);
@@ -21,8 +22,13 @@ const WithdrawalsGreeting = () => {
           type="primary"
           className="rounded-[8px] h-[40px] max-w-[200px] w-full !px-[24px] !py-[10px] flex items-center justify-center text-darkGreen font-[500] text-[14px] 2xl:text-[16px] bg-white hover:!bg-white hover:!text-darkGreen hover:opacity-[0.8] border-[1px] border-darkGreen "
           onClick={() => {
-            setDrawerType("withdraw");
-            setIsDrawerOpen(true);
+            //check if user has a plan
+            if (userData.accountPlan) {
+              setDrawerType("withdraw");
+              setIsDrawerOpen(true);
+            } else {
+              toast.error("You need an active plan to Withdraw Funds!");
+            }
           }}
         >
           Make Withdrawal

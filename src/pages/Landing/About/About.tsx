@@ -12,7 +12,7 @@ const About = () => {
       <SecondSection />
       <ThirdSection />
       <ForthSection padding="pt-[10rem] md:pt-[14rem]" />
-      <FifthSection />
+      {/* <FifthSection /> */}
       <SixthSection />
     </>
   );

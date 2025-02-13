@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { UserSvg } from "../../assets/svg/svg";
-import { capitalizeWords } from "../../utils/helper";
+import { capitalizeWords, currencyFormatter } from "../../utils/helper";
 import { LuCopyMinus, LuCopyPlus } from "react-icons/lu";
 import { TTrader } from "../../types/types";
 import { useMutation } from "@tanstack/react-query";
@@ -8,9 +8,18 @@ import { MutationKeys, QueryKeys } from "../../enums/react-query";
 import { copyTrader, stopTrader } from "../../services/trades/trades.service";
 import { useAppStore } from "../../store/store";
 import { queryClient } from "../../utils/react-query";
+import { toast } from "sonner";
 
-const TraderBar = ({ fullName, id, imgUrl, profitShare, winRate }: TTrader) => {
+const TraderBar = ({
+  fullName,
+  id,
+  imgUrl,
+  profitShare,
+  winRate,
+  minDeposit,
+}: TTrader) => {
   const userData = useAppStore((state) => state.userData);
+  const userWallet = useAppStore((state) => state.userWallet);
   const { mutate: copyTraderMutate, isPending } = useMutation({
     mutationKey: [MutationKeys.COPYTRADER],
     mutationFn: (traderId: string) => {
@@ -70,6 +79,9 @@ const TraderBar = ({ fullName, id, imgUrl, profitShare, winRate }: TTrader) => {
           <p className="text-[12px] 2xl:text-[14px] font-[400] leading-[1] text-textGrey">
             {profitShare}% Profit Share
           </p>
+          <p className="text-[12px] 2xl:text-[14px] font-[400] leading-[1] text-textGrey">
+            {currencyFormatter(minDeposit)} Min Deposit Required
+          </p>
         </div>
         {userData.my_trader === id ? (
           <Button
@@ -91,7 +103,13 @@ const TraderBar = ({ fullName, id, imgUrl, profitShare, winRate }: TTrader) => {
             icon={<LuCopyPlus className="text-[14px] text-white" />}
             loading={isPending}
             onClick={() => {
-              copyTraderMutate(id);
+              if (userWallet.usd < minDeposit) {
+                toast.error(
+                  "You cant copy this trader cause your deposit balance is not enough!"
+                );
+              } else {
+                copyTraderMutate(id);
+              }
             }}
           >
             {" "}

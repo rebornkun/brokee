@@ -57,9 +57,9 @@ const TrData = ({
               if (doNotOpenDrawer.includes(datum.dataIndex)) {
                 //do not open open when these td's are clicked
               } else {
-                setIsDrawerOpen(true);
-                setDrawerId(String(data.id)); //send id to drawer here
-                setDrawerTypeFunc();
+                // setIsDrawerOpen(true);
+                // setDrawerId(String(data.id)); //send id to drawer here
+                // setDrawerTypeFunc();
               }
             }}
           >

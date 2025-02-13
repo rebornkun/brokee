@@ -82,7 +82,7 @@ const PlanCard = ({
       <div className="flex items-center gap-[10px] mt-[30px] ">
         {/* <USDCFlagSvg className="w-[33px] h-[33px]" /> */}
         <img
-          src="/src/assets/coins/usdt.svg"
+          src="../../../coins/usdt.svg"
           className="w-[33px] h-[33px] rounded-full"
         />
         <p className="text-[34px] 2xl:text-[40px] text-[#1E1E1E] font-[600] ">

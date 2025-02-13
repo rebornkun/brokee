@@ -20,6 +20,7 @@ import Drawer from "../components/layout/Drawer/Drawer";
 import Modal from "../components/layout/Modal/Modal";
 import Account from "../pages/In-app/Settings/Account";
 import { validatePlan } from "../services/plans/plans.service";
+import Kyc from "../pages/In-app/Settings/Kyc";
 
 const DashBoard = React.lazy(
   () => import("../pages/In-app/DashBoard/DashBoard")
@@ -181,6 +182,11 @@ export const ProtectedRoutes = [
             path: ProtectedRoutesUrl.BILLING,
             name: "Billing",
             element: <Billing />,
+          },
+          {
+            path: ProtectedRoutesUrl.KYC,
+            name: "KYC",
+            element: <Kyc />,
           },
           {
             path: ProtectedRoutesUrl.ACCOUNTS,

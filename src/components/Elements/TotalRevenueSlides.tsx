@@ -24,7 +24,6 @@ function TotalRevenueSlides() {
 
   const getBtcEqiv = async (value: number) => {
     setRateIsLoading(true);
-    console.log("ddd");
     const rateObj = await getCurrentRate("BTC");
     const rate = rateObj["bitcoin"].usd;
     setRateIsLoading(false);
@@ -69,7 +68,7 @@ function TotalRevenueSlides() {
           title="revenue"
           icon={
             <img
-              src="/src/assets/coins/usdt.svg"
+              src="../../coins/usdt.svg"
               className="w-[45px] h-[45px] mx-2 rounded-full"
             />
             // <NigeriaFlagSvg className="w-[45px] h-[45px] mx-2" />
@@ -78,21 +77,19 @@ function TotalRevenueSlides() {
             walletData?.payload?.available + walletData?.payload?.earned || 0
           )}
           currencySymbol={"$"}
-          percentage={4.0}
         />
         <RevenueCard
           type="revenue"
           title="revenue"
           icon={
             <img
-              src="/src/assets/coins/Bitcoin.png"
+              src="../../coins/Bitcoin.png"
               className="w-[45px] h-[45px] mx-2 rounded-full"
             />
             // <USDCFlagSvg className="w-[45px] h-[45px] mx-2" />
           }
           amount={converted.toFixed(6)}
           currencySymbol={"BTC "}
-          percentage={PERCENTAGE}
         />
       </div>
     </div>

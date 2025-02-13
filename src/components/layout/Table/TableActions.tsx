@@ -88,7 +88,7 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
     });
 
   const location = useLocation();
-  console.log(userData);
+
   return (
     <div className="flex gap-2">
       {location.pathname === AdminRoutesUrl.USERS ? (

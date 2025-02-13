@@ -28,7 +28,7 @@ const UsdcCard = ({
       <div className="flex w-full justify-between ">
         <div className="flex gap-[16px] items-center">
           <img
-            src={"/src/assets/coins/Bitcoin.png"}
+            src={"../../coins/Bitcoin.png"}
             alt="flag"
             className=" w-[18px] h-[18px] "
           />

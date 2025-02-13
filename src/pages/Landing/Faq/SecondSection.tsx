@@ -1,24 +1,7 @@
 import { IoIosArrowDown } from "react-icons/io";
 import BouncingBtn from "../../../components/Elements/BouncingBtn";
-import { SetStateAction, useState } from "react";
-
-const faqData = [
-  {
-    question: "Why is Robo Suitable for Beginners?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes",
-  },
-  {
-    question: "Why is Robo Suitable for Beginners?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes",
-  },
-  {
-    question: "Why is Robo Suitable for Beginners?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes",
-  },
-];
+import { ReactElement, SetStateAction, useState } from "react";
+import { faqData } from "../../../mock/faq";
 
 const SecondSection = () => {
   const [faqIsOpen, setFaqIsOpen] = useState(0);
@@ -26,17 +9,24 @@ const SecondSection = () => {
   return (
     <section>
       <div className="container max-md:px-[15px] mx-auto flex flex-col max-md:py-[2rem] py-[5rem] gap-[2rem] ">
-        <div className="flex max-lg:flex-col gap-[2rem] items-center">
-          <div className="flex-[1_1_50%] flex flex-col gap-[2rem]">
+        <div className="flex max-lg:flex-col gap-[2rem] items-start relative">
+          <div className="flex-[1_1_50%] flex flex-col gap-[2rem] xl:sticky top-4">
             <h1 className="max-lg:text-[2rem] text-[2.8rem] leading-[1.15] font-[700] text-darkGrey ">
               Frequently Asked Questions
             </h1>
-            <p className="text-[1rem] text-grey text-start font-[400] leading-[1.4] ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusm tempor incididunt ut labore et dolore magna aliqua.
+            <p className="text-[1rem] text-grey text-start font-[400] leading-[1.7] ">
+              we understand that trading can be complex, which is why we’ve
+              compiled answers to the most frequently asked questions to help
+              you navigate our platform with ease. From account setup and
+              minimum deposit requirements to the security of your funds and how
+              to withdraw, we’ve got you covered. Whether you’re a beginner or
+              an experienced trader, our FAQs provide the information you need
+              to get started and make informed decisions. If you can’t find the
+              answer you’re looking for, our customer support team is always
+              available to assist you.
             </p>
           </div>
-          <div className="flex-[1_1_50%]  h-fit flex flex-col gap-6">
+          <div className="flex-[1_1_50%]  h-fit flex flex-col gap-2">
             <h1 className="text-darkGrey text-[22px] font-[600]">
               Popular Questions
             </h1>
@@ -61,8 +51,9 @@ const SecondSection = () => {
               Take Time To Learn Investing
             </h1>
             <p className="lg:max-w-[65%] text-justify text-center text-lightGrey mb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Investing is a powerful way to build wealth. By learning the
+              basics and refining your strategy, you can make informed decisions
+              and reach your financial goals confidently.
             </p>
             <BouncingBtn type="INVEST NOW" />
           </div>
@@ -84,7 +75,7 @@ const FAQ = ({
 }: {
   index: number;
   question: string;
-  answer: string;
+  answer: ReactElement;
   height: string;
   faqIsOpen: number;
   setFaqIsOpen: React.Dispatch<SetStateAction<number>>;

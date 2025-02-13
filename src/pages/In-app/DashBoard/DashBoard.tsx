@@ -98,7 +98,7 @@ const DashBoard = () => {
         />
       </div>
       <div className="w-full flex max-lg:flex-col gap-12 mb-[49px]">
-        {/* <DashBoardChart /> */}
+        <DashBoardChart />
         <DashboardRevenueOverview />
       </div>
       <div className="flex flex-col gap-[35px]">

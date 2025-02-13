@@ -22,25 +22,25 @@ const basicPlanGains = [
   "Interest: 200%",
   "Min: $1000",
   "Max: $2999",
-  "Duration: 24hrs",
+  "Duration: 5 days",
 ];
 const standardPlanGains = [
   "Interest: 300%",
   "Min: $3000",
   "Max: $7499",
-  "Duration: 24hrs",
+  "Duration: 5 days",
 ];
 const goldPlanGains = [
   "Interest: 400%",
   "Min: $7500",
   "Max: $14999",
-  "Duration: 24hrs",
+  "Duration: 5 days",
 ];
 const platinumPlanGains = [
   "Interest: 500%",
   "Min: $15000",
   "Max: $unlimited",
-  "Duration: 24hrs",
+  "Duration: 5 days",
 ];
 
 const columns = [

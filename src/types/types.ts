@@ -79,10 +79,12 @@ export type TTableData = {
   city?: string;
   current_plan?: string;
   current_plan_expires?: any;
+  hasBoughtPlanBefore?: boolean;
   my_trader?: string;
   password?: string;
   state?: string;
   verified?: boolean;
+  kycDoc?: string;
 
   customerId?: string;
 
@@ -268,6 +270,7 @@ export type TTrader = {
   imgUrl: string;
   profitShare: number;
   winRate: number;
+  minDeposit: number;
   createdAt?: Date;
   updatedAt?: Date;
 };

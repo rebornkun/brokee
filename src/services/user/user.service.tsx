@@ -297,3 +297,32 @@ export const unSuspendUser = async (id: string) => {
     }
   }
 };
+
+export const verifyKyc = async (
+  img: FormData | undefined,
+  userData: TUserData
+) => {
+  try {
+    const imgUpload = await uploadImage(img); //upload image
+    if (imgUpload.data.alert?.type === RequestMessage.ERROR) {
+      throw new Error("Image Upload Failed");
+    }
+
+    await updateDoc(doc(userCollectionsRef, userData.id), {
+      kycDoc: imgUpload.data.payload?.url,
+    });
+
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "We will take a look and get back to you in sec!",
+      null
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Something went wrong:", error);
+      throw error;
+    }
+  }
+};
