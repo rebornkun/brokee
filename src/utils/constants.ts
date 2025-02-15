@@ -557,6 +557,11 @@ export const initWalletData = {
 
 export const cryptoTypeArr: TCryptoType[] = [
   {
+    _id: "USDT",
+    name: "USDT",
+    img: "../../coins/usdt.svg",
+  },
+  {
     _id: "BTC",
     name: "BTC",
     img: "../../coins/Bitcoin.png",
@@ -566,11 +571,7 @@ export const cryptoTypeArr: TCryptoType[] = [
     name: "ETH",
     img: "../../coins/eth.svg",
   },
-  {
-    _id: "USDT",
-    name: "USDT",
-    img: "../../coins/usdt.svg",
-  },
+
   {
     _id: "BNB",
     name: "BNB",

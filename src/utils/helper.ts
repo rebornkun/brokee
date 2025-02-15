@@ -57,7 +57,7 @@ export const coinTranslate = (coin: string) => {
 
 export const getBarCode = (coin: string) => {
   if (coin === "BTC") {
-    return "bar.png";
+    return "newbarcode.jpeg";
   } else if (coin === "ETH") {
     return "bob_bnb.jpeg";
   } else if (coin === "USDT") {
@@ -70,7 +70,7 @@ export const getBarCode = (coin: string) => {
 
 export const getWalletAddress = (coin: string) => {
   if (coin === "BTC") {
-    return "bc1qaytdhxgcaf73ccj0ylt97rzwvh3z40gfza3csh";
+    return "bc1q4und74g9ejyp949y68emt3vr85l86l9syn67xm";
   } else if (coin === "ETH") {
     return "0x492ECD58ED4D37a9911d7Ecef0DEBF3D4c32E214";
   } else if (coin === "USDT") {

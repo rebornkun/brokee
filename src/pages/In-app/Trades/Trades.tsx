@@ -200,7 +200,8 @@ const Trades = () => {
             </div>
           ) : (
             <p className="text-textGrey text-[14px]">
-              You are not copying any trader
+              You are not manually copying any trader. your account has been set
+              to auto trading.
             </p>
           )}
         </div>
