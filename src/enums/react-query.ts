@@ -41,9 +41,13 @@ export enum MutationKeys {
   VERIFYKYC = "verifyKyc",
 
   SUSPENDUSER = "suspendUser",
+  UNSUSPENDUSER = "unsuspendUser",
   APPROVEDEPOSIT = "approveDeposit",
   CANCELDEPOSIT = "cancelDeposit",
   CREATETRADER = "createTrader",
   CREATECURRENCY = "createCurrency",
   CREATETRADES = "createTrades",
+  VERIFYUSER = "verifyUser",
+  UNVERIFYUSER = "unVerifyUser",
+  TOPUPUSER = "topUpUser",
 }

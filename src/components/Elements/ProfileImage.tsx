@@ -2,6 +2,7 @@ import { ChangeEventHandler } from "react";
 import { useAppStore } from "../../store/store";
 import { LuLoader2 } from "react-icons/lu";
 import { EditSvg } from "../../assets/svg/svg";
+import { CgProfile } from "react-icons/cg";
 
 const ProfileImage = ({
   forProfilePage,
@@ -25,15 +26,20 @@ const ProfileImage = ({
         } rounded-full overflow-hidden relative`}
       >
         {isForDistributor ? (
-          <img
-            src={userData.avatar || "/profileEazi.jpeg"}
-            className="w-full h-full z-[1]"
-          />
+          userData.avatar ? (
+            <img
+              src={userData.avatar || "/profileEazi.jpeg"}
+              className="w-full h-full z-[1]"
+            />
+          ) : (
+            <CgProfile className="w-full h-full text-[20px]" />
+          )
         ) : (
-          <img
-            src={imagePreviewUrl || "/profileEazi.jpeg"}
-            className="w-full h-full z-[1]"
-          />
+          // <img
+          //   src={imagePreviewUrl || "/profileEazi.jpeg"}
+          //   className="w-full h-full z-[1]"
+          //   />
+          <CgProfile className="w-full h-full text-[20px]" />
         )}
         {photoIsLoading && (
           <div className="absolute top-0 left-0 bg-black opacity-[0.1] w-full h-full z-[2] rounded-full flex items-center justify-center">

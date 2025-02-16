@@ -14,6 +14,7 @@ import { getUserData } from "../../services/user/user.service";
 import { Link } from "react-router-dom";
 import { ProtectedRoutesUrl } from "../../container/Routes";
 import { logOutUser } from "../../services/auth/auth.service";
+import { CgProfile } from "react-icons/cg";
 // import { signOut } from "../../services/auth/auth.service";
 
 const menu = (
@@ -90,12 +91,14 @@ function ProfileDropDown() {
       <div className="h-full flex gap-[12px] items-center cursor-pointer">
         {isLoading ? (
           <div className="sk_bg w-[32px] h-[32px] rounded-full "></div>
-        ) : (
+        ) : userData.avatar ? (
           <img
             src={userData.avatar || "/profileEazi.jpeg"}
             alt="profile"
             className="w-[32px] h-[32px] rounded-full shadow"
           />
+        ) : (
+          <CgProfile className="w-full h-full text-[20px]" />
         )}
         <div className="flex flex-col justify-center max-md:hidden">
           {isLoading ? (

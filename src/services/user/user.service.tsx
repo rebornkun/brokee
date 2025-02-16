@@ -326,3 +326,89 @@ export const verifyKyc = async (
     }
   }
 };
+
+export const verifyUser = async (id: string) => {
+  try {
+    await updateUserData({ verified: true }, id);
+    // const updateDocRes = await updateDoc(doc(userCollectionsRef, userId), data);
+    return CreateDefaultResponse(RequestMessage.SUCCESS, "user verified", "");
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
+export const unVerifyUser = async (id: string) => {
+  try {
+    await updateUserData({ verified: false, kycDoc: "" }, id);
+    // const updateDocRes = await updateDoc(doc(userCollectionsRef, userId), data);
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "user un-verified",
+      ""
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
+export const getAUserWallet = async (id: string) => {
+  try {
+    let q;
+    q = query(walletCollectionsRef, where("userId", "==", `${id}`));
+    const gottenDocs = await getDocs(q);
+
+    const data: any[] = [];
+
+    gottenDocs.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+
+    return CreateDefaultResponse(RequestMessage.SUCCESS, "", data[0]);
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
+export const topUserWallet = async (
+  walletId: string,
+  data: {
+    available: number;
+    earned: number;
+    usd: number;
+    paid: number;
+  }
+) => {
+  try {
+    const updateDocRes = await updateDoc(
+      doc(walletCollectionsRef, walletId),
+      data
+    );
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "top up successful",
+      updateDocRes
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};

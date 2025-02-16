@@ -223,13 +223,13 @@ const MakeDepositDraw = () => {
                 />
               </div>
               <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
-                After you send the coins kindly upload the Transaction
-                screenshot or snap and press Complete Payment. Your balance will
-                be updated after a confirmation!
+                Buy the crypto token from your external wallet, send it to the
+                deposit wallet, and upload the receipt as proof of payment.
+                Click continue to finalize your deposit. Thank you!
               </p>
               <div className="flex flex-col gap-2 w-full">
                 <p className="">
-                  TXN Image{" "}
+                  Transaction Image{" "}
                   <Tag color="error" className="Nunito">
                     Required
                   </Tag>

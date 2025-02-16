@@ -214,6 +214,8 @@ export type TUpdateUser = {
   address?: string;
   city?: string;
   current_plan?: string;
+  verified?: boolean;
+  kycDoc?: string;
 };
 
 export type TAxisData = {

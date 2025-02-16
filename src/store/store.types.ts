@@ -1,19 +1,19 @@
 import { TFiatAccount, TUsdcAccount } from "../types/types";
 
-export interface StoreType {
-  isDrawerOpen: boolean;
-  setIsDrawerOpen: (value: boolean) => void;
-  mobileMenuIsOpen: boolean;
-  setMobileMenuIsOpen: (value: boolean) => void;
-  drawerType: TDrawerType;
-  setDrawerType: (value: TDrawerType) => void;
-  drawerId: string;
-  setDrawerId: (value: string) => void;
-  modalIsOpen: boolean;
-  setModalIsOpen: (value: boolean) => void;
-  modalType: TModalType;
-  setModalType: (value: TModalType) => void;
-}
+// export interface StoreType {
+//   isDrawerOpen: boolean;
+//   setIsDrawerOpen: (value: boolean) => void;
+//   mobileMenuIsOpen: boolean;
+//   setMobileMenuIsOpen: (value: boolean) => void;
+//   drawerType: TDrawerType;
+//   setDrawerType: (value: TDrawerType) => void;
+//   drawerId: string;
+//   setDrawerId: (value: string) => void;
+//   modalIsOpen: boolean;
+//   setModalIsOpen: (value: boolean) => void;
+//   modalType: TModalType;
+//   setModalType: (value: TModalType) => void;
+// }
 
 export interface StoreType {
   userData: TUserData;
@@ -74,7 +74,8 @@ export type TModalType =
   | "setActiveUsdcAccount"
   | "deleteFiatAccount"
   | "deleteUsdcAccount"
-  | "kyc";
+  | "kyc"
+  | "topUpAccount";
 
 export type TUserData = {
   accountPlan: string;

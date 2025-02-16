@@ -86,7 +86,11 @@ const TrData = ({
               />
             ) : datum.dataIndex === "isActive" ? (
               `${(data as any)[datum.dataIndex]}`
-            ) : datum.dataIndex === "date" ? (
+            ) : datum.dataIndex === "verified" ? (
+              `${(data as any)[datum.dataIndex]}`
+            ) : datum.dataIndex === "deleted" ? (
+              `${(data as any)[datum.dataIndex]}`
+            ) : datum.dataIndex === "deleted" ? (
               new Date(data.createdAt?.seconds * 1000).toLocaleDateString()
             ) : datum.dataIndex === "payment_type" ? (
               `${(data as any)[datum.dataIndex]}`
