@@ -9,6 +9,7 @@ import { MutationKeys } from "../../enums/react-query";
 import { TRegisterUserInput } from "../../types/auth.types";
 import { registerUser } from "../../services/auth/auth.service";
 import { ToastStatus } from "../../enums/react-hot-toast";
+import { AuthRoutesUrl } from "../../container/Routes";
 const { Option } = Select;
 
 const Register = () => {
@@ -202,10 +203,11 @@ const Register = () => {
             <Checkbox className="Montserrat">
               I have read and accepted the following agreement:{" "}
               <a
-                href=""
+                target={"_blank"}
+                href={AuthRoutesUrl.POLICY}
                 className="Montserrat text-green hover:text-green active:!text-green focus:!text-green"
               >
-                Public offer agreement
+                Policy agreement
               </a>
             </Checkbox>
           </Form.Item>

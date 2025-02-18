@@ -29,6 +29,8 @@ export default {
         darkGrey: "#2e2e2e",
         darkGreen: "#00BD6F",
         navGreen: "#dbf9ec",
+        yellow: "#ffef89",
+        blue: "#89e3ff",
         green: "#00BD6F",
         lightGreen: "#f5fffb",
         lightGrey: "#efefef",

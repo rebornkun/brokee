@@ -583,12 +583,12 @@ export const withdrawalTypeArr: TCryptoType[] = [
   {
     _id: "Crypto",
     name: "Crypto",
-    img: "/src/assets/coins/Bitcoin.png",
+    img: "/coins/Bitcoin.png",
   },
   {
     _id: "Bank",
     name: "Bank",
-    img: "/src/assets/others/bank-icon.jpg",
+    img: "/public/others/bank-icon.jpg",
   },
 ];
 

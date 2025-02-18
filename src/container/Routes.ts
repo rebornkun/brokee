@@ -10,6 +10,7 @@ export enum PublicRoutesUrl {
 export enum AuthRoutesUrl {
   LOGIN = "/login",
   REGISTER = "/register",
+  POLICY = "/policy",
 }
 
 export enum ProtectedRoutesUrl {

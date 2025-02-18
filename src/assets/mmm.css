@@ -1,0 +1,230 @@
+.home_second h1 {
+  text-align: center !important;
+  font-weight: 200 !important;
+  font-size: 2rem !important;
+}
+.home_second h1 span {
+  text-align: center;
+  font-weight: 700;
+}
+.small_card_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.our_cus {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  background-color: #dbf9ec;
+  margin-top: 3rem;
+}
+.our_cus h5 {
+  font-size: 1rem;
+}
+.our_cus p {
+  font-size: 1.5rem;
+}
+.home_third {
+  padding: 70px 0px;
+}
+
+.home_third .ourapproach {
+  flex: 0 0 50%;
+  padding: 20px 0px;
+  height: 400px;
+  /* margin-top: 100px; */
+}
+
+.home_third .ourapproach:hover .ourapproach_text {
+  padding: 16px 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+.home_third .ourapproach p {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 8px 0px;
+  line-height: 30px;
+  color: #00bd6f;
+}
+
+.home_third .ourapproach_text {
+  width: 70%;
+}
+
+.home_third .ourapproach_btn {
+  width: fit-content;
+  cursor: pointer;
+}
+.home_third .ourapproach_btn:hover {
+  width: fit-content;
+  cursor: pointer;
+}
+.home_third .ourapproach_btn:hover div {
+  height: 6px;
+  transition: all 0.3s ease-in-out;
+  animation: changedivCol 1.5s ease-in-out infinite;
+  -webkit-animation: changedivCol 1.5s ease-in-out infinite;
+}
+@keyframes changedivCol {
+  0%,
+  100% {
+    background-color: #c81e1e;
+  }
+  50% {
+    background-color: #dbf9ec;
+  }
+}
+.home_third .ourapproach_btn div {
+  height: 1.5px;
+  width: 100%;
+  background-color: #00bd6f;
+}
+
+.home_third .ourapproach .ourapproach_btn p {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 8px 0px 2px;
+  line-height: 30px;
+}
+.home_third .ourapproach .ourapproach_btn:hover p {
+  font-size: 24px;
+  font-weight: 800;
+  transition: all 0.3s ease-in-out;
+  padding: 8px 0px 2px;
+  margin: 8px 0px;
+}
+
+.home_third .ourapproach_diagram {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.dia {
+  width: 100%;
+  height: 600px;
+  position: relative;
+}
+
+.diagram_container {
+  background-color: #00bd6f;
+  height: 550px;
+  width: 400px;
+  align-self: center;
+  padding: 10px 20px;
+  transform: rotate(10deg);
+  position: absolute;
+  top: 25px;
+  right: 41px;
+  transition: all 0.3s ease;
+  /* animation: backgroundcolorslide 0.5s linear infinite; */
+}
+@keyframes backgroundcolorslide {
+  0% {
+    background-color: #00bd6f;
+  }
+  100% {
+    background-color: #c81e1e;
+  }
+}
+
+.diagram_contents {
+  position: relative;
+}
+
+.diagram_container p {
+  color: #58677c;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+/* diagram inside */
+
+.diaani.highlight {
+  color: #ffef89;
+}
+.dialiani.chighlight {
+  stroke: #89e3ff;
+  stroke-width: 4;
+}
+
+.discover {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.curveOne {
+  height: 75px;
+  /* width: 100px; */
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.curveOne svg path {
+  animation: changecurve 10s linear infinite;
+  animation-delay: 10s;
+  -webkit-animation: changecurve 10s linear infinite;
+}
+
+.define {
+  position: absolute;
+  top: 115px;
+  left: 130px;
+}
+.curveTwo {
+  height: 75px;
+  /*width: 100px;
+  */
+  position: absolute;
+  top: 155px;
+  left: 155px;
+  animation: changecurve 1s linear infinite;
+  animation-delay: 10s;
+  -webkit-animation: changecurve 1s linear infinite;
+}
+
+.design {
+  position: absolute;
+  top: 230px;
+  left: 210px;
+}
+.curveThree {
+  height: 75px;
+  /* width: 100px; */
+  position: absolute;
+  top: 270px;
+  left: 100px;
+}
+
+.develop {
+  position: absolute;
+  top: 340px;
+  left: 50px;
+}
+.curveFour {
+  height: 75px;
+  /* width: 100px; */
+  position: absolute;
+  top: 380px;
+  left: 100px;
+}
+
+.launch {
+  position: absolute;
+  top: 455px;
+  left: 245px;
+}
+
+.did {
+  flex: 0 0 40%;
+}

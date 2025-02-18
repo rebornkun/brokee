@@ -1,0 +1,17 @@
+.small_card {
+  width: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+}
+.small_card img {
+  height: 70px;
+  width: 80px;
+}
+.small_card h5 {
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  white-space: nowrap !important;
+}

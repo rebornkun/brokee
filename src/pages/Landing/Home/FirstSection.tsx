@@ -8,6 +8,7 @@ import partnerThree from "../../../assets/img/partnerThree.png";
 import BouncingBtn from "../../../components/Elements/BouncingBtn";
 import { CallSvg } from "../../../assets/svg/svg";
 import NavBar from "../../../components/NavBar/NavBar";
+import { contact } from "../../../mock/contact";
 
 const FirstSection = () => {
   return (
@@ -24,7 +25,7 @@ const FirstSection = () => {
             alt="person"
             className="absolute h-full bottom-0 left-0 right-0"
           />
-          <img
+          {/* <img
             src={chartOne}
             alt="chart"
             className="absolute w-[210px] top-[9rem] right-[-3rem]"
@@ -38,7 +39,7 @@ const FirstSection = () => {
             src={chartThree}
             alt="chart"
             className="absolute w-[230px]  bottom-[-3rem] right-[25%] "
-          />
+          /> */}
         </div>
 
         <div className="relative flex-[1_1_50%] flex flex-col h-[670px] justify-center gap-[6rem] mt-[5rem]">
@@ -56,7 +57,7 @@ const FirstSection = () => {
                 <CallSvg className="h-[25px] w-[25px]" />
                 <div className="flex flex-col gap-[0.3rem]">
                   <p className="text-start font-[500]">Call Us At</p>
-                  <p className="text-start text-grey">(+021) 5812 698</p>
+                  <p className="text-start text-grey">{contact.number}</p>
                 </div>
               </div>
             </div>

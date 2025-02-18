@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { AuthRoutesUrl, PublicRoutesUrl } from "./Routes";
+import PolicyAgreement from "../pages/Auth/PolicyAgreement";
 
 const Login = React.lazy(() => import("../pages/Auth/Login"));
 const Register = React.lazy(() => import("../pages/Auth/Register"));
@@ -33,6 +34,11 @@ export const AuthRoutes = [
         path: AuthRoutesUrl.REGISTER,
         name: "Register",
         element: <Register />,
+      },
+      {
+        path: AuthRoutesUrl.POLICY,
+        name: "Policy Agreement",
+        element: <PolicyAgreement />,
       },
       {
         path: "*",

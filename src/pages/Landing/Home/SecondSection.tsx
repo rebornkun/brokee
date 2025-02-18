@@ -2,6 +2,7 @@ import { BoardSvg, ChartSvg, SecuritySvg } from "../../../assets/svg/svg";
 import Card from "../../../components/Elements/Card";
 import businessMan from "../../../assets/img/businessman.jpeg";
 import desktopTrade from "../../../assets/img/desktopTrade.png";
+import TapeChart from "../../../components/Elements/TapeChart";
 
 const SecondSection = () => {
   return (

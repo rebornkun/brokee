@@ -23,7 +23,7 @@ const WithdrawalsGreeting = () => {
           className="rounded-[8px] h-[40px] max-w-[200px] w-full !px-[24px] !py-[10px] flex items-center justify-center text-darkGreen font-[500] text-[14px] 2xl:text-[16px] bg-white hover:!bg-white hover:!text-darkGreen hover:opacity-[0.8] border-[1px] border-darkGreen "
           onClick={() => {
             //check if user has a plan
-            if (userData.accountPlan) {
+            if (userData.current_plan) {
               setDrawerType("withdraw");
               setIsDrawerOpen(true);
             } else {
