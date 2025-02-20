@@ -16,14 +16,19 @@ const FirstSection = () => {
       <div className="background absolute top-0 right-0 left-0 bottom-0"></div>
       <NavBar />
       <div className="container max-md:px-[15px] relative flex max-lg:flex-col-reverse mt-2 pb-[14rem] mx-auto  max-lg:gap-[3rem] gap-[6rem] items-center ">
-        <div className="relative lg:flex-[1_1_50%] w-full md:h-[1000px] lg:h-[670px] flex items-end">
-          <div className="bg-green  h-[550px] w-full relative rounded-[0.5rem]">
+        <div className="relative lg:flex-[1_1_50%] h-full w-full flex items-center">
+          <div className="bg-green max-md:mt-[100px] h-[200px] md:h-[550px] w-full relative rounded-[0.5rem]">
             <div className="bg-green h-full biggreen w-full rounded-[0.5rem]"></div>
           </div>
-          <img
-            src={person}
+          {/* <img
+            src={"/forex.png"}
             alt="person"
-            className="absolute h-full bottom-0 left-0 right-0"
+            className="absolute h-fit bottom-0 left-0 right-0"
+          /> */}
+          <img
+            src={"/forex.png"}
+            alt="person"
+            className="absolute w-fit h-fit my-auto bottom-[10%] left-0 right-0"
           />
           {/* <img
             src={chartOne}

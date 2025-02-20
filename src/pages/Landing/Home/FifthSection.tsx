@@ -30,9 +30,9 @@ const FifthSection = () => {
               decisions, manage risks, and achieve your financial goals.
             </p>
             <div className="flex flex-col gap-[1.3rem] mb-[2rem]">
-              <Load percent={83} title={"Expert Advisors"} color={"nom"} />
-              <Load percent={71} title={"Trading Instrument"} color={"other"} />
-              <Load percent={89} title={"Technical Analysis"} color={"nom"} />
+              <Load percent={95} title={"Expert Advisors"} color={"nom"} />
+              <Load percent={97} title={"Trading Instrument"} color={"other"} />
+              <Load percent={94} title={"Technical Analysis"} color={"nom"} />
             </div>
             <BouncingBtn />
           </div>
@@ -40,21 +40,26 @@ const FifthSection = () => {
             <div className="bg-green h-[400px] lg:h-[550px] w-full relative rounded-[0.5rem]">
               <div className="bg-green h-full biggreen w-full rounded-[0.5rem]"></div>
             </div>
-            <img
+            {/* <img
               src={person}
               alt="person"
               className="absolute max-w-[300px] max-h-[500px] md:w-[40%] lg:w-[80%] lg:h-[670px] bottom-0 left-0 right-0"
+            /> */}
+            <img
+              src={"/forex.png"}
+              alt="person"
+              className="absolute w-fit h-fit my-auto bottom-[10%] left-0 right-0"
             />
             <img
               src={chartFour}
               alt="chart"
               className="absolute w-[210px] top-[9rem] lg:right-[-3rem]"
             />
-            <img
+            {/* <img
               src={chartFive}
               alt="chart"
               className="absolute h-[130px] top-[65%] lg:left-[-6.5rem]"
-            />
+            /> */}
           </div>
         </div>
         <div className="flex flex-row flex-wrap mt-[7rem] mb-[-12rem]">

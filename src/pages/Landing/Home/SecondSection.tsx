@@ -3,6 +3,7 @@ import Card from "../../../components/Elements/Card";
 import businessMan from "../../../assets/img/businessman.jpeg";
 import desktopTrade from "../../../assets/img/desktopTrade.png";
 import TapeChart from "../../../components/Elements/TapeChart";
+import { MdContentCopy } from "react-icons/md";
 
 const SecondSection = () => {
   return (
@@ -10,13 +11,21 @@ const SecondSection = () => {
       <div className="container max-md:px-[15px] mx-auto">
         <div className="flex gap-[2rem] bg-white p-[1rem] lg:p-[2rem] mt-[-6rem] flex-wrap">
           <Card
+            title={"Copy Trading"}
+            text={
+              "Automatically mirror the trades of top-performing investors in real time. With copy trading, you can benefit from expert strategies without the need for in-depth market knowledge. Trade smarter, faster, and more efficiently—all with just a few clicks."
+            }
+            svg={<MdContentCopy className="w-[40px] h-[40px] text-white" />}
+            type="nom"
+          />
+          {/* <Card
             title={"Ratio Trend Chart"}
             text={
               "Track the performance of your investments with our dynamic Ratio Trend Charts. Gain insights into key financial metrics over time, helping you make data-driven decisions with confidence."
             }
             svg={<BoardSvg className="w-[40px] h-[40px]" />}
             type="nom"
-          />
+          /> */}
           <Card
             title={"Fund Security"}
             text={
@@ -34,6 +43,7 @@ const SecondSection = () => {
             type="nom"
           />
         </div>
+
         <div className="w-full flex max-lg:flex-col mt-[6rem] gap-[4rem]">
           <div className="flex flex-col gap-[1.5rem] flex-[1_1_50%]">
             <h1 className="text-[2.8rem] leading-[1.15] font-[700] text-darkGrey ">
