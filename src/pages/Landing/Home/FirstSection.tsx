@@ -28,7 +28,7 @@ const FirstSection = () => {
           <img
             src={"/forex.png"}
             alt="person"
-            className="absolute w-fit h-fit my-auto bottom-[10%] left-0 right-0"
+            className="absolute w-full md:w-fit md:h-fit h-[300px] my-auto bottom-[10%] left-0 right-0"
           />
           {/* <img
             src={chartOne}

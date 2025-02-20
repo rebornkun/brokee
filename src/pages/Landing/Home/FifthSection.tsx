@@ -48,7 +48,7 @@ const FifthSection = () => {
             <img
               src={"/forex.png"}
               alt="person"
-              className="absolute w-fit h-fit my-auto bottom-[10%] left-0 right-0"
+              className="absolute w-full h-[300px] my-auto bottom-[10%] left-0 right-0"
             />
             <img
               src={chartFour}
