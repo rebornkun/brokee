@@ -558,6 +558,7 @@ export const initWalletData = {
   usd: 0,
   wallet_address: "",
   userId: "",
+  fiatAccount: null,
 };
 
 export const cryptoTypeArr: TCryptoType[] = [

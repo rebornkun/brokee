@@ -114,5 +114,5 @@ export type TUserWallet = {
   usd: number;
   wallet_address: string;
   userId: string;
-  fiatAccount: TAddFiatAccount;
+  fiatAccount: TAddFiatAccount | null;
 };
