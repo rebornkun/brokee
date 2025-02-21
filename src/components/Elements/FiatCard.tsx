@@ -41,7 +41,7 @@ const FiatCard = ({
         </div>
         {status === "pending" ? (
           <Tooltip title="this account is awaiting confirmation">
-            <p className=" border-[0.5px] border-lightYellow rounded-[8px] px-2 bg-yellow text-[10px] h-fit text-darkYellow ">
+            <p className=" border-[0.5px] border-lightYellow rounded-[8px] px-2 bg-yellow text-[10px] h-fit text-green ">
               Pending
             </p>
           </Tooltip>
@@ -49,11 +49,11 @@ const FiatCard = ({
           <div className="flex items-start gap-[3px]">
             <div
               className={`w-[15px] h-[15px] rounded-full border-[0.75px] border-[#D0D5DD] ${
-                isActiveAccount && "border-darkYellow"
+                isActiveAccount && "border-green"
               } transition-all flex items-center justify-center `}
             >
               {isActiveAccount && (
-                <div className="bg-darkYellow rounded-full w-[6px] h-[6px] transition-all "></div>
+                <div className="bg-green rounded-full w-[6px] h-[6px] transition-all "></div>
               )}
             </div>
             <AccountCardDropDown id={id} type={"Fiat"} />

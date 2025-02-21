@@ -1,4 +1,4 @@
-import { TFiatAccount, TUsdcAccount } from "../types/types";
+import { TAddFiatAccount, TFiatAccount, TUsdcAccount } from "../types/types";
 
 // export interface StoreType {
 //   isDrawerOpen: boolean;
@@ -70,12 +70,14 @@ export type TModalType =
   | "reportWithdrawal"
   | "deleteUser"
   | "addUsdcAccount"
+  | "addFiatAccount"
   | "setActiveFiatAccount"
   | "setActiveUsdcAccount"
   | "deleteFiatAccount"
   | "deleteUsdcAccount"
   | "kyc"
-  | "topUpAccount";
+  | "topUpAccount"
+  | "payInfo";
 
 export type TUserData = {
   accountPlan: string;
@@ -112,4 +114,5 @@ export type TUserWallet = {
   usd: number;
   wallet_address: string;
   userId: string;
+  fiatAccount: TAddFiatAccount;
 };

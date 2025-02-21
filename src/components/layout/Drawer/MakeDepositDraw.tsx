@@ -263,6 +263,7 @@ const MakeDepositDraw = () => {
               htmlType="submit"
               className="Nunito w-fit min-w-[120px] h-[40px] flex items-center justify-center bg-darkGreen hover:!bg-darkGreen hover:opacity-[0.8] font-[600] text-[14px] 2xl:text-[16px] rounded-[8px]  "
               loading={isPending}
+              disabled={!img}
             >
               Make Deposit
             </Button>

@@ -4,6 +4,7 @@ import FiatCard from "../Elements/FiatCard";
 
 const FiatAccountsGroup = () => {
   const userData = useAppStore((state) => state.userData);
+  const userWallet = useAppStore((state) => state.userWallet);
   const userFiatAccounts = useAppStore((state) => state.userFiatAccounts);
   const setIsDrawerOpen = useAppStore((state) => state.setIsDrawerOpen);
   const setDrawerType = useAppStore((state) => state.setDrawerType);
@@ -15,7 +16,7 @@ const FiatAccountsGroup = () => {
 
   return (
     <div className="mt-[17px] flex flex-wrap max-md:flex-cols gap-[33px] items-center max-md:items-starts ">
-      {userFiatAccounts.map((datum: TFiatAccount, index: number) => {
+      {/* {userFiatAccounts.map((datum: TFiatAccount, index: number) => {
         return (
           <FiatCard
             id={datum._id}
@@ -28,14 +29,35 @@ const FiatAccountsGroup = () => {
             isActiveAccount={datum.active}
           />
         );
-      })}
-
-      <p
-        className="text-darkGreen font-[400] text-[14px] 2xl:text-[16px] cursor-pointer "
-        onClick={handleAddAccountsAction}
-      >
-        + Add {userFiatAccounts.length > 0 && "another"} fiat account{" "}
-      </p>
+      })} */}
+      {userWallet.fiatAccount && (
+        <FiatCard
+          id={userWallet.id}
+          img={"/others/bank-icon.jpg"}
+          name={
+            userWallet.fiatAccount.firstName +
+            " " +
+            userWallet.fiatAccount.lastName
+          }
+          currency={""}
+          bank={userWallet.fiatAccount.country}
+          accNo={
+            userWallet.fiatAccount.accNumber ||
+            userWallet.fiatAccount.ibanNumber ||
+            ""
+          }
+          status={"active"}
+          isActiveAccount={true}
+        />
+      )}
+      {!userWallet.fiatAccount && (
+        <p
+          className="text-darkGreen font-[400] text-[14px] 2xl:text-[16px] cursor-pointer "
+          onClick={handleAddAccountsAction}
+        >
+          + Add {userFiatAccounts.length > 0 && "another"} fiat account{" "}
+        </p>
+      )}
     </div>
   );
 };

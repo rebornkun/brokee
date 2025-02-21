@@ -9,6 +9,8 @@ import PaymentPlanTr from "../../Elements/PaymentPlanTr";
 import TableActions from "./TableActions";
 import { TUserData } from "../../../store/store.types";
 import CurrencyBox from "../../Elements/CurrencyBox";
+import { IoInformation } from "react-icons/io5";
+import { BiInfoCircle } from "react-icons/bi";
 
 const TrData = ({
   dataNo,
@@ -32,6 +34,9 @@ const TrData = ({
   const setIsDrawerOpen = useAppStore((state) => state.setIsDrawerOpen);
   const setDrawerId = useAppStore((state) => state.setDrawerId);
   const setDrawerType = useAppStore((state) => state.setDrawerType);
+  const setModalType = useAppStore((state) => state.setModalType);
+  const setModalData = useAppStore((state) => state.setModalData);
+  const setModalIsOpen = useAppStore((state) => state.setModalIsOpen);
   const location = useLocation();
 
   const { pathname } = location;
@@ -90,10 +95,19 @@ const TrData = ({
               `${(data as any)[datum.dataIndex]}`
             ) : datum.dataIndex === "deleted" ? (
               `${(data as any)[datum.dataIndex]}`
-            ) : datum.dataIndex === "deleted" ? (
+            ) : datum.dataIndex === "date" ? (
               new Date(data.createdAt?.seconds * 1000).toLocaleDateString()
             ) : datum.dataIndex === "payment_type" ? (
               `${(data as any)[datum.dataIndex]}`
+            ) : datum.dataIndex === "payment" ? (
+              <BiInfoCircle
+                className="h-full text-[20px]"
+                onClick={() => {
+                  setModalIsOpen(true);
+                  setModalType("payInfo");
+                  setModalData([data.id]);
+                }}
+              />
             ) : datum.dataIndex === "currencyName" ? (
               <CurrencyBox data={data as TTrade} />
             ) : datum.dataIndex === "actions" ? (

@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { MutationKeys, QueryKeys } from "../../../enums/react-query";
 import { logOutUser } from "../../../services/auth/auth.service";
 import {
+  deleteFiatAccount,
   deleteUser,
   deleteUserWallet,
 } from "../../../services/user/user.service";
@@ -34,23 +35,20 @@ const DeleteModal = () => {
       },
     });
 
-  // const {
-  //   mutate: deleteFiatAccountForDistributorMutate,
-  //   isPending: deleteFiatAccountForDistributorIsPending,
-  // } = useMutation({
-  //   mutationKey: [MutationKeys.DELETEFIATACCOUNT],
-  //   mutationFn: () => deleteFiatAccountForDistributor(modalData[0]),
-  //   onSuccess: (data) => {
-  //     queryClient.invalidateQueries({
-  //       queryKey: [QueryKeys.GETDISTRIBUTORFIATACCOUNTS],
-  //     });
-  //     queryClient.invalidateQueries({
-  //       queryKey: [QueryKeys.GETAVAILABLEBALANCES],
-  //     });
-  //     setModalIsOpen(false);
-  //     setModalData([]);
-  //   },
-  // });
+  const {
+    mutate: deleteFiatAccountForDistributorMutate,
+    isPending: deleteFiatAccountForDistributorIsPending,
+  } = useMutation({
+    mutationKey: [MutationKeys.DELETEFIATACCOUNT],
+    mutationFn: () => deleteFiatAccount(modalData[0]),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.GETUSERWALLETDATA],
+      });
+      setModalIsOpen(false);
+      setModalData([]);
+    },
+  });
 
   const {
     mutate: deleteUsdcAccountForUserMutate,
@@ -84,7 +82,7 @@ const DeleteModal = () => {
     if (modalType === "deleteUser") {
       return deleteUserMutate();
     } else if (modalType === "deleteFiatAccount") {
-      // return deleteFiatAccountForDistributorMutate();
+      return deleteFiatAccountForDistributorMutate();
     } else if (modalType === "deleteUsdcAccount") {
       return deleteUsdcAccountForUserMutate();
     }
@@ -122,9 +120,9 @@ const DeleteModal = () => {
             htmlType="button"
             className="Nunito w-full max-w-[95px] h-[30px] flex items-center justify-center bg-darkRed hover:!bg-darkRed !text-white hover:!text-white hover:opacity-[0.8] font-[500] text-[10px] 2xl:text-[12px] rounded-[8px]  "
             loading={
-              deleteDistributorIsPending || deleteUsdcAccountForUserIsPending
-              // ||
-              // deleteFiatAccountForDistributorIsPending
+              deleteDistributorIsPending ||
+              deleteUsdcAccountForUserIsPending ||
+              deleteFiatAccountForDistributorIsPending
             }
             onClick={() => {
               getDeleteMutate();

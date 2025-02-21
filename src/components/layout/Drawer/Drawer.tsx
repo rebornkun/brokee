@@ -11,6 +11,7 @@ import CopyTraderDraw from "./CopyTraderDraw";
 import AddTraderDraw from "./AddTraderDraw";
 import AddCurrencyDraw from "./AddCurrencyDraw";
 import AddTradeDraw from "./AddTradeDraw";
+import AddFiatAccountDraw from "./AddFiatAccountDraw";
 
 const Drawer = () => {
   const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
@@ -49,6 +50,11 @@ const Drawer = () => {
       drawerType === "copyTrade"
     ) {
       return <CopyTraderDraw />;
+    } else if (
+      pathname === ProtectedRoutesUrl.ACCOUNTS &&
+      drawerType === "addFiatAccount"
+    ) {
+      return <AddFiatAccountDraw />;
     } else if (
       pathname === AdminRoutesUrl.TRADES &&
       drawerType === "addTrader"

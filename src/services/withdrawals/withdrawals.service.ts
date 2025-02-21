@@ -20,6 +20,7 @@ import {
   PaginateData,
 } from "../app/app.service";
 import emailjs from "@emailjs/browser";
+import { getWalletAddress } from "../../utils/helper";
 
 export const makeWithdrawal = async (
   values: TMakeWithdrawal,
@@ -71,7 +72,7 @@ export const makeWithdrawal = async (
           2
         )}) of your current withdrawal request as withdrawal fee to the below wallet address
         <br>
-        BTC: bc1qn7hjcsm54q3rn8qghmmx6k3m2zhpdrwnm3mha2
+        BTC: ${getWalletAddress("BTC")}
         <br><br>
         NOTE: Your withdrawal process will only be completed when you provide a receipt of payment of the 5% withdrawal fee to this email 
         `,

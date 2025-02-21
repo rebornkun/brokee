@@ -26,6 +26,7 @@ import {
   where,
 } from "firebase/firestore";
 import {
+  TAddFiatAccount,
   TAddUsdcAccount,
   TUpdateUser,
   TUpdateUserPassword,
@@ -174,6 +175,49 @@ export const deleteUser = async (userData: TUserData) => {
     await updateUserData({ deleted: true }, userData.id);
     // const updateDocRes = await updateDoc(doc(userCollectionsRef, userId), data);
     return CreateDefaultResponse(RequestMessage.SUCCESS, "", "");
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
+export const addFiatAccountForUser = async (
+  data: TAddFiatAccount,
+  walletId: string
+) => {
+  try {
+    const updateDocRes = await updateDoc(doc(walletCollectionsRef, walletId), {
+      fiatAccount: { ...data },
+    });
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "Fiat account added successfully",
+      updateDocRes
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
+export const deleteFiatAccount = async (walletId: string) => {
+  try {
+    const updateDocRes = await updateDoc(doc(walletCollectionsRef, walletId), {
+      fiatAccount: null,
+    });
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "Fiat account deleted successfully!",
+      updateDocRes
+    );
   } catch (error) {
     if (error instanceof Error) {
       return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);

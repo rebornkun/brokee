@@ -261,6 +261,11 @@ export const usersColumns = [
     dataIndex: "deleted",
   },
   {
+    title: "Payment",
+    key: "payment",
+    dataIndex: "payment",
+  },
+  {
     title: "Actions",
     key: "actions",
     dataIndex: "actions",

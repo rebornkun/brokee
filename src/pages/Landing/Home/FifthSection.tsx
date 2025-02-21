@@ -31,7 +31,7 @@ const FifthSection = () => {
             </p>
             <div className="flex flex-col gap-[1.3rem] mb-[2rem]">
               <Load percent={95} title={"Expert Advisors"} color={"nom"} />
-              <Load percent={97} title={"Trading Instrument"} color={"other"} />
+              <Load percent={97} title={"Trading Instrument"} color={"nom"} />
               <Load percent={94} title={"Technical Analysis"} color={"nom"} />
             </div>
             <BouncingBtn />

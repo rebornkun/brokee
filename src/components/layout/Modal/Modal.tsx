@@ -4,6 +4,7 @@ import DeleteModal from "./DeleteModal";
 import AddUsdcAccountModal from "./AddUsdcAccountModal";
 import KycModal from "./KycModal";
 import TopUp from "./TopUp";
+import Pay from "./Pay";
 
 const Modal = () => {
   const modalIsOpen = useAppStore((state) => state.modalIsOpen);
@@ -25,6 +26,8 @@ const Modal = () => {
       return <KycModal />;
     } else if (modalType === "topUpAccount") {
       return <TopUp />;
+    } else if (modalType === "payInfo") {
+      return <Pay />;
     }
   };
 

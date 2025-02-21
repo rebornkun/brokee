@@ -82,6 +82,8 @@ const Withdrawals = () => {
     },
   });
 
+  console.log(data);
+
   return (
     <section className="w-full h-full ">
       <WithdrawalsGreeting />

@@ -354,3 +354,17 @@ export type TTrade = {
   createdAt: any;
   updatedAt: any;
 };
+
+export type TAddFiatAccount = {
+  firstName: string;
+  lastName: string;
+  sortCode?: string;
+  accNumber?: string;
+  routingNumber?: string;
+  address?: string;
+  country: string;
+  city?: string;
+  postCode?: string;
+  state?: string;
+  ibanNumber?: string;
+};

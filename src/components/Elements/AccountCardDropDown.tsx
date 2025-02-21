@@ -43,7 +43,7 @@ const items: { key: string; label: React.ReactNode }[] = [
   {
     key: "2",
     label: (
-      <div className="!px-[4px] !py-[4px] rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-yellow hover:!text-darkYellow transition">
+      <div className="!px-[4px] !py-[4px] rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition">
         <span>Delete</span>
       </div>
     ),

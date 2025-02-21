@@ -14,10 +14,10 @@ const Footer = () => {
               66 Great Suffolk Street, LDN, UK.
             </span>
           </p>
-          <p className="text-[0.9rem] flex gap-4 items-center">
+          {/* <p className="text-[0.9rem] flex gap-4 items-center">
             <PhoneSvg className="h-[25px] w-[25px]" />
             <span className="text-grey font-[500]"> {contact.number}</span>
-          </p>
+          </p> */}
           <p className="text-[0.9rem] flex gap-4 items-center">
             <MailSvg className="h-[25px] w-[25px]" />
             <span className="text-grey font-[500]">{contact.email}</span>

@@ -35,6 +35,8 @@ export enum MutationKeys {
   DELETEUSER = "deleteUser",
   ADDWALLETADDRESS = "addWalletAddress",
   DELETEWALLETADDRESS = "deleteWalletAddress",
+  ADDFIATACCOUNT = "addFiatAccount",
+  DELETEFIATACCOUNT = "deleteFiatAccount",
   BUYPLAN = "buyPlan",
   COPYTRADER = "copyTrader",
   STOPTRADER = "stopTrader",

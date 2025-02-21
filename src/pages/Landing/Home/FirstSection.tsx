@@ -58,13 +58,13 @@ const FirstSection = () => {
             </p>
             <div className="flex flex-row items-center gap-8 mt-[1.3rem]">
               <BouncingBtn />
-              <div className="flex flex-row items-center gap-4">
+              {/* <div className="flex flex-row items-center gap-4">
                 <CallSvg className="h-[25px] w-[25px]" />
                 <div className="flex flex-col gap-[0.3rem]">
                   <p className="text-start font-[500]">Call Us At</p>
                   <p className="text-start text-grey">{contact.number}</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="flex flex-row gap-2 justify-between">

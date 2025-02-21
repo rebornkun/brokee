@@ -48,8 +48,13 @@ const MakeWithdrawal = () => {
   });
 
   const onFinish = async (values: any) => {
-    console.log(values);
-    makeWithdrawalMutate({ ...values, cryptoType: "BTC", rate: coinRate });
+    // console.log(values);
+    makeWithdrawalMutate({
+      ...values,
+      cryptoType: "BTC",
+      withdrawalType: withdrawalType,
+      rate: coinRate,
+    });
   };
 
   const handlePaymentPlanCostChange = (value: number) => {};
@@ -122,137 +127,223 @@ const MakeWithdrawal = () => {
           />
         </Form.Item>
         {withdrawalType === "Crypto" && (
-          <div className="flex flex-col w-full border-grey border-[1px] py-6 px-6 rounded-[8px] gap-4">
-            <p className="text-center leading-[1] text-darkGrey  text-[16px]">
-              Withdraw with BTC
-            </p>
-
-            <div className="flex w-full flex-col justify-between gap-4">
-              <Form.Item
-                name="amountInUsd"
-                label="USD"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input amount!",
-                  },
-                ]}
-                className="flex-1 "
-              >
-                <InputNumber
-                  min={1}
-                  max={userWallet.available}
-                  className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
-                  placeholder="Amount in USD"
-                  onChange={(value: number | null) => {
-                    value &&
-                      form.setFieldsValue({
-                        amountInCrypto: Number((value / coinRate).toFixed(6)),
-                      });
-                  }}
-                  // readOnly={paymentPlanIsLoading}
-                />
-              </Form.Item>
-              <Form.Item
-                name="amountInCrypto"
-                label={withdrawalType}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input amount!",
-                  },
-                ]}
-                className="flex-1 "
-              >
-                <InputNumber
-                  min={0}
-                  readOnly
-                  className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
-                  placeholder={`Amount in ${withdrawalType}`}
-                  onChange={(value: number | null) => {
-                    value &&
-                      form.setFieldsValue({
-                        amountInUsd: Number((value * coinRate).toFixed(2)),
-                      });
-                  }}
-                  // readOnly={paymentPlanIsLoading}
-                />
-              </Form.Item>
-            </div>
-            <div className="-mt-[10px] flex justify-between">
-              {rateIsLoading ? (
-                <>
-                  <BiLoader />
-                </>
-              ) : (
-                <p className="text-[10px] text-textLightGrey ">
-                  current rate:{" "}
-                  <span className="text-green font-[600] ">{coinRate}</span>
-                </p>
-              )}
-              <p className="text-[10px] text-textLightGrey ">
-                Available Balance:
-                <span className="text-green font-[600] ">
-                  {userWallet.available}
-                </span>
+          <>
+            <div className="flex flex-col w-full border-grey border-[1px] py-6 px-6 rounded-[8px] gap-4">
+              <p className="text-center leading-[1] text-darkGrey  text-[16px]">
+                Withdraw with BTC
               </p>
-            </div>
-          </div>
-        )}
-        {userWallet.wallet_address &&
-          (amountInUsd > 0 || amountInCrypto > 0) && (
-            <div className="w-full border-grey border-[1px] py-6 px-6 rounded-[8px]">
-              <div className="flex w-full flex-col items-center gap-4">
-                <p className="text-[20px]  text-center leading-[1] text-darkGrey ">
-                  <span className="text-green font-[700]">
-                    {amountInCrypto} BTC
-                  </span>{" "}
-                  will be sent
-                  <br></br> to this address
-                </p>
-                <div className="flex flex-col gap-2 w-full">
-                  <Input
-                    className="Nunito h-[44px] !py-[12px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] font-[300] !text-[#667085] "
-                    placeholder="Wallet Address"
-                    readOnly={true}
-                    value={userWallet.wallet_address}
-                    suffix={
-                      <CopyToClipboard
-                        text={getWalletAddress(withdrawalType)}
-                        onCopy={() => toast.success("Wallet address copied!")}
-                      >
-                        <BiCopy className="cursor-pointer" />
-                      </CopyToClipboard>
-                    }
+
+              <div className="flex w-full flex-col justify-between gap-4">
+                <Form.Item
+                  name="amountInUsd"
+                  label="USD"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input amount!",
+                    },
+                  ]}
+                  className="flex-1 "
+                >
+                  <InputNumber
+                    min={1}
+                    max={userWallet.available}
+                    className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
+                    placeholder="Amount in USD"
+                    onChange={(value: number | null) => {
+                      value &&
+                        form.setFieldsValue({
+                          amountInCrypto: Number((value / coinRate).toFixed(6)),
+                        });
+                    }}
+                    // readOnly={paymentPlanIsLoading}
                   />
+                </Form.Item>
+                <Form.Item
+                  name="amountInCrypto"
+                  label={withdrawalType}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input amount!",
+                    },
+                  ]}
+                  className="flex-1 "
+                >
+                  <InputNumber
+                    min={0}
+                    readOnly
+                    className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
+                    placeholder={`Amount in ${withdrawalType}`}
+                    onChange={(value: number | null) => {
+                      value &&
+                        form.setFieldsValue({
+                          amountInUsd: Number((value * coinRate).toFixed(2)),
+                        });
+                    }}
+                    // readOnly={paymentPlanIsLoading}
+                  />
+                </Form.Item>
+              </div>
+              <div className="-mt-[10px] flex justify-between">
+                {rateIsLoading ? (
+                  <>
+                    <BiLoader />
+                  </>
+                ) : (
+                  <p className="text-[10px] text-textLightGrey ">
+                    current rate:{" "}
+                    <span className="text-green font-[600] ">{coinRate}</span>
+                  </p>
+                )}
+                <p className="text-[10px] text-textLightGrey ">
+                  Available Balance:
+                  <span className="text-green font-[600] ">
+                    {userWallet.available}
+                  </span>
+                </p>
+              </div>
+            </div>
+            {userWallet.wallet_address &&
+              (amountInUsd > 0 || amountInCrypto > 0) && (
+                <div className="w-full border-grey border-[1px] py-6 px-6 rounded-[8px]">
+                  <div className="flex w-full flex-col items-center gap-4">
+                    <p className="text-[20px]  text-center leading-[1] text-darkGrey ">
+                      <span className="text-green font-[700]">
+                        {amountInCrypto} BTC
+                      </span>{" "}
+                      will be sent
+                      <br></br> to this address
+                    </p>
+                    <div className="flex flex-col gap-2 w-full">
+                      <Input
+                        className="Nunito h-[44px] !py-[12px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] font-[300] !text-[#667085] "
+                        placeholder="Wallet Address"
+                        readOnly={true}
+                        value={userWallet.wallet_address}
+                        suffix={
+                          <CopyToClipboard
+                            text={getWalletAddress(withdrawalType)}
+                            onCopy={() =>
+                              toast.success("Wallet address copied!")
+                            }
+                          >
+                            <BiCopy className="cursor-pointer" />
+                          </CopyToClipboard>
+                        }
+                      />
+                    </div>
+                    <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
+                      Please confirm your wallet address before proceeding with
+                      withdrawal to avoid loss of funds! <br></br>Note: if you
+                      have any issues with withdrawals you can always contact
+                      support.
+                    </p>
+                  </div>
                 </div>
-                <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
-                  Please confirm your wallet address before proceeding with
-                  withdrawal to avoid loss of funds! <br></br>Note: if you have
-                  any issues with withdrawals you can always contact support.
+              )}
+            {!userWallet.wallet_address &&
+              (amountInUsd > 0 || amountInCrypto > 0) && (
+                <div className="w-full border-grey border-[1px] py-6 px-6 rounded-[8px]">
+                  <div className="flex w-full flex-col items-center gap-4">
+                    <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
+                      you have no wallet address attached to your account, to
+                      connect wallet{" "}
+                      <Link
+                        className="text-green"
+                        to={"/account/settings/accounts"}
+                        onClick={() => setIsDrawerOpen(false)}
+                      >
+                        click here
+                      </Link>
+                      !
+                    </p>
+                  </div>
+                </div>
+              )}
+          </>
+        )}
+
+        {withdrawalType === "Bank" && (
+          <>
+            <div className="flex flex-col w-full border-grey border-[1px] py-6 px-6 rounded-[8px] gap-4">
+              <p className="text-center leading-[1] text-darkGrey  text-[16px]">
+                Withdrawal Amount
+              </p>
+
+              <div className="flex w-full flex-col justify-between gap-4">
+                <Form.Item
+                  name="amountInUsd"
+                  label="USD"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input amount!",
+                    },
+                  ]}
+                  className="flex-1 "
+                >
+                  <InputNumber
+                    min={1}
+                    max={userWallet.available}
+                    className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
+                    placeholder="Amount in USD"
+                    onChange={(value: number | null) => {
+                      value &&
+                        form.setFieldsValue({
+                          amountInCrypto: Number((value / coinRate).toFixed(6)),
+                        });
+                    }}
+                    // readOnly={paymentPlanIsLoading}
+                  />
+                </Form.Item>
+              </div>
+              <div className="-mt-[10px] flex justify-between">
+                <p className="text-[10px] text-textLightGrey ">
+                  Available Balance:
+                  <span className="text-green font-[600] ">
+                    {userWallet.available}
+                  </span>
                 </p>
               </div>
             </div>
-          )}
-        {!userWallet.wallet_address &&
-          (amountInUsd > 0 || amountInCrypto > 0) && (
-            <div className="w-full border-grey border-[1px] py-6 px-6 rounded-[8px]">
-              <div className="flex w-full flex-col items-center gap-4">
-                <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
-                  you have no wallet address attached to your account, to
-                  connect wallet{" "}
-                  <Link
-                    className="text-green"
-                    to={"/account/settings/accounts"}
-                    onClick={() => setIsDrawerOpen(false)}
-                  >
-                    click here
-                  </Link>
-                  !
-                </p>
+
+            {userWallet.fiatAccount && amountInUsd > 0 && (
+              <div className="w-full border-grey border-[1px] py-6 px-6 rounded-[8px]">
+                <div className="flex w-full flex-col items-center gap-4">
+                  <p className="text-[20px]  text-center leading-[1] text-darkGrey ">
+                    <span className="text-green font-[700]">
+                      {amountInUsd} USD
+                    </span>{" "}
+                    will be sent
+                    <br></br> to the following account{" "}
+                  </p>
+                  <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
+                    {userWallet.fiatAccount.accNumber ||
+                      userWallet.fiatAccount.ibanNumber}
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+            {!userWallet.fiatAccount && amountInUsd > 0 && (
+              <div className="w-full border-grey border-[1px] py-6 px-6 rounded-[8px]">
+                <div className="flex w-full flex-col items-center gap-4">
+                  <p className="text-[14px] text-[300] text-center text-textLightGrey leading-[1.1] ">
+                    you have no bank attached to your account, to connect bank{" "}
+                    <Link
+                      className="text-green"
+                      to={"/account/settings/accounts"}
+                      onClick={() => setIsDrawerOpen(false)}
+                    >
+                      click here
+                    </Link>
+                    !
+                  </p>
+                </div>
+              </div>
+            )}
+          </>
+        )}
         <div className="flex gap-[14px] items-center justify-end">
           <Button
             type="primary"
@@ -270,7 +361,9 @@ const MakeWithdrawal = () => {
               className="Nunito w-fit min-w-[120px] h-[40px] flex items-center justify-center bg-darkGreen hover:!bg-darkGreen disabled:hover:!bg-grey hover:opacity-[0.8] font-[600] text-[14px] 2xl:text-[16px] rounded-[8px]  "
               loading={isPending}
               disabled={
-                withdrawalType === "Crypto" && !userWallet.wallet_address
+                !withdrawalType ||
+                (withdrawalType === "Crypto" && !userWallet.wallet_address) ||
+                (withdrawalType === "Bank" && !userWallet.fiatAccount)
               }
             >
               Make Withdrawal
