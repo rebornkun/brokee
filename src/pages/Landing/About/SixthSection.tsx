@@ -21,10 +21,14 @@ const SixthSection = () => {
         </div>
         <div className="testSlider flex flex-[1_1_65%] relative flex-row max-md:flex-col gap-[2.5rem] overflow-auto">
           <div className="group/over flex-1 h-fit relative rounded-[5px] overflow-hidden transition-all">
-            <img src={img1} alt="person" className="w-full max-h-[400px]" />
+            <img
+              src={"/Camille_Sednaoui.jpg"}
+              alt="person"
+              className="w-full object-cover  h-[400px]"
+            />
             <div className="z-[1] w-full h-full absolute top-0 left-0 m-auto bg-green opacity-[0] transition-all duration-300 group-hover/over:opacity-[0.8] "></div>
             <p className="text-[22px] font-[600] leading-[1] z-[2] absolute text-white bottom-[1rem] left-[1rem] opacity-[0] duration-300 transition-all group-hover/over:opacity-[1] ">
-              Keith Guzman
+              Camille Sednaoui
             </p>
             <p className="rotate-[270deg] text-[18px] font-[500] leading-[1] tracking-[2px] z-[2] absolute text-white top-[4.5rem] right-[-6rem] duration-150 transition-all group-hover/over:right-[-2rem] ">
               CEO Tradex
