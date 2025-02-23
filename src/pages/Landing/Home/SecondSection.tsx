@@ -79,12 +79,12 @@ const SecondSection = () => {
             </div>
             <div className="flex gap-[0.7rem] mt-2">
               <img
-                className="w-[75px] h-[75px] rounded-full shadow m-0"
-                src={businessMan}
+                className="w-[75px] h-[75px] rounded-full shadow m-0 object-cover"
+                src={"/Camille_Sednaoui.jpg"}
                 alt="ceo"
               />
               <div className="flex flex-col gap-[0.2rem] justify-center ">
-                <p className="text-[1rem] font-[500]">Keith Guzman</p>
+                <p className="text-[1rem] font-[500]">Camille Sednaoui</p>
                 <p className="text-[0.9rem] font-[400] text-green">
                   CEO Tradex
                 </p>
