@@ -103,7 +103,7 @@ const WebRouter = () => {
       }
     };
     if (!isAuth) {
-      //logout user
+      //logout user//
       logOut();
       navigate("/", { replace: true });
     }
