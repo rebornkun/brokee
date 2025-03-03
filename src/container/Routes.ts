@@ -32,6 +32,7 @@ export enum AdminRoutesUrl {
   ADMIN = "/admin",
   USERS = "/admin",
   TRADES = "/admin/trades",
+  TRADERS = "/admin/trades/traders",
   DEPOSITS = "/admin/deposits",
   WITHDRAWALS = "/admin/withdrawals",
 }

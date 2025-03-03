@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Form, InputNumber, Tag } from "antd";
+import { Button, Form, InputNumber, Select, Tag } from "antd";
 
 import { ChangeEvent, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
@@ -12,6 +12,8 @@ import {
 } from "../../../services/user/user.service";
 import { useAppStore } from "../../../store/store";
 import { imageUploadHandler } from "../../../utils/image-upload-handler";
+import { getAllCurrency } from "../../../services/trades/trades.service";
+import { TCurrency } from "../../../types/types";
 
 const TopUp = () => {
   const setModalIsOpen = useAppStore((state) => state.setModalIsOpen);
@@ -20,6 +22,12 @@ const TopUp = () => {
   const setModalData = useAppStore((state) => state.setModalData);
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
+  const [selectedCurrencyId, setSelectedCurrencyId] = useState<string>("");
+  const [selectedCurrencyImage, setSelectedCurrencyImage] =
+    useState<string>("");
+  const [selectedCurrencyType, setSelectedCurrencyType] = useState<string>("");
+
+  const { Option } = Select;
 
   //get user wallet data
   const {
@@ -27,14 +35,27 @@ const TopUp = () => {
     // error,
     data,
   } = useQuery({
-    queryKey: [QueryKeys.GETUSERWALLETDATA],
+    queryKey: [QueryKeys.GETUSERTOPWALLET],
     queryFn: async () => {
+      // console.log(modalData[0]);
       const res = await getAUserWallet(modalData[0]);
-      form.setFieldValue("Deposit", res?.data?.payload?.usd);
-      form.setFieldValue("Available", res?.data?.payload?.available);
-      form.setFieldValue("Profit", res?.data?.payload?.paid);
-      form.setFieldValue("Withdrawn", res?.data?.payload?.earned);
+      // form.setFieldValue("Deposit", res?.data?.payload?.usd);
+      // form.setFieldValue("Available", res?.data?.payload?.available);
+      // form.setFieldValue("Profit", res?.data?.payload?.paid);
+      // form.setFieldValue("Withdrawn", res?.data?.payload?.earned);
 
+      return res.data;
+    },
+  });
+
+  const {
+    isLoading: currencyIsLoading,
+    error: currencyErr,
+    data: currencyData,
+  } = useQuery({
+    queryKey: [QueryKeys.GETALLCURRENCY],
+    queryFn: async () => {
+      const res = await getAllCurrency();
       return res.data;
     },
   });
@@ -46,13 +67,28 @@ const TopUp = () => {
       Deposit: number;
       Profit: number;
       Withdrawn: number;
-    }) =>
-      topUserWallet(data?.payload.id, {
-        available: values.Available,
-        earned: values.Withdrawn,
-        usd: values.Deposit,
-        paid: values.Profit,
-      }),
+      currencyName: string;
+      currencyId: string;
+      currencyImg: string;
+      currencyType: string;
+    }) => {
+      return topUserWallet(
+        data?.payload.id,
+        modalData[0],
+        userData.id,
+        data?.payload,
+        {
+          available: values.Available,
+          earned: values.Withdrawn,
+          usd: values.Deposit,
+          paid: values.Profit,
+          currencyName: values.currencyName,
+          currencyId: values.currencyId,
+          currencyImg: values.currencyImg,
+          currencyType: values.currencyType,
+        }
+      );
+    },
     onSuccess: (data) => {
       setModalIsOpen(false);
       queryClient.invalidateQueries({
@@ -66,8 +102,20 @@ const TopUp = () => {
     Deposit: number;
     Profit: number;
     Withdrawn: number;
+    currencyName: string;
   }) => {
-    topUpMutate(values);
+    // console.log({
+    //   ...values,
+    //   currencyId: selectedCurrencyId,
+    //   currencyImg: selectedCurrencyImage,
+    //   currencyType: selectedCurrencyType,
+    // });
+    topUpMutate({
+      ...values,
+      currencyId: selectedCurrencyId,
+      currencyImg: selectedCurrencyImage,
+      currencyType: selectedCurrencyType,
+    });
   };
 
   const customizeRequiredMark = (label: any, prop: any) => (
@@ -115,24 +163,24 @@ const TopUp = () => {
             <div className="flex w-full justify-between gap-4">
               <Form.Item
                 name="Deposit"
-                label="Deposit"
+                label={`Deposit: ${data?.payload?.usd}`}
                 rules={[]}
                 className="flex-1 "
               >
                 <InputNumber
-                  min={0}
+                  // min={0}
                   className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
                   placeholder="Deposit Amount"
                 />
               </Form.Item>
               <Form.Item
                 name="Available"
-                label={"Available Bal"}
+                label={`Available Bal: ${data?.payload?.available}`}
                 rules={[]}
                 className="flex-1 "
               >
                 <InputNumber
-                  min={0}
+                  // min={0}
                   className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
                   placeholder={`Available Bal`}
                 />
@@ -141,29 +189,84 @@ const TopUp = () => {
             <div className="flex w-full justify-between gap-4">
               <Form.Item
                 name="Profit"
-                label="Profit"
+                label={`Profit: ${data?.payload?.paid}`}
                 rules={[]}
                 className="flex-1 "
               >
                 <InputNumber
-                  min={0}
+                  // min={0}
                   className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
                   placeholder="Profit Amount"
                 />
               </Form.Item>
               <Form.Item
                 name="Withdrawn"
-                label={"Withdrawn"}
+                label={`Withdrawn: ${data?.payload?.earned}`}
                 rules={[]}
                 className="flex-1 "
               >
                 <InputNumber
-                  min={0}
+                  // min={0}
                   className="Nunito w-full h-[44px] flex items-center !px-[4px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus-within:!shadow-[0_0px_0px_1px_#ffa30094] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] !font-[300] !text-[#667085] "
                   placeholder={`Withdrawn amount`}
                 />
               </Form.Item>
             </div>
+            <div className="w-full">
+              <Form.Item
+                name="currencyName"
+                label="Currency"
+                rules={[]}
+                className=""
+              >
+                <Select
+                  showSearch
+                  placeholder="Select a Currency"
+                  filterOption={(input, option) =>
+                    ((option?.value as string) || "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  onChange={(e, a) => {
+                    const option = a as {
+                      key: string;
+                      imgUrl: string;
+                      currencyType: string;
+                    };
+                    setSelectedCurrencyId(option.key);
+                    setSelectedCurrencyImage(option.imgUrl);
+                    setSelectedCurrencyType(option.currencyType);
+                    // handleSelectCountry(e);
+                  }}
+                  loading={currencyIsLoading}
+                  className="Nunito h-[44px] bg-[#F9FAFB] !border-[1px] !border-[#D1D5DB] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] !text-[16px] !font-[300] !text-[#667085]"
+                >
+                  {currencyData?.payload?.map(
+                    (datum: TCurrency, index: number) => {
+                      return (
+                        <Option
+                          key={datum.id}
+                          imgUrl={datum.imgUrl}
+                          value={datum.currencyNameShort}
+                          currencyType={datum.currencyType}
+                          className="!p-2 flex "
+                        >
+                          <div className="flex w-full items-center gap-[5px]">
+                            <img
+                              className="h-[20px] w-[20px]"
+                              src={datum.imgUrl}
+                              alt="currency"
+                            />
+                            {datum.currencyName}
+                          </div>
+                        </Option>
+                      );
+                    }
+                  )}
+                </Select>
+              </Form.Item>
+            </div>
+
             <Form.Item className="max-md:w-full">
               <Button
                 type="primary"

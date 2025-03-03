@@ -21,6 +21,8 @@ export enum QueryKeys {
   GETALLWITHDRAWALSSTATS = "getAllWithdrawalsStats",
   GETTRADERSTABLEDATA = "getAllTradersForAdmin",
   GETALLADMINTRADES = "getAllAdminTrades",
+  GETALLADMINTRADERS = "getAllAdminTraders",
+  GETUSERTOPWALLET = "getUserTopupWallet",
 }
 
 export enum MutationKeys {
@@ -52,4 +54,5 @@ export enum MutationKeys {
   VERIFYUSER = "verifyUser",
   UNVERIFYUSER = "unVerifyUser",
   TOPUPUSER = "topUpUser",
+  DELETETRADER = "deleteTrader",
 }

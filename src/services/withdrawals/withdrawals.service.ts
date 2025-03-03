@@ -47,6 +47,7 @@ export const makeWithdrawal = async (
     await setDoc(doc(withdrawCollectionsRef, withdrawalId), {
       id: withdrawalId,
       userId: userData.id,
+      email: userData.email,
       ...values,
       status: Status.PENDING,
       createdAt: new Date(),

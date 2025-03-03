@@ -1,4 +1,5 @@
 import {
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -37,7 +38,6 @@ import {
 import { uploadImage } from "../user/user.service";
 import { TUserData, TUserWallet } from "../../store/store.types";
 import { Status } from "../../enums/status";
-
 export const getAllTraders = async () => {
   try {
     let q;
@@ -51,6 +51,52 @@ export const getAllTraders = async () => {
     });
 
     return CreateDefaultResponse(RequestMessage.SUCCESS, "", allTradersData);
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Something went wrong:", error);
+      throw error;
+    }
+  }
+};
+
+export const getAllTradersForTable = async (params: TParams) => {
+  try {
+    const { data, paginationData } = await PaginateData(
+      null,
+      params,
+      tradersCollectionsRef
+    );
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "",
+      data,
+      paginationData
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Something went wrong:", error);
+      throw error;
+    }
+  }
+};
+
+export const getAllTradesForTable = async (params: TParams) => {
+  try {
+    const { data, paginationData } = await PaginateData(
+      null,
+      params,
+      tradesCollectionsRef
+    );
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "",
+      data,
+      paginationData
+    );
   } catch (error) {
     if (error instanceof Error) {
       return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
@@ -237,6 +283,24 @@ export const createTrader = async (
     return CreateDefaultResponse(
       RequestMessage.SUCCESS,
       "Trader Created!",
+      null
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Something went wrong:", error);
+      throw error;
+    }
+  }
+};
+
+export const deleteTraderById = async (id: string) => {
+  try {
+    await deleteDoc(doc(tradersCollectionsRef, id));
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "Trader Deleted!",
       null
     );
   } catch (error) {

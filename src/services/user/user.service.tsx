@@ -8,12 +8,17 @@ import {
   db,
   getDocumentById,
   storage,
+  tradesCollectionsRef,
   userCollectionsRef,
   walletCollectionsRef,
 } from "../../config/firebase";
 import { CollectionsEnum } from "../../config/firebase.enum";
 import { RequestMessage } from "../../types/default-response.dto";
-import { cloudinaryUpload, CreateDefaultResponse } from "../app/app.service";
+import {
+  cloudinaryUpload,
+  CreateDefaultResponse,
+  generateTransactionId,
+} from "../app/app.service";
 import { logOutUser } from "../auth/auth.service";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -22,6 +27,7 @@ import {
   DocumentData,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -31,7 +37,7 @@ import {
   TUpdateUser,
   TUpdateUserPassword,
 } from "../../types/types";
-import { TUserData } from "../../store/store.types";
+import { TUserData, TUserWallet } from "../../store/store.types";
 
 export const getUserData = async () => {
   try {
@@ -430,18 +436,54 @@ export const getAUserWallet = async (id: string) => {
 
 export const topUserWallet = async (
   walletId: string,
+  userId: string,
+  adminId: string,
+  walletData: TUserWallet,
   data: {
     available: number;
     earned: number;
     usd: number;
     paid: number;
+    currencyName: string;
+    currencyId: string;
+    currencyImg: string;
+    currencyType: string;
   }
 ) => {
   try {
-    const updateDocRes = await updateDoc(
-      doc(walletCollectionsRef, walletId),
-      data
-    );
+    let available = Number(data.available ?? 0) + Number(walletData.available);
+    let earned = Number(data.earned ?? 0) + Number(walletData.earned);
+    let usd = Number(data.usd ?? 0) + Number(walletData.usd);
+    let paid = Number(data.paid ?? 0) + Number(walletData.paid);
+
+    if (data.currencyName) {
+      //record trade
+      const tradeId = generateTransactionId("t");
+      // // const depositId = uuidv4();
+      await setDoc(doc(tradesCollectionsRef, tradeId), {
+        id: tradeId,
+        creatorId: adminId,
+        usersId: [userId],
+        TraderName: "Auto Trading",
+        amount: data.available,
+        currencyId: data.currencyId,
+        currencyName: data.currencyName,
+        currencyImg: data.currencyImg,
+        currencyType: data.currencyType,
+        status: data.available > 0 ? "won" : "lost",
+        traderId: "#000000",
+        traderProfitShare: "0",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+
+    const updateDocRes = await updateDoc(doc(walletCollectionsRef, walletId), {
+      available: available < 0 ? 0 : available,
+      earned: earned < 0 ? 0 : earned,
+      usd: usd < 0 ? 0 : usd,
+      paid: paid < 0 ? 0 : paid,
+    });
     return CreateDefaultResponse(
       RequestMessage.SUCCESS,
       "top up successful",

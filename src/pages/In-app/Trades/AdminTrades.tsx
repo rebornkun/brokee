@@ -27,6 +27,7 @@ import { LuCopyMinus } from "react-icons/lu";
 import { MutationKeys, QueryKeys } from "../../../enums/react-query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  getAllTradesForTable,
   getTradesById,
   getUserTrader,
   stopTrader,
@@ -62,7 +63,7 @@ const AdminTrades = () => {
       const { sort, filter, pagination, search } = handleParams(params);
 
       // console.log({ sort, filter, pagination, search });
-      const res = await getTradesById(userData.id, {
+      const res = await getAllTradesForTable({
         sort,
         filter,
         pagination,
@@ -79,26 +80,8 @@ const AdminTrades = () => {
   return (
     <section className="w-full h-full ">
       <TradesGreeting />
-      <div className="flex max-lg:flex-col max-md:mb-[47px] max-lg:mb-[44px] mb-[40px] gap-[26px] ">
-        {/* <div className="flex min-w-[376px] h-[149px]">
-          {false ? (
-            <div className="sk_bg max-lg:w-full w-[390px] h-[149px] rounded-[8px]"></div>
-          ) : (
-            <RevenueCard
-              type="transactions"
-              title="trades"
-              icon={
-                <div className="h-[50px] w-[50px] rounded-full bg-navGreen flex items-center justify-center activeSideNav">
-                  <FaMoneyBillTransfer className="sideIcon text-green transition-all text-[20px]" />
-                </div>
-              }
-              currencySymbol={"$"}
-              lastUpdated={new Date()}
-              amount={5000 || 0}
-              isLoading={false}
-            />
-          )}
-        </div> */}
+      {/* <div className="flex max-lg:flex-col max-md:mb-[47px] max-lg:mb-[44px] mb-[40px] gap-[26px] ">
+        
         <TransactionStats
           icon1={
             <FaMoneyBillTransfer className="sideIcon text-green transition-all text-[20px]" />
@@ -112,7 +95,7 @@ const AdminTrades = () => {
           value2={200}
           isLoading={false}
         />
-      </div>
+      </div> */}
       <h1 className="pb-2 max-sm:text-[24px] text-[28px] 2xl:text-[32px] font-[300] leading-normal">
         All Trades
       </h1>

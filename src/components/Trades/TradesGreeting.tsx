@@ -2,8 +2,11 @@ import { Button } from "antd";
 import { FaPlus } from "react-icons/fa6";
 import { useAppStore } from "../../store/store";
 import { GrCopy } from "react-icons/gr";
-import { MoneySvg, TradeChartSvg } from "../../assets/svg/svg";
+import { MoneySvg, RightArrowSvg, TradeChartSvg } from "../../assets/svg/svg";
 import { FaChartBar } from "react-icons/fa";
+import { BiArrowFromRight, BiRightArrowAlt } from "react-icons/bi";
+import { AdminRoutesUrl } from "../../container/Routes";
+import { Link } from "react-router-dom";
 
 const TradesGreeting = () => {
   const setIsDrawerOpen = useAppStore((state) => state.setIsDrawerOpen);
@@ -59,6 +62,11 @@ const TradesGreeting = () => {
             {" "}
             Create Trades
           </Button>
+          <Link to={AdminRoutesUrl.TRADERS}>
+            <div className="rounded-full border-[1px] h-[40px] w-[40px] flex items-center justify-center cursor-pointer ">
+              <BiRightArrowAlt className="text-green text-[30px]" />
+            </div>
+          </Link>
         </div>
       ) : (
         <Button

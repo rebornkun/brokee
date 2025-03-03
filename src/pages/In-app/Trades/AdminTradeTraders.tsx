@@ -13,31 +13,34 @@ import {
   dashboardSortOptions,
   initPaginationData,
   tradeColumns,
+  traderColumns,
   tradeStatusOptions,
   tradeTableData,
-  usersColumns,
-  usersTableData,
 } from "../../../utils/constants";
 import RevenueCard from "../../../components/Elements/RevenueCard";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import TransactionStats from "../../../components/Elements/TransactionStats";
 import { UserSvg } from "../../../assets/svg/svg";
-import { capitalizeWords } from "../../../utils/helper";
+import { capitalizeWords, handleParams } from "../../../utils/helper";
 
 import { Button } from "antd";
 import { LuCopyMinus } from "react-icons/lu";
 import { MutationKeys, QueryKeys } from "../../../enums/react-query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  getAllTradersForTable,
+  getTradesById,
   getUserTrader,
   stopTrader,
 } from "../../../services/trades/trades.service";
 import { useAppStore } from "../../../store/store";
-import UsersGreeting from "../../../components/Users/UsersGreeting";
-import { getAllUsers } from "../../../services/user/user.service";
+import { Link } from "react-router-dom";
+import { AdminRoutesUrl } from "../../../container/Routes";
+import { BiLeftArrowAlt } from "react-icons/bi";
 
 const pageLimit = 10;
-const Users = () => {
+
+const AdminTradeTraders = () => {
   const userData = useAppStore((state) => state.userData);
   const [status, setStatus] = useState<TStatusDropItem>(tradeStatusOptions[0]);
   const [activeSort, setActiveSort] = useState<TSortDropItem>({
@@ -50,42 +53,48 @@ const Users = () => {
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
   const queryClient = useQueryClient();
 
-  const {
-    isLoading: allUsersIsLoading,
-    error: allUsersErr,
-    data: allUsersData,
-  } = useQuery({
-    queryKey: [QueryKeys.GETALLUSERS],
-    queryFn: async () => {
-      const res = await getAllUsers();
-      // console.log(res);
+  const [lastVisible, setLastVisible] = useState();
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: [
+      QueryKeys.GETALLADMINTRADERS,
+      activeSort,
+      status,
+      { pageNo, pageLimit },
+      searchValue,
+      userData.id,
+    ],
+    queryFn: async (params) => {
+      const { sort, filter, pagination, search } = handleParams(params);
+
+      // console.log({ sort, filter, pagination, search });
+      const res = await getAllTradersForTable({
+        sort,
+        filter,
+        pagination,
+        search,
+        lastVisible,
+      });
+      console.log(res);
+      setPaginationData(res.data.pagination || initPaginationData);
+      setLastVisible(res.data.pagination?.lastVisible);
       return res.data;
     },
   });
 
-  const { mutate: stopTraderMutate, isPending: stopTraderIsPending } =
-    useMutation({
-      mutationKey: [MutationKeys.STOPTRADER],
-      mutationFn: () => {
-        return stopTrader(userData.id);
-      },
-      onSuccess: (data) => {
-        queryClient.invalidateQueries({
-          queryKey: [`${QueryKeys.GETUSERDATA}`],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [`${QueryKeys.GETALLTRADERS}`],
-        });
-      },
-      onError: (error) => {
-        // console.log(error);
-      },
-    });
-
   return (
     <section className="w-full h-full ">
-      <UsersGreeting />
-
+      {/* <TradesGreeting /> */}
+      <div className="flex items-center gap-2 py-2 mb-8">
+        <Link to={AdminRoutesUrl.TRADES}>
+          <div className="rounded-full border-[1px] h-[40px] w-[40px] flex items-center justify-center cursor-pointer ">
+            <BiLeftArrowAlt className="text-green text-[30px]" />
+          </div>
+        </Link>
+        <h1 className=" max-sm:text-[24px] text-[28px] 2xl:text-[32px] font-[300] leading-normal">
+          All Traders
+        </h1>
+      </div>
       <div className="flex flex-col gap-[35px]">
         <TableWithSearch
           hasDeleteBtn={false}
@@ -98,10 +107,10 @@ const Users = () => {
           pageNo={pageNo}
           setPageNo={setPageNo}
           setSearchValue={setSearchValue}
-          columns={usersColumns}
-          data={allUsersData?.payload}
+          columns={traderColumns}
+          data={data?.payload}
           paginationData={paginationData}
-          isLoading={allUsersIsLoading}
+          isLoading={false}
           hasStatusBtn={true}
         />
       </div>
@@ -109,4 +118,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AdminTradeTraders;

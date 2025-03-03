@@ -162,6 +162,44 @@ export const tradeColumns = [
   },
 ];
 
+export const traderColumns = [
+  {
+    title: "Trader ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
+    title: "DATE",
+    dataIndex: "date",
+    key: "date",
+  },
+  {
+    title: "TRADER",
+    dataIndex: "fullName",
+    key: "fullName",
+  },
+  {
+    title: "MIN DEPOSIT",
+    dataIndex: "minDeposit",
+    key: "minDeposit",
+  },
+  {
+    title: "PROFIT SHARE",
+    dataIndex: "profitShare",
+    key: "profitShare",
+  },
+  {
+    title: "WIN RATE",
+    key: "winRate",
+    dataIndex: "winRate",
+  },
+  {
+    title: "Actions",
+    key: "actions",
+    dataIndex: "actions",
+  },
+];
+
 export const tradeTableData = [
   {
     id: "1",
@@ -367,6 +405,11 @@ export const depositsColumnsAdmin = [
     key: "payment_type",
   },
   {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+  },
+  {
     title: "AMOUNT(USD)",
     dataIndex: "amountInUsd",
     key: "amountInUsd",
@@ -447,6 +490,43 @@ export const withdrawalStatusOptions = [
   { field: "status", value: DepositStatus.FAILED },
 ];
 
+export const withdrawalAdminColumns = [
+  {
+    title: "Withdrawal ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
+    title: "WITHDRAW TYPE",
+    dataIndex: "withdrawalType",
+    key: "withdrawalType",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+  },
+  {
+    title: "AMOUNT",
+    dataIndex: "amountInUsd",
+    key: "amountInUsd",
+  },
+  // {
+  //   title: "CURRENCY",
+  //   dataIndex: "cryptoType",
+  //   key: "cryptoType",
+  // },
+  {
+    title: "DATE",
+    dataIndex: "date",
+    key: "date",
+  },
+  {
+    title: "STATUS",
+    key: "status",
+    dataIndex: "status",
+  },
+];
 export const withdrawalColumns = [
   {
     title: "Withdrawal ID",

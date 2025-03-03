@@ -114,7 +114,7 @@ const WebRouter = () => {
       <Suspense fallback={<p>Loading...</p>}>
         <div className="flex h-full w-full">
           <SideBar />
-          <div className="flex-1 p-2 px-4 flex flex-col w-full bg-white Noto">
+          <div className=" overflow-hidden  flex-1 p-2 px-4 flex flex-col w-full bg-white Noto">
             <TopBar />
             <div className="flex-1 overflow-auto">
               <Outlet />

@@ -18,6 +18,7 @@ import { useAppStore } from "../store/store";
 import { AdminRoutesUrl } from "./Routes";
 import AdminWithdrawals from "../pages/In-app/Withdrawals/AdminWithdrawals";
 import AdminTrades from "../pages/In-app/Trades/AdminTrades";
+import AdminTradeTraders from "../pages/In-app/Trades/AdminTradeTraders";
 
 const DashBoard = React.lazy(
   () => import("../pages/In-app/DashBoard/DashBoard")
@@ -108,7 +109,7 @@ const WebRouter = () => {
       <Suspense fallback={<p>Loading...</p>}>
         <div className="flex h-full w-full">
           <SideBar />
-          <div className="flex-1 p-2 px-4 flex flex-col w-full bg-white Noto">
+          <div className="overflow-hidden flex-1 p-2 px-4 flex flex-col w-full bg-white Noto">
             <TopBar />
             <div className="flex-1 overflow-auto">
               <Outlet />
@@ -136,6 +137,11 @@ export const AdminRoutes = [
         path: AdminRoutesUrl.TRADES,
         name: "Trades",
         element: <AdminTrades />,
+      },
+      {
+        path: AdminRoutesUrl.TRADERS,
+        name: "Traders",
+        element: <AdminTradeTraders />,
       },
       {
         path: AdminRoutesUrl.DEPOSITS,

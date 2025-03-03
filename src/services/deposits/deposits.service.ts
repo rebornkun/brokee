@@ -39,6 +39,7 @@ export const makeDeposit = async (
     await setDoc(doc(depositCollectionsRef, depositId), {
       id: depositId,
       userId: userData.id,
+      email: userData.email,
       image: imgUpload.data.payload?.url,
       payment_type: "crypto",
       amountInCrypto: values.amountInCrypto,

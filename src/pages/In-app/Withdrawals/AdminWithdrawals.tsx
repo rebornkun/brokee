@@ -6,6 +6,7 @@ import TableWithSearch from "../../../components/layout/Table/TableWithSearch";
 import {
   dashboardSortOptions,
   initPaginationData,
+  withdrawalAdminColumns,
   withdrawalColumns,
   withdrawalStatusOptions,
   withdrawalTableData,
@@ -133,7 +134,7 @@ const AdminWithdrawals = () => {
           pageNo={pageNo}
           setPageNo={setPageNo}
           setSearchValue={setSearchValue}
-          columns={withdrawalColumns}
+          columns={withdrawalAdminColumns}
           data={data?.payload}
           paginationData={paginationData}
           isLoading={isLoading}

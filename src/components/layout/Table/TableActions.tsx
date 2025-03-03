@@ -17,6 +17,7 @@ import {
 } from "../../../services/deposits/deposits.service";
 import { FaDownload } from "react-icons/fa";
 import { useAppStore } from "../../../store/store";
+import { deleteTraderById } from "../../../services/trades/trades.service";
 
 const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
   const queryClient = useQueryClient();
@@ -128,6 +129,22 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
       },
     });
 
+  const { mutate: deleteTraderMutate, isPending: deleteTraderIsPending } =
+    useMutation({
+      mutationKey: [MutationKeys.DELETETRADER],
+      mutationFn: () => {
+        return deleteTraderById(userData.id);
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [`${QueryKeys.GETALLADMINTRADERS}`],
+        });
+      },
+      onError: (error) => {
+        // console.log(error);
+      },
+    });
+
   const location = useLocation();
 
   return (
@@ -203,6 +220,18 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
             loading={cancelDepositIsPending}
           >
             Reject
+          </Button>
+        </div>
+      ) : location.pathname === AdminRoutesUrl.TRADERS ? (
+        <div className="flex gap-2">
+          <Button
+            className="!text-[#6B7280] !bg-[#FFFFFF] hover:!text-[#6B7280] !Noto w-fit h-fit flex items-center justify-center   hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-[#D0D5DD]  !border-[1px] rounded-[8px] cursor-pointer "
+            onClick={() => {
+              deleteTraderMutate();
+            }}
+            loading={deleteTraderIsPending}
+          >
+            Delete
           </Button>
         </div>
       ) : (
