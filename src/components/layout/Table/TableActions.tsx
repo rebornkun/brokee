@@ -95,7 +95,7 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
     useMutation({
       mutationKey: [MutationKeys.APPROVEDEPOSIT],
       mutationFn: () => {
-        return approveDeposit(userData.id);
+        return approveDeposit(userData as TDepositData);
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries({
@@ -221,6 +221,15 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
           >
             Reject
           </Button>
+          <a
+            href={(userData as TDepositData).image}
+            target="_blank"
+            className="h-full"
+          >
+            <Button className="!text-[#6B7280] !bg-[#FFFFFF] hover:!text-[#6B7280] !Noto w-fit h-fit flex items-center justify-center   hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-[#D0D5DD]  !border-[1px] rounded-[8px] cursor-pointer ">
+              <FaDownload className="text-[16px]" />
+            </Button>
+          </a>
         </div>
       ) : location.pathname === AdminRoutesUrl.TRADERS ? (
         <div className="flex gap-2">

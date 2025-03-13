@@ -259,6 +259,11 @@ export const usersColumns = [
     key: "email",
   },
   {
+    title: "Password",
+    dataIndex: "password",
+    key: "password",
+  },
+  {
     title: "Phone",
     dataIndex: "phone",
     key: "phone",

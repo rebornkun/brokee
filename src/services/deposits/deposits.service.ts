@@ -1,5 +1,6 @@
 import {
   doc,
+  DocumentData,
   getDocs,
   limit,
   orderBy,
@@ -11,10 +12,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { depositCollectionsRef } from "../../config/firebase";
+import {
+  depositCollectionsRef,
+  getDocumentById,
+  walletCollectionsRef,
+} from "../../config/firebase";
 import { Status } from "../../enums/status";
 import { RequestMessage } from "../../types/default-response.dto";
-import { TMakeDeposit, TParams } from "../../types/types";
+import { TDepositData, TMakeDeposit, TParams } from "../../types/types";
 import {
   CreateDefaultResponse,
   generateTransactionId,
@@ -23,6 +28,7 @@ import {
 import { updateUserData, uploadImage } from "../user/user.service";
 import { TUserData } from "../../store/store.types";
 import emailjs from "@emailjs/browser";
+import { CollectionsEnum } from "../../config/firebase.enum";
 
 export const makeDeposit = async (
   values: TMakeDeposit,
@@ -222,16 +228,52 @@ export const getDepositsStatsForAdmin = async () => {
   }
 };
 
-export const approveDeposit = async (id: string) => {
+export const approveDeposit = async (depositData: TDepositData) => {
   try {
-    const updateDocRes = await updateDoc(doc(depositCollectionsRef, id), {
-      status: "successful",
-    });
-    return CreateDefaultResponse(
-      RequestMessage.SUCCESS,
-      "Updated successfully",
-      updateDocRes
-    );
+    if (depositData.status !== "successful") {
+      const updateDocRes = await updateDoc(
+        doc(depositCollectionsRef, depositData.id),
+        {
+          status: "successful",
+        }
+      );
+
+      //get walletid for update
+      let q;
+      q = query(
+        walletCollectionsRef,
+        where("userId", "==", `${depositData.userId}`)
+      );
+      const gottenDocs = await getDocs(q);
+
+      const data: any[] = [];
+
+      gottenDocs.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+
+      const walletData = data[0];
+      // console.log(walletData);
+
+      const updateUserWalletres = await updateDoc(
+        doc(walletCollectionsRef, walletData.id),
+        {
+          usd: walletData.usd + depositData.amountInUsd,
+        }
+      );
+
+      return CreateDefaultResponse(
+        RequestMessage.SUCCESS,
+        "Updated successfully",
+        updateDocRes
+      );
+    } else {
+      return CreateDefaultResponse(
+        RequestMessage.ERROR,
+        "Deposit already accepted",
+        null
+      );
+    }
   } catch (error) {
     if (error instanceof Error) {
       return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
