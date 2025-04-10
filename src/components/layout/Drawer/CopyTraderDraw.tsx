@@ -56,7 +56,10 @@ const CopyTraderDraw = () => {
               <div className="w-[55%] rounded-[30px] bg-navGreen flex items-center ">
                 <div className="h-[30px] w-[30px] rounded-full bg-[#F9F5FF] flex items-center justify-center overflow-hidden  ">
                   <img
-                    src={"/profileEazi.jpeg"}
+                    src={
+                      (userTraderData?.payload as TTrader).imgUrl ||
+                      "/profileEazi.jpeg"
+                    }
                     alt="userImg"
                     className="w-full h-full"
                   />
