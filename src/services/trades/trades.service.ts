@@ -34,6 +34,7 @@ import {
   TCreateTrader,
   TParams,
   TradeStatus,
+  TTrade,
 } from "../../types/types";
 import { uploadImage } from "../user/user.service";
 import { TUserData, TUserWallet } from "../../store/store.types";
@@ -425,6 +426,86 @@ export const createTrade = async (values: TCreateTrade, id: string) => {
     return CreateDefaultResponse(
       RequestMessage.SUCCESS,
       "Trade Created!",
+      null
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Something went wrong:", error);
+      throw error;
+    }
+  }
+};
+
+export const updateTrade = async (values: TTrade, flag: "won" | "lost") => {
+  try {
+    const tradersCut =
+      (Number(values.amount) * Number(values.traderProfitShare)) / 100;
+    const actualAmount = Number(values.amount) - tradersCut;
+
+    const traderUsersQ = query(
+      userCollectionsRef,
+      where("my_trader", "==", `${values.traderId}`)
+    );
+    const allUsersUsingThisTraderDocs = await getDocs(traderUsersQ);
+
+    const allUsersUsingThisTraderData: any[] = [];
+    const allUsersUsingThisTraderID: any[] = [];
+
+    allUsersUsingThisTraderDocs.forEach((doc) => {
+      allUsersUsingThisTraderData.push({ id: doc.id, ...doc.data() });
+      allUsersUsingThisTraderID.push(doc.id);
+    });
+
+    allUsersUsingThisTraderData.map(async (data: TUserData, index: number) => {
+      const traderUsersWalletQ = query(
+        walletCollectionsRef,
+        where("userId", "==", `${data.id}`)
+      );
+
+      const allUsersUsingThisTraderWalletDocs = await getDocs(
+        traderUsersWalletQ
+      );
+
+      const allUsersUsingThisTraderWalletData: any[] = [];
+
+      allUsersUsingThisTraderWalletDocs.forEach((doc) => {
+        allUsersUsingThisTraderWalletData.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+
+      //update wallet
+      allUsersUsingThisTraderWalletData.map(
+        async (data: TUserWallet, index: number) => {
+          let finalValue;
+          if (flag === "won") {
+            finalValue = data.available + actualAmount;
+          } else if (flag === "lost") {
+            (finalValue = data.available - actualAmount),
+              (finalValue = finalValue < 0 ? 0 : finalValue);
+          }
+          // console.log(actualAmount);
+          // console.log(finalValue);
+          await updateDoc(doc(walletCollectionsRef, data.id), {
+            available: finalValue,
+          });
+        }
+      );
+    });
+
+    //update trade
+
+    const updateDocRes = await updateDoc(doc(tradesCollectionsRef, values.id), {
+      status: flag,
+      updatedAt: new Date(),
+    });
+
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "Trade Updated!",
       null
     );
   } catch (error) {

@@ -338,6 +338,7 @@ export type TCreateTrade = {
 };
 
 export type TTrade = {
+  id: string;
   TraderName: string;
   currencyName: string;
   amount: number;

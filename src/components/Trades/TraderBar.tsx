@@ -80,7 +80,7 @@ const TraderBar = ({
             {profitShare}% Profit Share
           </p>
           <p className="text-[12px] 2xl:text-[14px] font-[400] leading-[1] text-textGrey">
-            {currencyFormatter(minDeposit)} Min Deposit Required
+            {currencyFormatter(minDeposit)}$ Min Deposit Required
           </p>
         </div>
         {userData.my_trader === id ? (

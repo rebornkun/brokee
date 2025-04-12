@@ -10,16 +10,23 @@ import {
   verifyUser,
 } from "../../../services/user/user.service";
 import { TUserData } from "../../../store/store.types";
-import { TDepositData } from "../../../types/types";
+import { TDepositData, TTrade } from "../../../types/types";
 import {
   approveDeposit,
   cancelDeposit,
 } from "../../../services/deposits/deposits.service";
 import { FaDownload } from "react-icons/fa";
 import { useAppStore } from "../../../store/store";
-import { deleteTraderById } from "../../../services/trades/trades.service";
+import {
+  deleteTraderById,
+  updateTrade,
+} from "../../../services/trades/trades.service";
 
-const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
+const TableActions = ({
+  userData,
+}: {
+  userData: TUserData | TDepositData | TTrade;
+}) => {
   const queryClient = useQueryClient();
   const setModalIsOpen = useAppStore((state) => state.setModalIsOpen);
   const setModalType = useAppStore((state) => state.setModalType);
@@ -145,8 +152,27 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
       },
     });
 
+  //trade
+  const { mutate: updateTradeMutate, isPending: updateTradeIsPending } =
+    useMutation({
+      mutationKey: [MutationKeys.DELETETRADER],
+      mutationFn: (flag: "won" | "lost") => {
+        console.log(flag);
+        return updateTrade(userData as TTrade, flag);
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [`${QueryKeys.GETALLADMINTRADES}`],
+        });
+      },
+      onError: (error) => {
+        // console.log(error);
+      },
+    });
+
   const location = useLocation();
 
+  console.log(userData);
   return (
     <div className="flex gap-2">
       {location.pathname === AdminRoutesUrl.USERS ? (
@@ -242,6 +268,31 @@ const TableActions = ({ userData }: { userData: TUserData | TDepositData }) => {
           >
             Delete
           </Button>
+        </div>
+      ) : location.pathname === AdminRoutesUrl.TRADES ? (
+        <div className="flex gap-2">
+          {(userData as TTrade).status === "ongoing" && (
+            <>
+              <Button
+                className="!text-[#6B7280] !bg-[#FFFFFF] hover:!text-[#6B7280] !Noto w-fit h-fit flex items-center justify-center   hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-[#D0D5DD]  !border-[1px] rounded-[8px] cursor-pointer "
+                onClick={() => {
+                  updateTradeMutate("won");
+                }}
+                loading={deleteTraderIsPending}
+              >
+                won
+              </Button>
+              <Button
+                className="!text-[#6B7280] !bg-[#FFFFFF] hover:!text-[#6B7280] !Noto w-fit h-fit flex items-center justify-center   hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-[#D0D5DD]  !border-[1px] rounded-[8px] cursor-pointer "
+                onClick={() => {
+                  updateTradeMutate("lost");
+                }}
+                loading={deleteTraderIsPending}
+              >
+                lost
+              </Button>
+            </>
+          )}
         </div>
       ) : (
         <div className="flex gap-2">
