@@ -10,6 +10,7 @@ import {
   TTrader,
 } from "../../../types/types";
 import {
+  adminTradeColumns,
   dashboardSortOptions,
   initPaginationData,
   tradeColumns,
@@ -111,7 +112,7 @@ const AdminTrades = () => {
           pageNo={pageNo}
           setPageNo={setPageNo}
           setSearchValue={setSearchValue}
-          columns={tradeColumns}
+          columns={adminTradeColumns}
           data={data?.payload}
           paginationData={paginationData}
           isLoading={false}

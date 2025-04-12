@@ -124,7 +124,7 @@ export const tradeStatusOptions = [
   { field: "status", value: TradeStatus.LOST },
 ];
 
-export const tradeColumns = [
+export const adminTradeColumns = [
   {
     title: "Trade ID",
     dataIndex: "id",
@@ -164,6 +164,43 @@ export const tradeColumns = [
     title: "Actions",
     key: "actions",
     dataIndex: "actions",
+  },
+];
+export const tradeColumns = [
+  {
+    title: "Trade ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
+    title: "DATE",
+    dataIndex: "date",
+    key: "date",
+  },
+  {
+    title: "TRADER",
+    dataIndex: "TraderName",
+    key: "TraderName",
+  },
+  {
+    title: "CURRENCY",
+    dataIndex: "currencyName",
+    key: "currencyName",
+  },
+  {
+    title: "CURRENCY TYPE",
+    dataIndex: "currencyType",
+    key: "currencyType",
+  },
+  {
+    title: "AMOUNT",
+    dataIndex: "amount",
+    key: "amount",
+  },
+  {
+    title: "STATUS",
+    key: "status",
+    dataIndex: "status",
   },
 ];
 
