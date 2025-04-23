@@ -3,22 +3,28 @@ import { useAppStore } from "../../store/store";
 import { useEffect } from "react";
 import { MutationKeys } from "../../enums/react-query";
 import { useMutation } from "@tanstack/react-query";
+import { updateUserMail } from "../../services/user/user.service";
+import { auth } from "../../config/firebase";
+import { getAuth } from "firebase/auth";
 
 const ProfilePageChangeEmail = () => {
   const userData = useAppStore((state) => state.userData);
   const [form] = Form.useForm();
 
-  // const { mutate: updateDistributorEmailMutate, isPending } = useMutation({
-  //   mutationKey: [MutationKeys.UPDATEDISTRIBUTORSENDEMAILLINK],
-  //   mutationFn: () => sendUpdateDistributorEmailMail(),
-  //   onSuccess: (data) => {},
-  //   onError: (error) => {
-  //     // console.log(error);
-  //   },
-  // });
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  const { mutate: updateUserEmailMutate, isPending } = useMutation({
+    mutationKey: [MutationKeys.UPDATEUSEREMAIL],
+    mutationFn: (email: string) => updateUserMail(user, email),
+    onSuccess: (data) => {},
+    onError: (error) => {
+      // console.log(error);
+    },
+  });
 
   const onFinish = (values: { email: string }) => {
-    // updateDistributorEmailMutate();
+    updateUserEmailMutate(values.email);
   };
 
   useEffect(() => {
@@ -61,7 +67,7 @@ const ProfilePageChangeEmail = () => {
           <Input
             className="Noto h-[44px] !py-[12px] !px-[16px] bg-[#F9FAFB] border-[1px] !border-[#D1D5DB] focus:!shadow-[0_0px_0px_1px_#ffa30094] rounded-[8px] text-[16px] font-[300] !text-[#667085] "
             placeholder="E.g michealjackson@eazipower.com"
-            readOnly={true}
+            // readOnly={true}
           />
         </Form.Item>
         <div className="w-full h-[1px] bg-[#E6EAEE] "></div>
@@ -70,8 +76,7 @@ const ProfilePageChangeEmail = () => {
             type="primary"
             htmlType="submit"
             className="Noto w-fit h-[40px] flex items-center justify-center bg-darkGreen hover:!bg-darkGreen hover:opacity-[0.8] font-[500] text-[14px] 2xl:text-[16px] rounded-[8px]  "
-            // loading={isPending}
-            loading={false}
+            loading={isPending}
           >
             Change Email
           </Button>

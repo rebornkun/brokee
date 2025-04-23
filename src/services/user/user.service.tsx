@@ -1,6 +1,8 @@
 import {
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
+  updateEmail,
   updatePassword,
 } from "firebase/auth";
 import {
@@ -496,5 +498,17 @@ export const topUserWallet = async (
       console.error("Error getting document:", error);
       throw error;
     }
+  }
+};
+
+export const updateUserMail = async (user: any, email: string) => {
+  try {
+    const emailVer = await sendEmailVerification(user);
+    console.log(emailVer);
+    const updateEmailData = await updateEmail(user, email);
+    console.log(updateEmailData);
+    console.log("Email updated!");
+  } catch (error) {
+    console.error("Error updating email:", error);
   }
 };

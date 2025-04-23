@@ -13,7 +13,7 @@ import {
 import { Status } from "../../enums/status";
 import { TUserData, TUserWallet } from "../../store/store.types";
 import { RequestMessage } from "../../types/default-response.dto";
-import { TMakeWithdrawal, TParams } from "../../types/types";
+import { TMakeWithdrawal, TParams, TWithdrawalData } from "../../types/types";
 import {
   CreateDefaultResponse,
   generateTransactionId,
@@ -21,6 +21,7 @@ import {
 } from "../app/app.service";
 import emailjs from "@emailjs/browser";
 import { getWalletAddress } from "../../utils/helper";
+import { availableMemory } from "process";
 
 export const makeWithdrawal = async (
   values: TMakeWithdrawal,
@@ -41,7 +42,6 @@ export const makeWithdrawal = async (
 
     await updateDoc(doc(walletCollectionsRef, userWallet.id), {
       available: userWallet.available - values.amountInUsd,
-      earned: userWallet.earned + values.amountInUsd,
     });
 
     await setDoc(doc(withdrawCollectionsRef, withdrawalId), {
@@ -238,6 +238,111 @@ export const getWithdrawalsStatsForAdmin = async () => {
       return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
     } else {
       console.error("Something went wrong:", error);
+      throw error;
+    }
+  }
+};
+
+export const approveWithdrawal = async (withdrawalData: TWithdrawalData) => {
+  try {
+    if (withdrawalData.status !== "successful") {
+      const updateDocRes = await updateDoc(
+        doc(withdrawCollectionsRef, withdrawalData.id),
+        {
+          status: "successful",
+        }
+      );
+
+      //get walletid for update
+      let q;
+      q = query(
+        walletCollectionsRef,
+        where("userId", "==", `${withdrawalData.userId}`)
+      );
+      const gottenDocs = await getDocs(q);
+
+      const data: any[] = [];
+
+      gottenDocs.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+
+      const walletData = data[0];
+      // console.log(walletData);
+
+      const updateUserWalletRes = await updateDoc(
+        doc(walletCollectionsRef, walletData.id),
+        {
+          earned: walletData.earned + withdrawalData.amountInUsd,
+        }
+      );
+
+      return CreateDefaultResponse(
+        RequestMessage.SUCCESS,
+        "Updated successfully",
+        updateDocRes
+      );
+    } else {
+      return CreateDefaultResponse(
+        RequestMessage.ERROR,
+        "Deposit already accepted",
+        null
+      );
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
+export const cancelWithdrawal = async (withdrawalData: TWithdrawalData) => {
+  try {
+    const updateDocRes = await updateDoc(
+      doc(withdrawCollectionsRef, withdrawalData.id),
+      {
+        status: "failed",
+      }
+    );
+
+    //get walletid for update
+    let q;
+    q = query(
+      walletCollectionsRef,
+      where("userId", "==", `${withdrawalData.userId}`)
+    );
+    const gottenDocs = await getDocs(q);
+
+    const data: any[] = [];
+
+    gottenDocs.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+
+    const walletData = data[0];
+    // console.log(walletData);
+
+    const updateUserWalletRes = await updateDoc(
+      doc(walletCollectionsRef, walletData.id),
+      {
+        earned: walletData.earned - withdrawalData.amountInUsd,
+        available: walletData.available + withdrawalData.amountInUsd,
+      }
+    );
+
+    return CreateDefaultResponse(
+      RequestMessage.SUCCESS,
+      "Updated successfully",
+      updateDocRes
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
       throw error;
     }
   }

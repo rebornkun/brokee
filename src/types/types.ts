@@ -291,6 +291,18 @@ export type TDepositData = {
   updatedAt?: Date;
 };
 
+export type TWithdrawalData = {
+  id: string;
+  amountInUsd: number;
+  cryptoType: string;
+  rate: number;
+  status: string;
+  userId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  withdrawalType: string;
+};
+
 export type TCreateTrader = {
   fullName: string;
   imgUrl: string;

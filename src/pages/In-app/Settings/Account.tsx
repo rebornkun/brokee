@@ -10,7 +10,7 @@ function Account(): ReactElement {
       </h5>
       <FiatAccountsGroup />
       <h5 className="text-[16px] 2xl:text-[18px] text-[#6B7280] font-[500] mt-[42px] ">
-        My USDC Account
+        My Crypto Account
       </h5>
       <UsdcAccountsGroup />
     </div>

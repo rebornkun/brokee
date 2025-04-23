@@ -573,6 +573,11 @@ export const withdrawalAdminColumns = [
     key: "status",
     dataIndex: "status",
   },
+  {
+    title: "Actions",
+    key: "actions",
+    dataIndex: "actions",
+  },
 ];
 export const withdrawalColumns = [
   {

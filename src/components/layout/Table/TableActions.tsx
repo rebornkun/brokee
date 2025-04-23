@@ -10,7 +10,7 @@ import {
   verifyUser,
 } from "../../../services/user/user.service";
 import { TUserData } from "../../../store/store.types";
-import { TDepositData, TTrade } from "../../../types/types";
+import { TDepositData, TTrade, TWithdrawalData } from "../../../types/types";
 import {
   approveDeposit,
   cancelDeposit,
@@ -21,11 +21,15 @@ import {
   deleteTraderById,
   updateTrade,
 } from "../../../services/trades/trades.service";
+import {
+  approveWithdrawal,
+  cancelWithdrawal,
+} from "../../../services/withdrawals/withdrawals.service";
 
 const TableActions = ({
   userData,
 }: {
-  userData: TUserData | TDepositData | TTrade;
+  userData: TUserData | TDepositData | TTrade | TWithdrawalData;
 }) => {
   const queryClient = useQueryClient();
   const setModalIsOpen = useAppStore((state) => state.setModalIsOpen);
@@ -136,6 +140,49 @@ const TableActions = ({
       },
     });
 
+  //withdrawal
+  const {
+    mutate: approveWithdrawalMutate,
+    isPending: approveWithdrawalIsPending,
+  } = useMutation({
+    mutationKey: [MutationKeys.APPROVEWITHDRAWAL],
+    mutationFn: () => {
+      return approveWithdrawal(userData as TWithdrawalData);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETALLWITHDRAWALS}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETALLWITHDRAWALSSTATS}`],
+      });
+    },
+    onError: (error) => {
+      // console.log(error);
+    },
+  });
+
+  const {
+    mutate: cancelWithdrawalMutate,
+    isPending: cancelWithdrawalIsPending,
+  } = useMutation({
+    mutationKey: [MutationKeys.CANCELWITHDRAWAL],
+    mutationFn: () => {
+      return cancelWithdrawal(userData as TWithdrawalData);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETALLWITHDRAWALS}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`${QueryKeys.GETALLWITHDRAWALSSTATS}`],
+      });
+    },
+    onError: (error) => {
+      // console.log(error);
+    },
+  });
+
   const { mutate: deleteTraderMutate, isPending: deleteTraderIsPending } =
     useMutation({
       mutationKey: [MutationKeys.DELETETRADER],
@@ -172,7 +219,6 @@ const TableActions = ({
 
   const location = useLocation();
 
-  console.log(userData);
   return (
     <div className="flex gap-2">
       {location.pathname === AdminRoutesUrl.USERS ? (
@@ -256,6 +302,27 @@ const TableActions = ({
               <FaDownload className="text-[16px]" />
             </Button>
           </a>
+        </div>
+      ) : location.pathname === AdminRoutesUrl.WITHDRAWALS ? (
+        <div className="flex gap-2">
+          <Button
+            className="!text-[#6B7280] !bg-[#FFFFFF] hover:!text-[#6B7280] !Noto w-fit h-fit flex items-center justify-center   hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-[#D0D5DD]  !border-[1px] rounded-[8px] cursor-pointer "
+            onClick={() => {
+              approveWithdrawalMutate();
+            }}
+            loading={approveWithdrawalIsPending}
+          >
+            Approve
+          </Button>
+          <Button
+            className="!text-[#6B7280] !bg-[#FFFFFF] hover:!text-[#6B7280] !Noto w-fit h-fit flex items-center justify-center   hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-[#D0D5DD]  !border-[1px] rounded-[8px] cursor-pointer "
+            onClick={() => {
+              cancelWithdrawalMutate();
+            }}
+            loading={cancelWithdrawalIsPending}
+          >
+            Reject
+          </Button>
         </div>
       ) : location.pathname === AdminRoutesUrl.TRADERS ? (
         <div className="flex gap-2">
