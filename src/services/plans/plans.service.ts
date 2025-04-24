@@ -57,7 +57,7 @@ export const buyPlan = async (
       current_plan: values.name,
       hasBoughtPlanBefore: true,
       current_plan_expires: new Date(
-        currentDate.setHours(currentDate.getHours() + 168) //expires in 5 days
+        currentDate.setHours(currentDate.getHours() + 720) //expires in 5 days
       ),
     });
 
