@@ -355,9 +355,11 @@ export const createCurrency = async (
 
 export const createTrade = async (values: TCreateTrade, id: string) => {
   try {
-    const tradersCut =
-      (Number(values.amount) * Number(values.traderProfitShare)) / 100;
-    const actualAmount = Number(values.amount) - tradersCut;
+    // const tradersCut =
+    //   (Number(values.amount) * Number(values.traderProfitShare)) / 100;
+    // const actualAmount = Number(values.amount) - tradersCut;
+    const tradersCut = Number(values.amount);
+    const actualAmount = Number(values.amount);
 
     const traderUsersQ = query(
       userCollectionsRef,
