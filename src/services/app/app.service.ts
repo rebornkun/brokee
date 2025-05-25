@@ -255,7 +255,7 @@ export const PaginateDataWithArray = async (
       q = query(
         docRef,
         where("usersId", "array-contains", `${id}`),
-        orderBy("id"),
+        // orderBy("id"),
         sort,
         startAfter(params.lastVisible),
         limit(take)
@@ -295,7 +295,7 @@ export const PaginateDataWithArray = async (
       aq = query(
         docRef,
         where("usersId", "array-contains", `${id}`),
-        orderBy("id"),
+        // orderBy("id"),
         sort
       );
     }
@@ -314,6 +314,16 @@ export const PaginateDataWithArray = async (
   gottenDocsWithoutTake.forEach((doc) => {
     dataWithoutTake.push({ id: doc.id, ...doc.data() });
   });
+
+  console.log(
+    currentPage,
+    filter,
+    data,
+    dataWithoutTake,
+    take,
+    nextLastVisible,
+    gottenDocs.docs.length - 1
+  );
 
   // get total items
   let tq;
