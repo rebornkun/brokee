@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableWithSearch from "../../../components/layout/Table/TableWithSearch";
 import TradesGreeting from "../../../components/Trades/TradesGreeting";
 
@@ -7,6 +7,7 @@ import {
   TPagination,
   TSortDropItem,
   TStatusDropItem,
+  TTableData,
   TTrader,
 } from "../../../types/types";
 import {
@@ -35,6 +36,7 @@ import {
 import { useAppStore } from "../../../store/store";
 import UsersGreeting from "../../../components/Users/UsersGreeting";
 import { getAllUsers } from "../../../services/user/user.service";
+import SearchInput from "../../../components/Elements/SearchInput";
 
 const pageLimit = 10;
 const Users = () => {
@@ -49,6 +51,7 @@ const Users = () => {
     useState<TPagination>(initPaginationData);
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
   const queryClient = useQueryClient();
+  const [tableData, setTableData] = useState<TTableData[]>([]);
 
   const {
     isLoading: allUsersIsLoading,
@@ -58,10 +61,14 @@ const Users = () => {
     queryKey: [QueryKeys.GETALLUSERS],
     queryFn: async () => {
       const res = await getAllUsers();
-      // console.log(res);
+
       return res.data;
     },
   });
+
+  useEffect(() => {
+    setTableData(allUsersData?.payload);
+  }, [allUsersData]);
 
   const { mutate: stopTraderMutate, isPending: stopTraderIsPending } =
     useMutation({
@@ -87,6 +94,13 @@ const Users = () => {
       <UsersGreeting />
 
       <div className="flex flex-col gap-[35px]">
+        <SearchInput
+          originalData={allUsersData?.payload}
+          data={tableData}
+          setData={setTableData}
+          setSearchValue={setSearchValue}
+          setPageNo={setPageNo}
+        />
         <TableWithSearch
           hasDeleteBtn={false}
           status={status}
@@ -99,10 +113,11 @@ const Users = () => {
           setPageNo={setPageNo}
           setSearchValue={setSearchValue}
           columns={usersColumns}
-          data={allUsersData?.payload}
+          data={tableData}
           paginationData={paginationData}
           isLoading={allUsersIsLoading}
           hasStatusBtn={true}
+          search={true}
         />
       </div>
     </section>

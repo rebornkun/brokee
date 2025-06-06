@@ -31,6 +31,7 @@ function TableWithSearch({
   hasStatusBtn,
   hasDeleteBtn,
   isLoading,
+  search,
 }: {
   columns: TTableColumn[];
   status: TStatusDropItem;
@@ -47,6 +48,7 @@ function TableWithSearch({
   hasStatusBtn?: boolean;
   hasDeleteBtn: boolean;
   isLoading: boolean;
+  search?: boolean;
 }) {
   const setModalIsOpen = useAppStore((state) => state.setModalIsOpen);
   const setModalType = useAppStore((state) => state.setModalType);
@@ -90,7 +92,7 @@ function TableWithSearch({
             !hasDeleteBtn && "justify-between"
           }`}
         >
-          {/* <SearchInput setSearchValue={setSearchValue} setPageNo={setPageNo} /> */}
+          {/* <SearchInput setSearchValue={setSearchValue} setPageNo={setPageNo}/> */}
 
           <div className={`flex gap-[10px]`}>
             {hasStatusBtn && (
