@@ -16,6 +16,7 @@ const Modal = () => {
   const getModalComponent = () => {
     if (
       modalType === "deleteUser" ||
+      modalType === "adminDeleteUser" ||
       modalType === "deleteFiatAccount" ||
       modalType === "deleteUsdcAccount"
     ) {

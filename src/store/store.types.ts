@@ -69,6 +69,7 @@ export type TModalType =
   | "reportTransaction"
   | "reportWithdrawal"
   | "deleteUser"
+  | "adminDeleteUser"
   | "addUsdcAccount"
   | "addFiatAccount"
   | "setActiveFiatAccount"

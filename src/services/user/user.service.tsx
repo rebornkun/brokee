@@ -193,6 +193,20 @@ export const deleteUser = async (userData: TUserData) => {
   }
 };
 
+export const deleteUserById = async (id: string) => {
+  try {
+    await updateUserData({ deleted: true }, id);
+    return CreateDefaultResponse(RequestMessage.SUCCESS, "", "");
+  } catch (error) {
+    if (error instanceof Error) {
+      return CreateDefaultResponse(RequestMessage.ERROR, error.message, null);
+    } else {
+      console.error("Error getting document:", error);
+      throw error;
+    }
+  }
+};
+
 export const addFiatAccountForUser = async (
   data: TAddFiatAccount,
   walletId: string

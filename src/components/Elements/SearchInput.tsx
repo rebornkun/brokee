@@ -36,11 +36,12 @@ const SearchInput = ({
   };
 
   useEffect(() => {
+    if (placeHolderValue === undefined) return;
     setIsLoading(true);
     const deBouncer = setTimeout(() => {
       setSearchValue(placeHolderValue);
       filterData();
-      setPageNo(1); //set page number to 1 to get the first page of the new filter
+      setPageNo(1);
       setIsLoading(false);
     }, 3000);
 

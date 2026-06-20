@@ -1,66 +1,105 @@
-import { Dropdown, Menu } from "antd";
+import { Dropdown } from "antd";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import { ProtectedRoutesUrl } from "../../container/Routes";
+import { Link, useLocation } from "react-router-dom";
+import { AdminRoutesUrl, ProtectedRoutesUrl } from "../../container/Routes";
 import HideBalanceBtn from "./HideBalanceBtn";
 import { useAppStore } from "../../store/store";
 
-const items: { key: string; label: React.ReactNode; disabled?: boolean }[] = [
-  {
-    key: "1",
-    disabled: true,
-    label: (
-      <div className="uppercase text-[14px] 2xl:text-[16px] font-[400] py-2 px-4 text-textLightGrey Nunito bg-transparent hover:!bg-white cursor-default">
-        <span>Accounts</span>
-      </div>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <Link
-        className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
-        to={ProtectedRoutesUrl.DEPOSITS}
-      >
-        Deposit
-      </Link>
-    ),
-  },
-  {
-    key: "3",
-    label: (
-      <Link
-        className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
-        to={ProtectedRoutesUrl.WITHDRAWALS}
-      >
-        Withdrawals
-      </Link>
-    ),
-  },
-  {
-    key: "4",
-    label: (
-      <Link
-        className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
-        to={ProtectedRoutesUrl.ACCOUNTS}
-      >
-        Accounts
-      </Link>
-    ),
-  },
-  {
-    key: "5",
-    label: <HideBalanceBtn />,
-  },
-];
+const userItems: { key: string; label: React.ReactNode; disabled?: boolean }[] =
+  [
+    {
+      key: "1",
+      disabled: true,
+      label: (
+        <div className="uppercase text-[14px] 2xl:text-[16px] font-[400] py-2 px-4 text-textLightGrey Nunito bg-transparent hover:!bg-white cursor-default">
+          <span>Accounts</span>
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Link
+          className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
+          to={ProtectedRoutesUrl.DEPOSITS}
+        >
+          Deposit
+        </Link>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Link
+          className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
+          to={ProtectedRoutesUrl.WITHDRAWALS}
+        >
+          Withdrawals
+        </Link>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <Link
+          className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
+          to={ProtectedRoutesUrl.ACCOUNTS}
+        >
+          Accounts
+        </Link>
+      ),
+    },
+    {
+      key: "5",
+      label: <HideBalanceBtn />,
+    },
+  ];
+
+const adminItems: { key: string; label: React.ReactNode; disabled?: boolean }[] =
+  [
+    {
+      key: "1",
+      disabled: true,
+      label: (
+        <div className="uppercase text-[14px] 2xl:text-[16px] font-[400] py-2 px-4 text-textLightGrey Nunito bg-transparent hover:!bg-white cursor-default">
+          <span>Quick Links</span>
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Link
+          className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
+          to={AdminRoutesUrl.DEPOSITS}
+        >
+          Deposits
+        </Link>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Link
+          className="!px-4 !py-2 rounded-[4px] text-[14px] 2xl:text-[16px] Nunito hover:!bg-navGreen hover:!text-green transition block"
+          to={AdminRoutesUrl.WITHDRAWALS}
+        >
+          Withdrawals
+        </Link>
+      ),
+    },
+  ];
 
 function AccountDropDown() {
+  const { pathname } = useLocation();
+  const isAdmin = pathname.startsWith("/admin");
+
   const setHideAccountBalance = useAppStore(
     (state) => state.setHideAccountBalance
   );
   const hideAccountBalance = useAppStore((state) => state.hideAccountBalance);
-  const setDrawerType = useAppStore((state) => state.setDrawerType);
-  const setIsDrawerOpen = useAppStore((state) => state.setIsDrawerOpen);
+
+  const items = isAdmin ? adminItems : userItems;
 
   return (
     <Dropdown
@@ -70,7 +109,7 @@ function AccountDropDown() {
         items,
         className: " w-[250px] !shadow-md mt-2",
         onClick: ({ key }) => {
-          if (key === "5") {
+          if (!isAdmin && key === "5") {
             setHideAccountBalance(!hideAccountBalance);
             localStorage.setItem(
               "hideAccountBalance",

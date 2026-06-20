@@ -5,6 +5,7 @@ import { logOutUser } from "../../../services/auth/auth.service";
 import {
   deleteFiatAccount,
   deleteUser,
+  deleteUserById,
   deleteUserWallet,
 } from "../../../services/user/user.service";
 import { useAppStore } from "../../../store/store";
@@ -32,6 +33,17 @@ const DeleteModal = () => {
       },
       onError: (error) => {
         // console.log(error);
+      },
+    });
+
+  const { mutate: adminDeleteUserMutate, isPending: adminDeleteUserIsPending } =
+    useMutation({
+      mutationKey: [MutationKeys.DELETEUSER],
+      mutationFn: () => deleteUserById(modalData[0]),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: [QueryKeys.GETALLUSERS] });
+        setModalIsOpen(false);
+        setModalData([]);
       },
     });
 
@@ -71,6 +83,8 @@ const DeleteModal = () => {
   const getText = () => {
     if (modalType === "deleteUser") {
       return { head: "Account", body: "your Account" };
+    } else if (modalType === "adminDeleteUser") {
+      return { head: "User Account", body: "this user account" };
     } else if (modalType === "deleteFiatAccount") {
       return { head: "Fiat Account", body: "this fiat account" };
     } else if (modalType === "deleteUsdcAccount") {
@@ -81,6 +95,8 @@ const DeleteModal = () => {
   const getDeleteMutate = () => {
     if (modalType === "deleteUser") {
       return deleteUserMutate();
+    } else if (modalType === "adminDeleteUser") {
+      return adminDeleteUserMutate();
     } else if (modalType === "deleteFiatAccount") {
       return deleteFiatAccountForDistributorMutate();
     } else if (modalType === "deleteUsdcAccount") {
@@ -121,6 +137,7 @@ const DeleteModal = () => {
             className="Nunito w-full max-w-[95px] h-[30px] flex items-center justify-center bg-darkRed hover:!bg-darkRed !text-white hover:!text-white hover:opacity-[0.8] font-[500] text-[10px] 2xl:text-[12px] rounded-[8px]  "
             loading={
               deleteDistributorIsPending ||
+              adminDeleteUserIsPending ||
               deleteUsdcAccountForUserIsPending ||
               deleteFiatAccountForDistributorIsPending
             }

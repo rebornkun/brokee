@@ -272,6 +272,16 @@ const TableActions = ({
               </Button>
             </a>
           )}
+          <Button
+            className="!text-white !bg-darkRed hover:!bg-darkRed !Noto w-fit h-fit flex items-center justify-center hover:opacity-[0.8] font-[400] text-[12px] 2xl:text-[14px] !border-darkRed !border-[1px] rounded-[8px] cursor-pointer"
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("adminDeleteUser");
+              setModalData([userData.id]);
+            }}
+          >
+            Delete
+          </Button>
         </>
       ) : location.pathname === AdminRoutesUrl.DEPOSITS ? (
         <div className="flex gap-2">
