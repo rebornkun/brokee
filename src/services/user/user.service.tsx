@@ -472,7 +472,10 @@ export const topUserWallet = async (
     let usd = Number(data.usd ?? 0) + Number(walletData.usd);
     let paid = Number(data.paid ?? 0) + Number(walletData.paid);
 
-    if (data.currencyName) {
+    const tradeAmount = Number(data.available ?? 0) || 0;
+
+    // only record a trade when a currency is chosen and "available" actually changed
+    if (data.currencyName && tradeAmount !== 0) {
       //record trade
       const tradeId = generateTransactionId("t");
       // // const depositId = uuidv4();
@@ -481,12 +484,12 @@ export const topUserWallet = async (
         creatorId: adminId,
         usersId: [userId],
         TraderName: "Auto Trading",
-        amount: data.available,
-        currencyId: data.currencyId,
+        amount: tradeAmount,
+        currencyId: data.currencyId ?? "",
         currencyName: data.currencyName,
-        currencyImg: data.currencyImg,
-        currencyType: data.currencyType,
-        status: data.available > 0 ? "won" : "lost",
+        currencyImg: data.currencyImg ?? "",
+        currencyType: data.currencyType ?? "",
+        status: tradeAmount > 0 ? "won" : "lost",
         traderId: "#000000",
         traderProfitShare: "0",
         createdAt: new Date(),
